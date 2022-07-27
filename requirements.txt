@@ -1,0 +1,10 @@
+numpy
+scipy
+pandas
+plotly
+lmfit
+scikit-learn
+tox
+black
+isort
+-e .
