@@ -1,15 +1,20 @@
-# OGRaySpY
+OGRaySpY
+========
+
 An Open app for Gamma-RAY SPectra Analysis and visualization.
 
-## Setting Up
+Setting Up
+----------
 
-This application requires [plotly](https://plotly.com/) and [Pandas](http://pandas.pydata.org/).
+This application requires plotly<https://plotly.com/> and Pandas <http://pandas.pydata.org/>.
 
-## Running
+Running
+-------
 
 Instruction for running will be available soon.
 
-## Screenshots
+Screenshots
+-----------
 
 <img src="Captura_2020-05-24_18-56-45.png" width="80%"></img>
 ### Full spectrum
