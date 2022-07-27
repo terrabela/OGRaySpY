@@ -4,8 +4,9 @@
 
 import unittest
 
-from sample.simple import add_one
+from spectrum_reader.read_a_spectrum import read_chn
 
+# PAREI AQUI
 
 class TestSimple(unittest.TestCase):
 
