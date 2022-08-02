@@ -10,7 +10,7 @@ from src.spec_class import Spec
 """
 read_a_spec.py
 ====================================
-Read a gammaa-ray spectrum
+Read a gamma-ray spectrum
 """
 
 # https://github.com/pypa/sampleproject
