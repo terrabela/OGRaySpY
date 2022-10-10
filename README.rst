@@ -11,7 +11,7 @@ This application requires plotly<https://plotly.com/> and Pandas <http://pandas.
 Running
 -------
 
-Instruction for running will be available soon.
+Run directly the main program Ograyspy.py
 
 Screenshots
 -----------
