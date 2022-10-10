@@ -63,6 +63,7 @@ def cwt_calc_peaks(valid_xpks, valid_ypks, valid_cwtpks, xs, y0s):
            baseline_spectrum, bl_median_smoother)
     return ret
 
+
 def cwt_complete_analysis(counts):
     """
     Return the results from cwt analysis on a num sequence.
@@ -171,6 +172,7 @@ def cwt_complete_analysis(counts):
            ind_ypks, retang_indicess, peaks_masks,
            cwtpks, nscpks)
     return ret
+
 
 def gaussian_complete_analysis(counts):
     """
@@ -302,4 +304,3 @@ def gaussian_complete_analysis(counts):
            ind_ypks, retang_indicess, peaks_masks,
            cwtpks, nscpks)
     return ret
-

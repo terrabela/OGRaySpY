@@ -17,6 +17,7 @@ spectrum_analysis.py
 The core module of my example project
 """
 
+
 # from scipy.signal import (cwt, ricker, find_peaks_cwt)
 # from scipy.ndimage import label, generate_binary_structure, find_objects  # 2019-09-18
 # import numpy.ma as ma  # masked array
