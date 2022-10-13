@@ -15,9 +15,6 @@ class Ograyspy:
     files_list: list[str]
 
     def __init__(self, speed=0):
-        self.speed = speed
-        self.odometer = 0
-        self.time = 0
         # self.dir_list = DirectoryList()
         info_plat = platform.platform()
         info_mach = platform.machine()
@@ -26,9 +23,9 @@ class Ograyspy:
         print(info_plat + ' ' + info_mach + ' ' + info_syst + ' ' + info_node)
 
         # Locate the general folder containing spectra in the current system
-        general_spectra_folder_name = 'Genie_Transfer'
+        general_spectra_folder_name = 'some_spectra'
 
-        interm_list = [i for i in Path.home().glob('*/' + general_spectra_folder_name)]
+        interm_list = [i for i in Path.home().glob('**/' + general_spectra_folder_name)]
         self.spectra_path = interm_list[0]
         print(self.spectra_path)
 
@@ -75,7 +72,11 @@ if __name__ == '__main__':
         print('Random spec index: ', my_ogra.a_spec_ind)
         a_spec_name: str = my_ogra.files_list[my_ogra.a_spec_ind]
         print('...and its name: ', a_spec_name)
-        complete_spec_name = str(my_ogra.spectra_path) + '/' + a_spec_name
+        # Bad spectrum file name is calculated by the next line:
+        # complete_spec_name = str(my_ogra.spectra_path) + '/' + a_spec_name
+        # What follows is a remendo
+        upper_directory = '~/PycharmProjects/OGRaySpY'
+        complete_spec_name = upper_directory + '/' + a_spec_name
 
     print(complete_spec_name)
     a_spec = Spec(complete_spec_name)
