@@ -68,18 +68,6 @@ from machine_selection import set_screen_size_by_machine
 # 2021-Jul-1
 # import gauss_funcs
 
-# 2021-Jul-08
-# from lmfit import Model, Minimizer, minimize, Parameters, report_fit, fit_report, printfuncs
-
-# https://lmfit.github.io/lmfit-py/
-# builtin_models.html?highlight=peaks%20sum#example-3-
-# fitting-multiple-peaks-and-using-prefixes
-# from lmfit.models import ExponentialModel, GaussianModel
-
-# https://lmfit.github.io/lmfit-py/builtin_models.html?highlight=peaks%20sum#example-3-fitting-
-# multiple-peaks-and-using-prefixes
-
-
 # https://stackoverflow.com/questions/19861785/composition-and-aggregation-in-python
 # https://stackoverflow.com/questions/12053998/...
 # where-should-i-define-functions-that-i-use-in-init#12054066
