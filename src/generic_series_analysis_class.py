@@ -9,7 +9,10 @@ class GenericSeriesAnalysis:
     def __init__(self, cnt_arrs):
         self.cnt_arrs = cnt_arrs
         self.ys = cnt_arrs.y_s
-        self.n_ch = self.ys.size
+        try:
+            self.n_ch = self.ys.size
+        except (AttributeError):
+            pass
         self.pk_parms = PeaksParms()
 
     def resolve_peaks_and_regions(self, k_sep_pk, smoo):
