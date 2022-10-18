@@ -2,12 +2,12 @@ import platform
 from random import randrange
 from typing import List
 
-from src.dir_listing import DirectoryList
+from dir_listing import DirectoryList
 from pathlib import Path
 import pickle
 import os
-from src.spec_class import Spec
-from src.spec_graphics_class import GrossCountsGraphic, PeaksAndRegionsGraphic,\
+from spec_class import Spec
+from spec_graphics_class import GrossCountsGraphic, PeaksAndRegionsGraphic,\
     BaselineGraphic, NetSpecGraphic
 
 
