@@ -14,8 +14,8 @@ import pandas as pd
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib, EnergyEfficiencyCalib
 from specchn_class import SpecChn
 from speciec_class import SpecIec
-from src.counts_series_arrays import CountsSeriesArrays
-from src.generic_series_analysis_class import GenericSeriesAnalysis
+from counts_series_arrays import CountsSeriesArrays
+from generic_series_analysis_class import GenericSeriesAnalysis
 
 
 class Spec:

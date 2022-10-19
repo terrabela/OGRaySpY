@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.signal import find_peaks
-from src.peaksparms_class import PeaksParms
+from peaksparms_class import PeaksParms
 
 
 class GenericSeriesAnalysis:
