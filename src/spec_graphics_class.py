@@ -18,7 +18,7 @@ class SpecGraphics():
 class GrossCountsGraphic(SpecGraphics):
     def __init__(self, f_name, spec_an):
         super().__init__(f_name, spec_an)
-        self.f_name = f_name
+        self.f_name = str(f_name)
         self.chans_nzero = spec_an.cnt_arrs.chans_nzero
         self.counts_nzero = spec_an.cnt_arrs.counts_nzero
         self.unc_y_4plot = np.where(spec_an.cnt_arrs.unc_y < 1.4,
