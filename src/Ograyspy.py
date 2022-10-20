@@ -136,7 +136,7 @@ if __name__ == '__main__':
     print("I'm a OGRaySPy (gamma-ray spectra analyzer!")
     my_ogra = Ograyspy()
     my_ogra.perform_total_analysis()
-    my_ogra.create_graphics()
+    # my_ogra.create_graphics()
 
     # a_graph.plot_graphics()
     # End of main program.
