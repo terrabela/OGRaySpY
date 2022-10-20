@@ -22,16 +22,7 @@ class Ograyspy:
         self.info_node = platform.node()
         print(self.info_plat + ' ' + self.info_mach + ' ' + self.info_syst + ' ' + self.info_node)
 
-    def select_spectrum(self):
-        # Locate the general folder containing spectra in the current system
-        general_spectra_folder_name = 'some_spectra'
-
-        interm_list = [i for i in Path.home().glob('**/' + general_spectra_folder_name)]
-        self.spectra_path = interm_list[0]
-        print(self.spectra_path)
-
-        my_file = 'ogra_pic_f_' + self.info_syst + '_' + self.info_node + '.pkl'
-
+    def process_pickled_list(self, my_file):
         if os.path.isfile(my_file):  # if file exists we have already pickled a list
             print('Load existing pickle file')
             with open(my_file, 'rb') as f:
@@ -45,18 +36,8 @@ class Ograyspy:
                 self.files_list.append('/'.join(i.parts[5:]))
             with open(my_file, 'wb') as f:
                 pickle.dump(self.files_list, f)
-
         self.n_files = len(self.files_list)
-
         print('No. spec files: ', my_ogra.n_files)
-
-        # given_spec_name = "Filtros/2022/Cci/CCI1603-I.Chn"
-
-        # 2022-out-7: Excelente espectro para testes, tenho usado ultimamente:
-        given_spec_name = "Si/SI2018/SI11318.Chn"
-
-        # given_spec_name = "Eso_non_existe.Chn"
-
         if given_spec_name in my_ogra.files_list:
             print("Found!")
             self.complete_spec_name = str(my_ogra.spectra_path) + '/' + given_spec_name
@@ -72,6 +53,23 @@ class Ograyspy:
             # What follows is a remendo
             upper_directory = '~/PycharmProjects/OGRaySpY'
             self.complete_spec_name = upper_directory + '/' + a_spec_name
+
+    def select_spectrum(self):
+        # Locate the general folder containing spectra in the current system
+        general_spectra_folder_name = 'some_spectra'
+
+        # interm_list = [i for i in Path.home().glob('**/' + general_spectra_folder_name)]
+        # self.spectra_path = interm_list[0]
+        # print(self.spectra_path)
+
+        # my_file = 'ogra_pic_f_' + self.info_syst + '_' + self.info_node + '.pkl'
+        # self.process_pickled_list(my_file='')
+
+        # given_spec_name = "Filtros/2022/Cci/CCI1603-I.Chn"
+        # 2022-out-7: Excelente espectro para testes, tenho usado ultimamente:
+        given_spec_name = "Si/SI2018/SI11318.Chn"
+        # given_spec_name = "Eso_non_existe.Chn"
+
     def perform_total_analysis(self):
         print(self.complete_spec_name)
         a_spec = Spec(self.complete_spec_name)
