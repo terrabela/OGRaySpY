@@ -101,7 +101,7 @@ class Ograyspy:
         print('Fez total analysis.')
 
         print('Objeto a_spec.net_spec_ser_an.pk_parms:')
-        print(vars(self.a_spec.net_spec_ser_an.pk_parms))
+        # print(vars(self.a_spec.net_spec_ser_an.pk_parms))
 
         # E finalmente soma as contagens líquidas de 4 FWHMs:
         # self.a_spec.net_spec_ser_an.pk_parms.regions_to_sum()
@@ -112,11 +112,13 @@ class Ograyspy:
     def create_graphics(self):
         self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an)
         self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an, 'cont_bruta_origi')
-        self.gross_counts_graphics = None
+        del self.gross_counts_graphics
 
-        # smoothed_graph = GrossCountsGraphic(self.a_spec_name, a_spec.smoo_gross_ser_an)
-        # smoothed_graph.plot_figw1(a_spec.smoo_gross_ser_an, 'cont_bruta_suavi')
+        self.smoothed_graph = GrossCountsGraphic(self.a_spec_name, self.a_spec.smoo_gross_ser_an)
+        self.smoothed_graph.plot_figw1(self.a_spec.smoo_gross_ser_an, 'cont_bruta_suavi')
+        del self.smoothed_graph
 
+        # 2022-out-20 PAREI AQUI: Refatorar o que segue:
 
         # pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.gross_spec_ser_an)
         # pks_regions_gros.plot_figw2(a_spec.gross_spec_ser_an, 'origi_bruta_larguras')
@@ -136,7 +138,8 @@ if __name__ == '__main__':
     print("I'm a OGRaySPy (gamma-ray spectra analyzer!")
     my_ogra = Ograyspy()
     my_ogra.perform_total_analysis()
-    # my_ogra.create_graphics()
+    my_ogra.create_graphics()
+    del my_ogra.a_spec
 
     # a_graph.plot_graphics()
     # End of main program.

@@ -80,7 +80,7 @@ class Spec:
 
         self.spec_io = None
         # print(vars(self))
-        print(vars(self.gross_spec_ser_an.cnt_arrs))
+        # print(vars(self.gross_spec_ser_an.cnt_arrs))
 
 
     @staticmethod
