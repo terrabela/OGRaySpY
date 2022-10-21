@@ -14,7 +14,6 @@ import pandas as pd
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib, EnergyEfficiencyCalib
 from specchn_class import SpecChn
 from speciec_class import SpecIec
-from counts_series_arrays import CountsSeriesArrays
 from generic_series_analysis_class import GenericSeriesAnalysis
 
 
@@ -46,21 +45,15 @@ class Spec:
         # Parei aqui: fazer bd do Pandas
         self.spec_pks_df = pd.DataFrame()
 
-        self.gross_spec_ser_an = GenericSeriesAnalysis(
-            CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False)
-        )
+        # self.gross_spec_ser_an = GenericSeriesAnalysis(
+        #     CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False)
+        # )
 
-        self.smoo_gross_ser_an = GenericSeriesAnalysis(
-            CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=True)
-        )
-
-        self.fft_set_an = GenericSeriesAnalysis(
-            CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
-        )
+        self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
+        self.smoo_gross_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
+        # self.fft_set_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
         # 2022-out-6 Criando a espectro líquido:
-        self.net_spec_ser_an = GenericSeriesAnalysis(
-            CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False)
-        )
+        self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
         #
         #        self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.en_ch_calib,
         #                                                       self.spec_io.chan_calib,
@@ -109,7 +102,7 @@ class Spec:
         #    incia obj spec_parms
         #    initial_peaks_search: acha picos candidatos, põe em peaks_parms.peaks
 
-        if self.gross_spec_ser_an.cnt_arrs.n_ch > 0:
+        if self.gross_spec_ser_an.n_ch > 0:
             print('k_sep_pk: ', k_sep_pk)
             print('smoo: ', smoo)
             print('widths_range: ', widths_range)
@@ -125,9 +118,8 @@ class Spec:
             self.gross_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
 
             # 2022-set-27 Aqui começam os cálculos em cima do espectro líquido
-            self.net_spec_ser_an = GenericSeriesAnalysis(
-                CountsSeriesArrays(self.gross_spec_ser_an.cnt_arrs.net_spec, to_smooth=False)
-            )
+            self.net_spec_ser_an = GenericSeriesAnalysis(self.gross_spec_ser_an.net_spec, to_smooth=False)
+
             self.net_spec_ser_an.resolve_peaks_and_regions(k_sep_pk, smoo)
             self.net_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
 

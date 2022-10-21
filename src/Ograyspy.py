@@ -110,13 +110,9 @@ class Ograyspy:
         # )
 
     def create_graphics(self):
-        self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an)
-        self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an, 'cont_bruta_origi')
+        self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an, self.a_spec.smoo_gross_ser_an)
+        self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an, 'Gross counts (original and smoothed)')
         del self.gross_counts_graphics
-
-        self.smoothed_graph = GrossCountsGraphic(self.a_spec_name, self.a_spec.smoo_gross_ser_an)
-        self.smoothed_graph.plot_figw1(self.a_spec.smoo_gross_ser_an, 'cont_bruta_suavi')
-        del self.smoothed_graph
 
         # 2022-out-20 PAREI AQUI: Refatorar o que segue:
 

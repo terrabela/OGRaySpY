@@ -16,14 +16,12 @@ class SpecGraphics():
 
 
 class GrossCountsGraphic(SpecGraphics):
-    def __init__(self, f_name, spec_an):
+    def __init__(self, f_name, original_counts, smoothed_counts):
         super().__init__(f_name, spec_an)
         self.f_name = str(f_name)
-        self.chans_nzero = spec_an.cnt_arrs.chans_nzero
-        self.counts_nzero = spec_an.cnt_arrs.counts_nzero
-        self.unc_y_4plot = np.where(spec_an.cnt_arrs.unc_y < 1.4,
-                                    0.0,
-                                    spec_an.cnt_arrs.unc_y)
+        self.chans_nzero = spec_an.chans_nzero
+        self.counts_nzero = spec_an.counts_nzero
+        self.unc_y_4plot = np.where(spec_an.unc_y < 1.4, 0.0, spec_an.unc_y)
         # Initialize figure
         self.figw1 = go.FigureWidget();
 
@@ -39,8 +37,8 @@ class GrossCountsGraphic(SpecGraphics):
                          name="Counts & uncertaintes",
                          line=dict(color='orange', width=0.7)));
         self.figw1.add_trace(
-            go.Scattergl(x=spec_an.cnt_arrs.x_s,
-                         y=spec_an.cnt_arrs.y_s,
+            go.Scattergl(x=spec_an.x_s,
+                         y=spec_an.y_s,
                          name='y_s, eventually smoothed',
                          line=dict(color='navy', width=0.4)))
 
@@ -54,9 +52,9 @@ class PeaksAndRegionsGraphic(SpecGraphics):
     def __init__(self, f_name, spec_an):
         super().__init__(f_name, spec_an)
         self.f_name = f_name
-        self.chans_nzero = spec_an.cnt_arrs.chans_nzero
-        self.counts_nzero = spec_an.cnt_arrs.counts_nzero
-        self.unc_y_4plot = np.where(spec_an.cnt_arrs.unc_y < 1.4,
+        self.chans_nzero = spec_an.chans_nzero
+        self.counts_nzero = spec_an.counts_nzero
+        self.unc_y_4plot = np.where(spec_an.unc_y < 1.4,
                                     0.0,
                                     spec_an.cnt_arrs.unc_y)
         self.x_s = spec_an.cnt_arrs.x_s
