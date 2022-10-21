@@ -1,9 +1,9 @@
 import numpy as np
 from scipy.interpolate import splrep, splev
-
+from scipy.fft import fft, fftfreq, fftshift
 
 class CountsSeriesArrays:
-    def __init__(self, sp_counts, to_smooth):
+    def __init__(self, sp_counts, to_smooth, is_fft=False):
         self.spl_baseline = None
         self.eval_baseline = None
         self.y_s = np.array(sp_counts)
@@ -16,6 +16,8 @@ class CountsSeriesArrays:
         self.unc_y = np.sqrt(self.counts_nzero)
         if to_smooth:
             self.y_s = self.eval_smoo_counts()
+        if is_fft:
+            self.fft_s = fft(self.y_s)
 
         # self.plotsteps_x = []
         # self.plotsteps_y = []
@@ -44,6 +46,7 @@ class CountsSeriesArrays:
                               w=1.0 / self.unc_y, k=3)
             evaluated = splev(self.x_s, smoo_cts)
             return evaluated
+
 
     def calculate_base_line(self, mix_regions, smoo):
         """Calculate baseline."""
@@ -113,10 +116,8 @@ class CountsSeriesArrays:
         print('Entrou em arrays')
         print(pkp.wide_regions)
         for i in pkp.wide_regions:
-            print(self.y_s[i[0]:i[1]+1])
+            print(self.y_s[i[0]:i[1] + 1])
         for i in pkp.fwhm_centr:
             print(i)
         for i in pkp.wide_regions:
-            print(sum(self.y_s[i[0]:i[1]+1]))
-
-
+            print(sum(self.y_s[i[0]:i[1] + 1]))

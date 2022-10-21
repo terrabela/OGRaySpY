@@ -4,7 +4,10 @@ from peaksparms_class import PeaksParms
 
 
 class GenericSeriesAnalysis:
-    """Analyze a generic number series to find peaks, estimate their parameters and possibly find baseline."""
+    """
+    Analyze a generic number series to find peaks, estimate their parameters
+    and possibly find baseline.
+    """
 
     def __init__(self, cnt_arrs):
         self.cnt_arrs = cnt_arrs
@@ -14,6 +17,7 @@ class GenericSeriesAnalysis:
         except (AttributeError):
             pass
         self.pk_parms = PeaksParms()
+        self.fft_spec = np.array([])
 
     def resolve_peaks_and_regions(self, k_sep_pk, smoo):
         self.peaks_search()

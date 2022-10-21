@@ -53,6 +53,10 @@ class Spec:
         self.smoo_gross_ser_an = GenericSeriesAnalysis(
             CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=True)
         )
+
+        self.fft_set_an = GenericSeriesAnalysis(
+            CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
+        )
         # 2022-out-6 Criando a espectro líquido:
         self.net_spec_ser_an = GenericSeriesAnalysis(
             CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False)
