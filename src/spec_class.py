@@ -11,11 +11,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib, EnergyEfficiencyCalib
-from src.specchn_class import SpecChn
-from src.speciec_class import SpecIec
-from src.counts_series_arrays import CountsSeriesArrays
-from src.generic_series_analysis_class import GenericSeriesAnalysis
+from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib, EnergyEfficiencyCalib
+from specchn_class import SpecChn
+from speciec_class import SpecIec
+from counts_series_arrays import CountsSeriesArrays
+from generic_series_analysis_class import GenericSeriesAnalysis
 
 
 class Spec:
@@ -80,7 +80,7 @@ class Spec:
 
         self.spec_io = None
         # print(vars(self))
-        print(vars(self.gross_spec_ser_an.cnt_arrs))
+        # print(vars(self.gross_spec_ser_an.cnt_arrs))
 
 
     @staticmethod
