@@ -11,17 +11,17 @@ import plotly.graph_objects as go
 
 
 class SpecGraphics():
-    def __init__(self, f_name, spec_an):
+    def __init__(self, f_name, ser_an):
         pass
 
 
 class GrossCountsGraphic(SpecGraphics):
-    def __init__(self, f_name, original_counts, smoothed_counts):
-        super().__init__(f_name, spec_an)
+    def __init__(self, f_name, ser_an):
+        super().__init__(f_name, ser_an)
         self.f_name = str(f_name)
-        self.chans_nzero = spec_an.chans_nzero
-        self.counts_nzero = spec_an.counts_nzero
-        self.unc_y_4plot = np.where(spec_an.unc_y < 1.4, 0.0, spec_an.unc_y)
+        self.chans_nzero = ser_an.chans_nzero
+        self.counts_nzero = ser_an.counts_nzero
+        self.unc_y_4plot = np.where(ser_an.unc_y < 1.4, 0.0, ser_an.unc_y)
         # Initialize figure
         self.figw1 = go.FigureWidget();
 

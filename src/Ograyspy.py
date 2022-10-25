@@ -110,11 +110,13 @@ class Ograyspy:
         # )
 
     def create_graphics(self):
-        self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an, self.a_spec.smoo_gross_ser_an)
+        self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name,
+                                                        self.a_spec.gross_spec_ser_an)
         self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an, 'Gross counts (original and smoothed)')
         del self.gross_counts_graphics
 
-        # 2022-out-20 PAREI AQUI: Refatorar o que segue:
+        # 2022-out-25 PAREI AQUI: Refatorar o que segue:
+
 
         # pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.gross_spec_ser_an)
         # pks_regions_gros.plot_figw2(a_spec.gross_spec_ser_an, 'origi_bruta_larguras')
