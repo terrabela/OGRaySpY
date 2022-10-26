@@ -22,8 +22,10 @@ class GenericSeriesAnalysis:
         self.chans_nzero = self.x_s[self.y_s > 0]
         self.counts_nzero = self.y_s[self.nzero]
         self.unc_y = np.sqrt(self.counts_nzero)
+        self.y_smoothed = None
         if to_smooth:
-            self.y_s = self.eval_smoo_counts()
+            self.y_smoothed = self.eval_smoo_counts()
+        self.fft_s = None
         if is_fft:
             self.fft_s = fft(self.y_s)
 

@@ -26,6 +26,7 @@ class Ograyspy:
         self.a_spec_ind = 0
         self.a_spec_name = ''
         self.gross_counts_graphics = None
+        self.pks_regions_gros = None
 
         self.select_spectrum()
 
@@ -115,10 +116,9 @@ class Ograyspy:
         self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an, 'Gross counts (original and smoothed)')
         del self.gross_counts_graphics
 
-        # 2022-out-25 PAREI AQUI: Refatorar o que segue:
-
-
-        # pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.gross_spec_ser_an)
+        # self.pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name,
+        #                                                self.a_spec.gross_spec_ser_an)
+        # del self.pks_regions_gros
         # pks_regions_gros.plot_figw2(a_spec.gross_spec_ser_an, 'origi_bruta_larguras')
 
         # pks_regions_smoo = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.smoo_gross_ser_an)

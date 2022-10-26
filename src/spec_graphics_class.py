@@ -29,24 +29,41 @@ class GrossCountsGraphic(SpecGraphics):
         self.figw1.add_trace(
             go.Scattergl(x=self.chans_nzero,
                          y=self.counts_nzero,
+                         mode='markers',
+                         marker_size=3,
                          error_y=dict(
                              color='orange', width=3.0,
                              type='data',  # value of error bar given in data coordinates
-                             array=self.unc_y_4plot,
-                             visible=True),
-                         name="Counts & uncertaintes",
-                         line=dict(color='orange', width=0.7)));
+                             array=self.unc_y_4plot),
+                         name='Counts & uncertainties'))
         self.figw1.add_trace(
             go.Scattergl(x=spec_an.x_s,
                          y=spec_an.y_s,
-                         name='y_s, eventually smoothed',
-                         line=dict(color='navy', width=0.4)))
+                         name='y_s',
+                         line=dict(color='magenta', width=0.4)))
+        self.figw1.add_trace(
+            go.Scattergl(x=spec_an.x_s,
+                         y=spec_an.y_smoothed,
+                         name='y_smoothed',
+                         line=dict(color='navy', width=0.5)))
 
         # Set title and scale type
         self.figw1.update_layout(title_text='Fig 1: ' + self.f_name)
         self.figw1.update_yaxes(type="log")
         self.figw1.write_html(graph_name + '.html', auto_open=True)
 
+
+    # ERRADO!!!!! NAO EH Aqui!!!!!!!!!!!!!
+    def plot_fft(self, spec_an, graph_name):
+        self.figw2.add_trace(
+            go.Scattergl(x=spec_an.x_s,
+                         y=spec_an.y_s,
+                         name='y_s',
+                         line=dict(color='red', width=0.4)))
+        # Set title and scale type
+        self.figw2.update_layout(title_text='Fig fft: ' + self.f_name)
+        self.figw2.update_yaxes(type="log")
+        self.figw2.write_html(graph_name + '.html', auto_open=True)
 
 class PeaksAndRegionsGraphic(SpecGraphics):
     def __init__(self, f_name, spec_an):
