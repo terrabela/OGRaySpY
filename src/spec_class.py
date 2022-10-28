@@ -16,6 +16,9 @@ from specchn_class import SpecChn
 from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
 
+from scipy.interpolate import splrep, splev
+# , splder, sproot
+
 
 class Spec:
     """ Spectrum class. """
@@ -157,3 +160,6 @@ class Spec:
         # self.spec_parms.peaks_parms.basic_net_area_calculation()
         # self.spec_parms.ser_an.peaks_search()
         pass
+
+
+##########################################
