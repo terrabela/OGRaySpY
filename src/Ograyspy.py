@@ -114,8 +114,11 @@ class Ograyspy:
                                               'Gross counts (original and smoothed)')
         del self.gross_counts_graphics
 
-        self.pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name,
-                                                       self.a_spec.gross_spec_ser_an)
+        # self.pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name,
+        #                                                self.a_spec.gross_spec_ser_an,
+        #                                                self.a_spec.)
+        # self.pks_regions_gros.plot_figw2(self.a_spec.gross_spec_ser_an,
+        #                                  'Peaks & regions (gross spec)')
         # del self.pks_regions_gros
         # pks_regions_gros.plot_figw2(a_spec.gross_spec_ser_an, 'origi_bruta_larguras')
 

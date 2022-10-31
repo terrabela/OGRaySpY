@@ -64,7 +64,6 @@ class GenericSeriesAnalysis:
             evaluated = splev(self.x_s, smoo_cts)
             return evaluated
 
-
     def calculate_base_line(self, mix_regions, smoo):
         """Calculate baseline."""
         x_1 = self.chans_outof_regs()
@@ -139,9 +138,6 @@ class GenericSeriesAnalysis:
         for i in pkp.wide_regions:
             print(sum(self.y_s[i[0]:i[1] + 1]))
 
-
-
-
     def resolve_peaks_and_regions(self, k_sep_pk, smoo):
         self.peaks_search()
         print('resolve_peaks_and_regions:')
@@ -173,7 +169,6 @@ class GenericSeriesAnalysis:
         ws_min = np.percentile(self.pk_parms.propts['widths'], 25) * 0.5
         ws_max = np.percentile(self.pk_parms.propts['widths'], 75) * 2.0
         self.widths_pair = (ws_min, ws_max)
-
 
     def define_multiplets_regions(self, k_sep_pk, smoo):
         """Define multiplet regions from already found peaks with proper widths."""

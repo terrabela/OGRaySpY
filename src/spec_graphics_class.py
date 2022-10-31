@@ -10,7 +10,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-class SpecGraphics():
+class SpecGraphics:
     def __init__(self, f_name, ser_an):
         pass
 
@@ -52,7 +52,6 @@ class GrossCountsGraphic(SpecGraphics):
         self.figw1.update_yaxes(type="log")
         self.figw1.write_html(graph_name + '.html', auto_open=True)
 
-
     # ERRADO!!!!! NAO EH Aqui!!!!!!!!!!!!!
     def plot_fft(self, spec_an, graph_name):
         self.figw2.add_trace(
@@ -65,16 +64,16 @@ class GrossCountsGraphic(SpecGraphics):
         self.figw2.update_yaxes(type="log")
         self.figw2.write_html(graph_name + '.html', auto_open=True)
 
+
 class PeaksAndRegionsGraphic(SpecGraphics):
-    def __init__(self, f_name, spec_an):
-        super().__init__(f_name, spec_an)
-        self.f_name = f_name
-        self.chans_nzero = spec_an.chans_nzero
-        self.counts_nzero = spec_an.counts_nzero
-        self.unc_y_4plot = np.where(spec_an.unc_y < 1.4,
-                                    0.0,
-                                    spec_an.cnt_arrs.unc_y)
-        self.x_s = spec_an.cnt_arrs.x_s
+
+    def __init__(self, f_name, ser_an):
+        super().__init__(f_name, ser_an)
+        self.f_name = str(f_name)
+        self.chans_nzero = ser_an.chans_nzero
+        self.counts_nzero = ser_an.counts_nzero
+        # Initialize figure
+        self.figw2 = go.FigureWidget();
 
         # Initialize figure
         self.pk_parms = spec_an.pk_parms
@@ -108,6 +107,18 @@ class PeaksAndRegionsGraphic(SpecGraphics):
                  np.full(n_pk, None)), axis=1))
             self.ys_fwb_lines = np.concatenate(np.stack(
                 (self.plateaux, self.plateaux, np.full(n_pk, None)), axis=1))
+
+    def plot_figw2(self, spec_an, graph_name):
+        self.figw2.add_trace(
+            go.Scattergl(x=spec_an.x_s,
+                         y=spec_an.y_s,
+                         name='y_s',
+                         line=dict(color='magenta', width=0.4)))
+        # Set title and scale type
+        self.figw2.update_layout(title_text='Fig 2: ' + self.f_name)
+        self.figw2.update_yaxes(type="log")
+        self.figw2.write_html(graph_name + '.html', auto_open=True)
+
 
     def net_width_lines_deletar(self):
         """Build width peaks related lines, just for plotting."""
