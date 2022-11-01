@@ -2,7 +2,7 @@ import numpy as np
 from scipy.interpolate import splrep, splev
 from scipy.fft import fft, fftfreq, fftshift
 from scipy.signal import find_peaks
-from peaksparms_class import PeaksParms
+from .peaksparms_class import PeaksParms
 
 
 class GenericSeriesAnalysis:
