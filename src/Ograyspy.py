@@ -17,7 +17,9 @@ class Ograyspy:
         self.info_mach = platform.machine()
         self.info_syst = platform.system()
         self.info_node = platform.node()
+        self.home_path = Path.home()
         print(self.info_plat + ';' + self.info_mach + ';' + self.info_syst + ';' + self.info_node)
+        print(self.home_path)
         self.spectra_path = Path('.')
         self.n_files = 0
         self.a_spec_ind = 0
@@ -107,12 +109,18 @@ class Ograyspy:
         #     self.a_spec.net_spec_ser_an.pk_parms
         # )
 
-    def create_graphics(self):
+    def create_graphics(self, home_path):
         self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name,
                                                         self.a_spec.gross_spec_ser_an)
         self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an,
-                                              'Gross counts (original and smoothed)')
+                                              self.home_path,
+                                              'Gross_counts_(original_and_smoothed)')
         del self.gross_counts_graphics
+
+        self.fft_graphic = FftGraphic(self.a_spec_name,
+                                      self.a_spec.fft_ser_an)
+        self.fft_graphic.plot_fft()
+        del self.fft_graphic
 
         # self.pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name,
         #                                                self.a_spec.gross_spec_ser_an,
@@ -137,7 +145,7 @@ if __name__ == '__main__':
     print("I'm a OGRaySPy (gamma-ray spectra analyzer!")
     my_ogra = Ograyspy()
     my_ogra.perform_total_analysis()
-    my_ogra.create_graphics()
+    my_ogra.create_graphics(my_ogra.home_path)
     del my_ogra.a_spec
 
     # a_graph.plot_graphics()
