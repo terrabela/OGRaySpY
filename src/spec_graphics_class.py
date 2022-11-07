@@ -11,19 +11,34 @@ import plotly.graph_objects as go
 
 
 class SpecGraphics:
-    def __init__(self, f_name, ser_an):
+    def __init__(self, f_name):
         pass
+
+
+class GenericGraphics(SpecGraphics):
+    def __init__(self, f_name, x_s, y_s):
+        super().__init__(f_name)
+        self.f_name = str(f_name)
+        self.figw = go.FigureWidget()
+        self.figw.add_trace(
+            go.Scattergl(x=x_s,
+                         y=y_s))
+        # Set title and scale type
+        self.figw.update_layout(title_text='Fig 1: ' + self.f_name)
+        self.figw.update_yaxes(type="log")
+        self.figw.write_html(f_name + '.html', auto_open=True)
 
 
 class GrossCountsGraphic(SpecGraphics):
     def __init__(self, f_name, ser_an):
-        super().__init__(f_name, ser_an)
+        super().__init__(f_name)
         self.f_name = str(f_name)
         self.chans_nzero = ser_an.chans_nzero
         self.counts_nzero = ser_an.counts_nzero
         self.unc_y_4plot = np.where(ser_an.unc_y < 1.4, 0.0, ser_an.unc_y)
         # Initialize figure
-        self.figw1 = go.FigureWidget();
+        self.figw1 = go.FigureWidget()
+        self.plot_figw1(ser_an, 'Gross_counts')
 
     def plot_figw1(self, spec_an, graph_name):
         self.figw1.add_trace(
@@ -118,7 +133,6 @@ class PeaksAndRegionsGraphic(SpecGraphics):
         self.figw2.update_layout(title_text='Fig 2: ' + self.f_name)
         self.figw2.update_yaxes(type="log")
         self.figw2.write_html(graph_name + '.html', auto_open=True)
-
 
     def net_width_lines_deletar(self):
         """Build width peaks related lines, just for plotting."""
