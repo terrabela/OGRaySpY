@@ -11,10 +11,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
-from .specchn_class import SpecChn
-from .speciec_class import SpecIec
-from .generic_series_analysis_class import GenericSeriesAnalysis
+from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
+from specchn_class import SpecChn
+from speciec_class import SpecIec
+from generic_series_analysis_class import GenericSeriesAnalysis
 
 from scipy.interpolate import splrep, splev
 # , splder, sproot
@@ -54,7 +54,10 @@ class Spec:
 
         self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
         # self.smoo_gross_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
-        # self.fft_set_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
+
+        # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
+        self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
+
         # 2022-out-6 Criando a espectro líquido:
         self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
         #
