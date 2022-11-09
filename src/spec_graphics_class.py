@@ -26,11 +26,11 @@ class GenericGraphics(SpecGraphics):
         # Set title and scale type
         self.figw.update_layout(title_text='Fig 1: ' + self.f_name)
         self.figw.update_yaxes(type="log")
-        self.figw.write_html(f_name + '.html', auto_open=True)
+        self.figw.write_html(f_name + '.html')
 
 
 class GrossCountsGraphic(SpecGraphics):
-    def __init__(self, f_name, ser_an):
+    def __init__(self, f_name, ser_an, home_path):
         super().__init__(f_name)
         self.f_name = str(f_name)
         self.chans_nzero = ser_an.chans_nzero
@@ -38,7 +38,8 @@ class GrossCountsGraphic(SpecGraphics):
         self.unc_y_4plot = np.where(ser_an.unc_y < 1.4, 0.0, ser_an.unc_y)
         # Initialize figure
         self.figw1 = go.FigureWidget()
-        self.plot_figw1(ser_an, 'Gross_counts')
+        self.plot_figw1(ser_an, home_path, 'Gross_counts')
+
 
     def plot_figw1(self, spec_an, home_path, graph_name):
         self.figw1.add_trace(
@@ -65,7 +66,7 @@ class GrossCountsGraphic(SpecGraphics):
         # Set title and scale type
         self.figw1.update_layout(title_text='Fig 1: ' + self.f_name)
         self.figw1.update_yaxes(type="log")
-        self.figw1.write_html(str(home_path) + '/' + graph_name + '.html', auto_open=True)
+        self.figw1.write_html(str(home_path) + '/' + graph_name + '.html')
 
 class PeaksAndRegionsGraphic(SpecGraphics):
 
@@ -119,7 +120,7 @@ class PeaksAndRegionsGraphic(SpecGraphics):
         # Set title and scale type
         self.figw2.update_layout(title_text='Fig 2: ' + self.f_name)
         self.figw2.update_yaxes(type="log")
-        self.figw2.write_html(graph_name + '.html', auto_open=True)
+        self.figw2.write_html(graph_name + '.html')
 
     def net_width_lines_deletar(self):
         """Build width peaks related lines, just for plotting."""
@@ -171,7 +172,7 @@ class PeaksAndRegionsGraphic(SpecGraphics):
         # Set title and scale type
         self.fig_widths.update_layout(title_text="Fig 2: Peaks widths")
         self.fig_widths.update_yaxes(type='log');
-        self.fig_widths.write_html(graph_name + '.html', auto_open=True)
+        self.fig_widths.write_html(graph_name + '.html')
 
 
 class BaselineGraphic(SpecGraphics):
@@ -225,7 +226,7 @@ class BaselineGraphic(SpecGraphics):
         # Set title and scale type
         self.figbl.update_layout(title_text='Baseline: ' + self.f_name)
         self.figbl.update_yaxes(type="log")
-        self.figbl.write_html(graph_name + '.html', auto_open=True)
+        self.figbl.write_html(graph_name + '.html')
 
 
 class NetSpecGraphic(SpecGraphics):
@@ -246,7 +247,7 @@ class NetSpecGraphic(SpecGraphics):
         # Set title and scale type
         # self.figns.update_layout(title_text='Net spec: ' + self.f_name)
         # self.figbl.update_yaxes(type="log")
-        self.figns.write_html(graph_name + '.html', auto_open=True)
+        self.figns.write_html(graph_name + '.html')
 
     def united_step_baselines(self):
         """Build concatenated arrays of step baselines, just for plotting."""
@@ -284,7 +285,7 @@ class NetSpecGraphic(SpecGraphics):
         # Set title and scale type
         self.fig_is_reg.update_layout(title_text="Fig 3: Definition of regions")
         self.fig_is_reg.update_yaxes(type='log');
-        self.fig_is_reg.write_html('fig_is_reg.html', auto_open=True)
+        self.fig_is_reg.write_html('fig_is_reg.html')
 
 class FftGraphic(SpecGraphics):
     def __init__(self, f_name, ser_an):
@@ -306,4 +307,4 @@ class FftGraphic(SpecGraphics):
         # Set title and scale type
         self.figfft.update_layout(title_text='Fig fft: ' + self.f_name)
         self.figfft.update_yaxes(type="log")
-        self.figfft.write_html(graph_name + '.html', auto_open=True)
+        self.figfft.write_html(graph_name + '.html')
