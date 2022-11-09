@@ -1,11 +1,13 @@
 # from unittest import TestCase
 import sys
+import os
 from unittest import TestCase
 
 class TestSpec(TestCase):
     def setUp(self):
         src_dir = sys.path[0] + '/src'
         sys.path.insert(0, src_dir)
+        self.home_path = os.path.expanduser('~')
         from spec_class import Spec
         self.spec = Spec('data/some_spectra/CCI0202-I.Chn')
 
@@ -18,7 +20,10 @@ class TestSpec(TestCase):
 
     def test_plot(self):
         from spec_graphics_class import GrossCountsGraphic
-        spec_graphic = GrossCountsGraphic(self.spec.f_name, self.spec.gross_spec_ser_an)
+        print(self.spec.f_name)
+        self.home_path = os.path.expanduser('~')
+        spec_graphic = GrossCountsGraphic(self.spec.f_name, self.spec.gross_spec_ser_an, self.home_path)
+        del spec_graphic
 
     def test_fft_plot(self):
         from scipy.fft import fft, ifft, fftfreq, fftshift
