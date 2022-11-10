@@ -74,15 +74,10 @@ class GenericSeriesAnalysis:
         _raiz_y = np.sqrt(_y)
         _raiz_y[_raiz_y < 2] = 1.0
         _w = 1.0 / _raiz_y
-        # _w = _raiz_y
         self.spl_baseline = splrep(x=x_1, y=_y, w=_w, k=3, s=smoo)
-        # self.eval_baseline = splev(self.x_s, self.spl_baseline)
         self.eval_baseline = splev(self.x_s, self.spl_baseline)
-        # self.eval_baseline = splev(x_1, self.spl_baseline)
         self.xs_bl_out_reg = x_1
-        # print(x_1)
         self.ys_bl_out_reg = _y
-        # print(_y)
         self.ws_bl_out_reg = _w
 
         self.xs_bl_in_reg = self.chans_in_regs()
@@ -109,8 +104,8 @@ class GenericSeriesAnalysis:
             #    self.ys_all_mplets.append( None )
             #    self.ys_all_steps.extend(list(a_step))
             #    self.ys_all_steps.append( None )
-            self.net_spec[slice(*multiplet_region)] = np.where(net_mplet < 0.0, 0.0, net_mplet)
-            self.final_baseline = self.y_s - self.net_spec
+            # self.net_spec[slice(*multiplet_region)] = np.where(net_mplet < 0.0, 0.0, net_mplet)
+            # self.final_baseline = self.y_smoothed - self.net_spec
 
     def chans_in_regs(self):
         """ Channels in regions. """

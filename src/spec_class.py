@@ -124,10 +124,10 @@ class Spec:
             self.gross_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
 
             # 2022-set-27 Aqui começam os cálculos em cima do espectro líquido
-            self.net_spec_ser_an = GenericSeriesAnalysis(self.gross_spec_ser_an.net_spec, to_smooth=False)
+            # self.net_spec_ser_an = GenericSeriesAnalysis(self.gross_spec_ser_an.net_spec, to_smooth=False)
 
-            self.net_spec_ser_an.resolve_peaks_and_regions(k_sep_pk, smoo)
-            self.net_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
+            # self.net_spec_ser_an.resolve_peaks_and_regions(k_sep_pk, smoo)
+            # self.net_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
 
             self.spec_pks_df
 
