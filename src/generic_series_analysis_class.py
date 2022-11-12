@@ -11,7 +11,7 @@ class GenericSeriesAnalysis:
     and possibly find baseline.
     """
 
-    def __init__(self, sp_counts, to_smooth, is_fft=False):
+    def __init__(self, sp_counts, to_smooth=False, is_fft=False):
         self.spl_baseline = None
         self.eval_baseline = None
         self.y_s = np.array(sp_counts)
