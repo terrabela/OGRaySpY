@@ -36,15 +36,15 @@ class GenericGraphics(SpecGraphics):
         self.fig.update_layout(title_text='Fig X: ' + f_name)
         self.fig.update_yaxes(type='log')
         self.fig.write_html(str(home_path) + '/' + graph_name + '.html')
-        
+
     def united_step_lines(self, x_s, y_s):
         """Build concatenated arrays of step lines, just for plotting."""
         self.x_pl = np.concatenate([np.append(i, None) for i in x_s])
         self.y_pl = np.concatenate([np.append(i, None) for i in y_s])
-        
 
-class GrossCountsGraphic(SpecGraphics):
-    def __init__(self, f_name, ser_an, home_path):
+
+class CountsGraphic(SpecGraphics):
+    def __init__(self, f_name, ser_an, home_path, graph_name):
         super().__init__(f_name)
         self.f_name = str(f_name)
         self.chans_nzero = ser_an.chans_nzero
@@ -52,8 +52,7 @@ class GrossCountsGraphic(SpecGraphics):
         self.unc_y_4plot = np.where(ser_an.unc_y < 1.4, 0.0, ser_an.unc_y)
         # Initialize figure
         self.figw1 = go.FigureWidget()
-        self.plot_figw1(ser_an, home_path, 'Gross_counts')
-
+        self.plot_figw1(ser_an, home_path, graph_name=graph_name)
 
     def plot_figw1(self, spec_an, home_path, graph_name):
         self.figw1.add_trace(
@@ -82,9 +81,10 @@ class GrossCountsGraphic(SpecGraphics):
         self.figw1.update_yaxes(type="log")
         self.figw1.write_html(str(home_path) + '/' + graph_name + '.html')
 
+
 class PeaksAndRegionsGraphic(SpecGraphics):
 
-    def __init__(self, f_name, ser_an, home_path):
+    def __init__(self, f_name, ser_an, home_path, graph_name):
         super().__init__(f_name)
         self.f_name = str(f_name)
         self.chans_nzero = ser_an.chans_nzero
@@ -181,15 +181,15 @@ class PeaksAndRegionsGraphic(SpecGraphics):
                                      line=dict(color='green', width=2.0)
                                      ),
                          mode='markers'));
-        
+
         # Set title and scale type
         self.fig_widths.update_layout(title_text='Fig 2: Pekas' + self.f_name)
         self.fig_widths.update_yaxes(type="log")
         self.fig_widths.write_html(str(home_path) + '/' + graph_name + '.html')
-        
+
 
 class BaselineGraphic(SpecGraphics):
-    
+
     def __init__(self, f_name, ser_an, home_path):
         super().__init__(f_name)
         self.f_name = str(f_name)
@@ -224,6 +224,12 @@ class BaselineGraphic(SpecGraphics):
             go.Scattergl(x=spec_an.x_s,
                          y=self.final_baseline,
                          name='final_baseline',
+                         line=dict(color='magenta', width=0.6)));
+
+        self.figbl.add_trace(
+            go.Scattergl(x=spec_an.x_s,
+                         y=spec_an.y_smoothed,
+                         name='y_smoothed',
                          line=dict(color='red', width=0.6)));
 
         #        self.figbl.add_trace(
@@ -236,7 +242,7 @@ class BaselineGraphic(SpecGraphics):
         self.figbl.update_layout(title_text='Baseline: ' + self.f_name)
         self.figbl.update_yaxes(type="log")
         self.figbl.write_html(str(home_path) + '/' + graph_name + '.html')
-        
+
 
 class NetSpecGraphic(SpecGraphics):
 
@@ -295,6 +301,7 @@ class NetSpecGraphic(SpecGraphics):
         self.fig_is_reg.update_layout(title_text="Fig 3: Definition of regions")
         self.fig_is_reg.update_yaxes(type='log');
         self.fig_is_reg.write_html('fig_is_reg.html')
+
 
 class FftGraphic(SpecGraphics):
     def __init__(self, f_name, ser_an):
