@@ -77,27 +77,8 @@ class CntArrayLike:
 
     def calculate_base_line(self, mix_regions, smoo):
         """Calculate base line."""
-        x_1 = self.chans_outof_regs()
-        _first_nz = np.nonzero(self.y0s)[0][0]
-        _init_fill = np.mean(self.y0s[_first_nz:_first_nz + 7]).astype(int)
-        _y = self.counts_outof_regs()
-        _y[0:_first_nz] = _init_fill
-        _raiz_y = np.sqrt(_y)
-        _raiz_y[_raiz_y < 2] = 1.0
-        _w = 1.0/_raiz_y
         # _w = _raiz_y
         _aux_list = []
-        self.spl_baseline = splrep(x=x_1, y=_y, w=_w, k=3, s=smoo)
-        # self.eval_baseline = splev(x_1, self.spl_baseline)
-        self.eval_baseline = splev(self.chans, self.spl_baseline)
-        self.xs_bl_out_reg = x_1
-        # print(x_1)
-        self.ys_bl_out_reg = _y
-        # print(_y)
-        self.ws_bl_out_reg = _w
-
-        self.xs_bl_in_reg = self.chans_in_regs()
-        self.ys_bl_in_reg = self.counts_in_regs()
         for multiplet_region in mix_regions:
             _ys = self.y0s[slice(*multiplet_region)]
             _bl_in = splev(multiplet_region[0]-1, self.spl_baseline)
@@ -124,13 +105,3 @@ class CntArrayLike:
         if len(_aux_list) != 0:
             self.calculated_step_counts = np.concatenate(_aux_list)
 
-    def step_baseline(self, bl_in, bl_fi, y_s):
-        """Calculate step baseline inside a region. Called just by calculate_base_line."""
-        contin = np.zeros(y_s.size)
-        gross_area = np.sum(y_s) + bl_fi
-        delta_y = bl_fi - bl_in
-        delta_x = y_s.size
-        for i in range(delta_x):
-            sum_y = np.sum(y_s[0:i+1])
-            contin[i] = bl_in + delta_y * sum_y/gross_area
-        return contin

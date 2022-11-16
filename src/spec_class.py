@@ -35,6 +35,8 @@ class Spec:
         and set spectrum parameters (count time, sample description etc)."
 
         """
+        self.net_spec_ser_an = None
+        self.final_composed_baseline = None
         self.f_name = f_name
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
@@ -48,27 +50,22 @@ class Spec:
         # Parei aqui: fazer bd do Pandas
         self.spec_pks_df = pd.DataFrame()
 
-        # self.gross_spec_ser_an = GenericSeriesAnalysis(
-        #     CountsSeriesArrays(self.spec_io.sp_counts, to_smooth=False)
-        # )
-
         self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
-        # self.smoo_gross_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
 
         # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
         # self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
 
         # 2022-out-6 Criando a espectro líquido:
-        self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
+        # self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
         #
         #        self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.en_ch_calib,
         #                                                       self.spec_io.chan_calib,
         #                                                       self.spec_io.coeffs_ch_en)
-        self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.coeffs_ch_en)
+        # self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.coeffs_ch_en)
         #       self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.en_fw_calib,
         #                                                self.spec_io.fwhm_calib,
         #                                                self.spec_io.coeffs_en_fw)
-        self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.coeffs_en_fw)
+        # self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.coeffs_en_fw)
         #        self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib,
         #                                                            self.spec_io.effi_calib)
 
@@ -114,19 +111,26 @@ class Spec:
             print('widths_range: ', widths_range)
             print('=================')
             print('Exec peaks_search(gross=True), espectro ORIGINAL')
-            self.gross_spec_ser_an.resolve_peaks_and_regions (k_sep_pk, smoo)
-            # 2022-out-4: Aqui faço a busca no suavizado, mas deixarei sem uso por enquanto
-            # print('Exec peaks_search(gross=True), espectro SMOOTHED')
-            # self.smoo_gross_ser_an.resolve_peaks_and_regions (k_sep_pk, smoo)
-            #    define_multiplets_regions:
-            #      em define_multiplets_regions: define is_reg com base em bons picos
-            # 2022-out-5: Definindo multipletos no original spec (não no smoo)
-            self.gross_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
+            self.gross_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
+            self.gross_spec_ser_an.calculate_baseline (smoo=smoo)
+            # 2022-nov-15: final composed baseline series
+            self.final_composed_baseline = GenericSeriesAnalysis(self.gross_spec_ser_an.final_baseline)
+            net_spec_array = np.where (
+                self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
+                self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s,
+                1.0
+            )
+            given_variance = np.where (
+                self.gross_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,
+                self.gross_spec_ser_an.y_s + self.final_composed_baseline.y_s,
+                1.0
+            )
+            self.net_spec_ser_an = GenericSeriesAnalysis(
+                net_spec_array,
+                given_variance = given_variance
+            )
 
-            # 2022-set-27 Aqui começam os cálculos em cima do espectro líquido
-            # self.net_spec_ser_an = GenericSeriesAnalysis(self.gross_spec_ser_an.net_spec, to_smooth=False)
-
-            # self.net_spec_ser_an.resolve_peaks_and_regions(k_sep_pk, smoo)
+            self.net_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
             # self.net_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
 
             self.spec_pks_df
