@@ -3,10 +3,10 @@ from random import randrange
 from pathlib import Path
 import pickle
 import os
-from spec_class import Spec
-from spec_graphics_class import GrossCountsGraphic, PeaksAndRegionsGraphic,\
-    BaselineGraphic, NetSpecGraphic
 
+from spec_class import Spec
+from spec_graphics_class import GenericGraphics
+from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 
 class Ograyspy:
     files_list: list[str]
@@ -27,8 +27,6 @@ class Ograyspy:
         self.gross_counts_graphics = None
         self.pks_regions_gros = None
 
-        self.select_spectrum()
-
     def process_pickled_list(self, my_file):
         if os.path.isfile(my_file):  # if file exists we have already pickled a list
             print('Load existing pickle file')
@@ -42,7 +40,7 @@ class Ograyspy:
         # my_file = 'ogra_pic_f_' + self.info_syst + '_' + self.info_node + '.pkl'
         # self.process_pickled_list(my_file='')
 
-    def select_spectrum(self):
+    def define_files_batch(self):
         # Locate the general folder containing spectra in the current system,...
         # to_be_found = 'gamma'
         to_be_found = 'Genie_Transfer'
@@ -59,7 +57,7 @@ class Ograyspy:
 
         print('Partes: ', self.spectra_path.parts)
         n_parts_dropped = len(self.spectra_path.parts)
-        # Select a random spectrum...
+        
         self.files_list = []
         self.reduced_names_files_list = []
         self.spectra_pattern_names = ["**/*.[Cc][Hh][Nn]", "**/*.[Ii][Ee][Cc]"]
@@ -69,6 +67,11 @@ class Ograyspy:
                 self.reduced_names_files_list.append('/'.join(i.parts[n_parts_dropped:]))
         self.n_files = len(self.files_list)
         print('No. spec files: ', self.n_files)
+        
+        
+    def select_spectrum(self):
+        define_files_batch()
+        # Select a random spectrum...
         try:
             self.a_spec_ind = randrange(self.n_files)
             print('Random spec index: ', self.a_spec_ind)
@@ -80,6 +83,7 @@ class Ograyspy:
         # ...or define it directly.
         # 2022-out-7: Excelente espectro para testes, tenho usado ultimamente:
         a_pattern = 'Si/SI2018/SI11318.Chn'
+        # 2022-nov-16: outros espectros:
         # a_pattern = "Filtros/2022/Cci/CCI1603-I.Chn"
         # a_pattern = "Eso_non_existe.Chn"
         print('Existing:')
@@ -96,57 +100,12 @@ class Ograyspy:
 
     def perform_total_analysis(self):
         self.a_spec = Spec(self.a_spec_name)
-
         self.a_spec.total_analysis()
         print('Fez total analysis.')
-
-        print('Objeto a_spec.net_spec_ser_an.pk_parms:')
-        # print(vars(self.a_spec.net_spec_ser_an.pk_parms))
-
-        # E finalmente soma as contagens líquidas de 4 FWHMs:
-        # self.a_spec.net_spec_ser_an.pk_parms.regions_to_sum()
-        # self.a_spec.net_spec_ser_an.cnt_arrs.final_sums(
-        #     self.a_spec.net_spec_ser_an.pk_parms
-        # )
-
-    def create_graphics(self, home_path):
-        self.gross_counts_graphics = GrossCountsGraphic(self.a_spec_name,
-                                                        self.a_spec.gross_spec_ser_an)
-        self.gross_counts_graphics.plot_figw1(self.a_spec.gross_spec_ser_an,
-                                              self.home_path,
-                                              'Gross_counts_(original_and_smoothed)')
-        del self.gross_counts_graphics
-
-        self.fft_graphic = FftGraphic(self.a_spec_name,
-                                      self.a_spec.fft_ser_an)
-        self.fft_graphic.plot_fft()
-        del self.fft_graphic
-
-        # self.pks_regions_gros = PeaksAndRegionsGraphic(self.a_spec_name,
-        #                                                self.a_spec.gross_spec_ser_an,
-        #                                                self.a_spec.)
-        # self.pks_regions_gros.plot_figw2(self.a_spec.gross_spec_ser_an,
-        #                                  'Peaks & regions (gross spec)')
-        # del self.pks_regions_gros
-        # pks_regions_gros.plot_figw2(a_spec.gross_spec_ser_an, 'origi_bruta_larguras')
-
-        # pks_regions_smoo = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.smoo_gross_ser_an)
-        # pks_regions_smoo.plot_figw2(a_spec.smoo_gross_ser_an, 'suavi_bruta_larguras')
-
-        # baseline_graph = BaselineGraphic(self.a_spec_name, a_spec.gross_spec_ser_an)
-        # baseline_graph.plot_figbl(a_spec.gross_spec_ser_an, 'Linha_base_espectro_original')
-        # netspec_graph = NetSpecGraphic(a_spec.gross_spec_ser_an, 'Net spec')
-        # netspec_graph.plot_figns(a_spec.gross_spec_ser_an, 'Net spec')
-        # pks_regions_net = PeaksAndRegionsGraphic(self.a_spec_name, a_spec.net_spec_ser_an)
-        # pks_regions_net.plot_figw2(a_spec.net_spec_ser_an, 'Net peaks, finally.')
-
-
-if __name__ == '__main__':
-    print("I'm a OGRaySPy (gamma-ray spectra analyzer!")
-    my_ogra = Ograyspy()
-    my_ogra.perform_total_analysis()
-    my_ogra.create_graphics(my_ogra.home_path)
-    del my_ogra.a_spec
-
-    # a_graph.plot_graphics()
-    # End of main program.
+        
+    def perform_batch_analyses(self):
+        self.define_files_batch()
+        print(self.files_list)
+        for nam in self.files_list:
+            spec = Spec(nam)
+            spec.total_analysis(gener_dataframe=True)

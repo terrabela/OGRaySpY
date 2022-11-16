@@ -91,7 +91,7 @@ class Spec:
         h_win = np.int(np.round(_a * i_ch + _b))
         return h_win
 
-    def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0)):
+    def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0), gener_dataframe=False):
         """Analyze thoroughly a spectrum."""
         # Initialize a minimal members set from a read spectrum file.
 
@@ -131,9 +131,11 @@ class Spec:
             )
 
             self.net_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
-            # self.net_spec_ser_an.define_multiplets_regions(k_sep_pk, smoo)
-
-            self.spec_pks_df
+            self.net_spec_ser_an.pk_parms.prepare_to_sum ()
+            self.net_spec_ser_an.perform_basic_net_area_calculation ()
+                      
+            if gener_dataframe:
+                self.generate_pandas_dataframe()
 
             print('=================')
             # print('Exec peaks_search(gross=False)')
@@ -160,13 +162,47 @@ class Spec:
         else:
             print('No analysis applicable as spectrum is empty.')
         # print(vars(self.peaks_parms))
+    
+    def generate_pandas_dataframe(self):
+        pks = self.net_spec_ser_an.pk_parms
+        self.spec_pks_df = pd.DataFrame(np.array([
+            pks.peaks,
+            pks.wide_regions[:,0],
+            pks.wide_regions[:,1],
+            pks.fwhm_centr,
+            pks.rough_sums,
+            pks.propts['peak_heights'],
+            pks.propts['left_thresholds'],
+            pks.propts['right_thresholds'],
+            pks.propts['prominences'],
+            pks.propts['left_ips'],
+            pks.propts['right_ips'],
+            pks.propts['left_bases'],
+            pks.propts['right_bases'],
+            pks.propts['widths'],
+            pks.propts['width_heights'],
+            pks.propts['left_ips'],
+            pks.propts['right_ips'],
+            pks.variances
+        ]),                                        
+            columns=['peaks',
+                'ini_wide_regions',
+                'fin_wide_regions',
+                'fwhm_centr',
+                'rough_sums',
+                'peak_heights',
+                'left_thresholds',
+                'right_thresholds',
+                'prominences',
+                'left_ips',
+                'right_ips',
+                'left_bases',
+                'right_bases',
+                'widths',
+                'width_heights',
+                'left_ips',
+                'right_ips',
+                'variances']
+    )
 
-
-    def perform_basic_net_area_calculation(self):
-        """Perform a very rough net area calculation"""
-        # self.spec_parms.peaks_parms.basic_net_area_calculation()
-        # self.spec_parms.ser_an.peaks_search()
-        pass
-
-
-##########################################
+#####################################

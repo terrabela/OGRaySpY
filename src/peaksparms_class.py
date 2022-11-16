@@ -25,20 +25,21 @@ class PeaksParms:
         self.plateaux = np.array([])
         self.fwhm_plateaux = np.array([])
         self.wide_regions = np.array([])
+        self.fwhm_centr = np.array([])
+        self.rough_sums = np.array([])
+        
 
     def redefine_widths_range(self, widths_pair, gross):
         """Redefine widths range."""
         ws_min = np.percentile(self.propts_gro['widths'], 25) * 0.5
         ws_max = np.percentile(self.propts_gro['widths'], 75) * 2.0
         widths_pair = (ws_min, ws_max)
-
-    def regions_to_sum(self):
+        
+    def prepare_to_sum(self):
         fwhm_centr_ini = self.propts['left_ips']
         fwhm_centr_fin = self.propts['right_ips']
         fwhm_real = fwhm_centr_fin - fwhm_centr_ini
-        print('fwhm_centr_ini', fwhm_centr_ini)
-        print('fwhm_centr_fin', fwhm_centr_fin)
-        self.fwhm_centr = 0.5 * (fwhm_centr_ini + fwhm_centr_fin)
-        print('fwhm_centr', self.fwhm_centr)
-        self.wide_regions = np.array(([np.ceil(self.fwhm_centr  - 2 * fwhm_real).astype(int),
-                                       np.floor(self.fwhm_centr + 2 * fwhm_real).astype(int)])).T
+        fwhm_centr = 0.5 * (fwhm_centr_ini + fwhm_centr_fin)
+        self.fwhm_centr = fwhm_centr
+        self.wide_regions = np.array(([np.ceil(fwhm_centr  - 2 * fwhm_real).astype(int),
+                                       np.floor(fwhm_centr + 2 * fwhm_real).astype(int)])).T

@@ -190,35 +190,8 @@ class GenericSeriesAnalysis:
     def counts_outof_regs(self):
         """  Counts out of regions. """
         return self.y_s[~self.is_reg]
-
-    def final_sums(self, pkp):
-        print('Entrou em arrays')
-        print(pkp.wide_regions)
-        for i in pkp.wide_regions:
-            print(self.y_s[i[0]:i[1] + 1])
-        for i in pkp.fwhm_centr:
-            print(i)
-        for i in pkp.wide_regions:
-            print(sum(self.y_s[i[0]:i[1] + 1]))
-
-    def calculate_net_spec_REFATORAR(self, spec):
-        """Calculate net spectrum."""
-        net_spec = np.zeros(self.n_ch)
-        for multiplet_region in self.mix_regions:
-            xs_mplet = spec.spec_analysis.chans[slice(*multiplet_region)]
-            ys_mplet = spec.y0s[slice(*multiplet_region)]
-            ini_ch_mplet = multiplet_region[0]
-            fin_ch_mplet = multiplet_region[1] - 1
-            args = (ini_ch_mplet, fin_ch_mplet,
-                    splev(ini_ch_mplet, spec.spec_analysis.spl_baseline),
-                    splev(fin_ch_mplet, spec.spec_analysis.spl_baseline),
-                    spec.y0s)
-            a_step = step_baseline(*args)
-            net_mplet = ys_mplet - a_step
-            self.xs_all_mplets.extend(list(xs_mplet))
-            self.xs_all_mplets.append(None)
-            self.ys_all_mplets.extend(list(net_mplet))
-            self.ys_all_mplets.append(None)
-            self.ys_all_steps.extend(list(a_step))
-            self.ys_all_steps.append(None)
-            net_spec[slice(*multiplet_region)] = np.where(net_mplet < 0.0, 0.0, net_mplet)
+           
+    def perform_basic_net_area_calculation(self):
+        """Perform a very rough net area calculation"""
+        self.pk_parms.rough_sums =      [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
+        self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
