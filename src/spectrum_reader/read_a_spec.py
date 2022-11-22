@@ -5,7 +5,7 @@ Created on Wed Feb 19 15:18:06 2020
 @author: marcelo
 """
 
-from src.spec_class import Spec
+from .src import Spec
 
 """
 read_a_spec.py

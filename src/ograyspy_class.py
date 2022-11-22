@@ -70,7 +70,7 @@ class Ograyspy:
         
         
     def select_spectrum(self):
-        define_files_batch()
+        self.define_files_batch()
         # Select a random spectrum...
         try:
             self.a_spec_ind = randrange(self.n_files)
@@ -109,3 +109,11 @@ class Ograyspy:
         for nam in self.files_list:
             spec = Spec(nam)
             spec.total_analysis(gener_dataframe=True)
+
+    def test_plot(self):
+        from spec_graphics_class import GrossCountsGraphic
+        print(self.spec.f_name)
+        self.home_path = os.path.expanduser('~')
+        spec_graphic = GrossCountsGraphic(self.spec.f_name, self.spec.gross_spec_ser_an, self.home_path)
+        del spec_graphic
+            
