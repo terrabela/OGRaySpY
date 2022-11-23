@@ -110,9 +110,9 @@ class PeaksAndRegionsGraphic(SpecGraphics):
         self.plot_fig_widths(ser_an, home_path, 'Peaks_Regions')
         # ou isso
         # Set title and scale type
-        self.figw1.update_layout(title_text='Fig 1: ' + self.f_name)
-        self.figw1.update_yaxes(type="log")
-        self.figw1.write_html(str(home_path) + '/' + graph_name + '.html')
+        # self.figw1.update_layout(title_text='Fig 1: ' + self.f_name)
+        # self.figw1.update_yaxes(type="log")
+        # self.figw1.write_html(str(home_path) + '/' + graph_name + '.html')
 
 
     def define_width_lines(self):

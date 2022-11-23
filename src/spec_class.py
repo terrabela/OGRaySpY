@@ -91,7 +91,8 @@ class Spec:
         h_win = np.int(np.round(_a * i_ch + _b))
         return h_win
 
-    def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0), gener_dataframe=False):
+    def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
+                       gener_dataframe=False):
         """Analyze thoroughly a spectrum."""
         # Initialize a minimal members set from a read spectrum file.
 
@@ -138,27 +139,6 @@ class Spec:
                 self.generate_pandas_dataframe()
 
             print('=================')
-            # print('Exec peaks_search(gross=False)')
-            # self.peaks_parms.peaks_search(cts_to_search=self.cnt_array_like.net_spec, gross=False,
-            #                               widths_range=self.peaks_parms.net_widths)
-            # print("self.peaks_parms.peaks_net: ", self.peaks_parms.peaks_net)
-            # print("self.peaks_parms.propts_net: ", self.peaks_parms.propts_net)
-            # print("self.peaks_parms.net_widths = (ws_min, ws_max): ", self.peaks_parms.net_widths)
-
-            print('=================')
-            # self.peaks_parms.define_width_lines(gross=False)
-
-            # print(self.cnt_array_like.is_net_reg)
-            # print(self.cnt_array_like.is_net_reg.size)
-
-            # self.peaks_parms.define_net_multiplets_regions(self.cnt_array_like.is_net_reg,
-            #                                                k_sep_pk=k_sep_pk)
-
-            print('=================')
-            # self.peaks_parms.define_width_lines(gross=False)
-            # self.peaks_parms.net_width_lines()
-            # self.peaks_parms.define_net_multiplets_regions(self.cnt_array_like.is_net_reg,
-            #                                                k_sep_pk=k_sep_pk)
         else:
             print('No analysis applicable as spectrum is empty.')
         # print(vars(self.peaks_parms))
@@ -166,6 +146,7 @@ class Spec:
     def generate_pandas_dataframe(self):
         pks = self.net_spec_ser_an.pk_parms
         self.spec_pks_df = pd.DataFrame(np.array([
+            np.full(pks.peaks.size, self.reduced_f_name),
             pks.peaks,
             pks.wide_regions[:,0],
             pks.wide_regions[:,1],
@@ -175,17 +156,17 @@ class Spec:
             pks.propts['left_thresholds'],
             pks.propts['right_thresholds'],
             pks.propts['prominences'],
-            pks.propts['left_ips'],
-            pks.propts['right_ips'],
             pks.propts['left_bases'],
             pks.propts['right_bases'],
-            pks.propts['widths'],
             pks.propts['width_heights'],
             pks.propts['left_ips'],
             pks.propts['right_ips'],
-            pks.variances
-        ]),                                        
-            columns=['peaks',
+            pks.propts['widths'],
+            np.array(pks.variances)
+        ]).T,                                        
+            columns=[
+                'reduced_f_name',
+                'peaks',
                 'ini_wide_regions',
                 'fin_wide_regions',
                 'fwhm_centr',
@@ -194,14 +175,12 @@ class Spec:
                 'left_thresholds',
                 'right_thresholds',
                 'prominences',
-                'left_ips',
-                'right_ips',
                 'left_bases',
                 'right_bases',
-                'widths',
                 'width_heights',
                 'left_ips',
                 'right_ips',
+                'widths',
                 'variances']
     )
 

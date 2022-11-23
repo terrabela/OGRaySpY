@@ -11,7 +11,7 @@ from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineG
 class Ograyspy:
     files_list: list[str]
 
-    def __init__(self, speed=0):
+    def __init__(self, batch_mode=False, folder_to_find=''):
         # self.dir_list = DirectoryList()
         self.info_plat = platform.platform()
         self.info_mach = platform.machine()
@@ -40,19 +40,15 @@ class Ograyspy:
         # my_file = 'ogra_pic_f_' + self.info_syst + '_' + self.info_node + '.pkl'
         # self.process_pickled_list(my_file='')
 
-    def define_files_batch(self):
+    def define_files_batch(self, a_pattern=''):
         # Locate the general folder containing spectra in the current system,...
-        # to_be_found = 'gamma'
-        to_be_found = 'Genie_Transfer'
-        matching_folders = [i for i in Path.home().glob('*/' + to_be_found)]
+        matching_folders = [i for i in Path.home().glob('*/' + a_pattern)]
         if len(matching_folders) != 0:
             self.spectra_path = matching_folders[0]
             print('Found folder name: ', self.spectra_path)
         else:
-            print('Folder name not found. Using local folder')
-            # ...or define it directly.
-            # self.spectra_path = Path('data/some_spectra')
-            self.spectra_path = Path('..')
+            print('Folder name not found. Using default sample folder')
+            self.spectra_path = Path('data/some_spectra')
             print('Folder name explicitly named: ', self.spectra_path)
 
         print('Partes: ', self.spectra_path.parts)
@@ -69,23 +65,22 @@ class Ograyspy:
         print('No. spec files: ', self.n_files)
         
         
-    def select_spectrum(self):
-        self.define_files_batch()
+    def select_spectrum(self, a_pattern=''):
         # Select a random spectrum...
         try:
             self.a_spec_ind = randrange(self.n_files)
             print('Random spec index: ', self.a_spec_ind)
             self.a_spec_name = self.files_list[self.a_spec_ind]
+            self.reduced_f_name = self.reduced_names_files_list[self.a_spec_ind]
             print('...and its name: ', self.a_spec_name)
         except ValueError:
             print('No spectrum found...')
 
         # ...or define it directly.
-        # 2022-out-7: Excelente espectro para testes, tenho usado ultimamente:
-        a_pattern = 'Si/SI2018/SI11318.Chn'
-        # 2022-nov-16: outros espectros:
-        # a_pattern = "Filtros/2022/Cci/CCI1603-I.Chn"
-        # a_pattern = "Eso_non_existe.Chn"
+        # 2022-11-23
+        # AQUI: CORRIGIR!
+        # Definir o reduced_f_name, tal como no bloco acima!!
+        
         print('Existing:')
         matching_spec_name = [i for i in self.spectra_path.glob(a_pattern)]
         if len(matching_spec_name) != 0:
@@ -98,9 +93,9 @@ class Ograyspy:
         print(self.spectra_path)
         print(self.a_spec_name)
 
-    def perform_total_analysis(self):
+    def perform_total_analysis(self, gener_dataframe=False):
         self.a_spec = Spec(self.a_spec_name)
-        self.a_spec.total_analysis()
+        self.a_spec.total_analysis(gener_dataframe=gener_dataframe)
         print('Fez total analysis.')
         
     def perform_batch_analyses(self):
@@ -115,3 +110,4 @@ class Ograyspy:
                                   self.home_path, 'gross_counts_graph')
         pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
                                                self.home_path, 'gross_pks_reg_graph')
+        
