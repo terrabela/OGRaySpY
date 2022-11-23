@@ -110,10 +110,8 @@ class Ograyspy:
             spec = Spec(nam)
             spec.total_analysis(gener_dataframe=True)
 
-    def test_plot(self):
-        from spec_graphics_class import GrossCountsGraphic
-        print(self.spec.f_name)
-        self.home_path = os.path.expanduser('~')
-        spec_graphic = GrossCountsGraphic(self.spec.f_name, self.spec.gross_spec_ser_an, self.home_path)
-        del spec_graphic
-            
+    def call_graphics(self):
+        cts_graph = CountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+                                  self.home_path, 'gross_counts_graph')
+        pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+                                               self.home_path, 'gross_pks_reg_graph')
