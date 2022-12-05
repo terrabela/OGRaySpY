@@ -48,7 +48,7 @@ class Spec:
 
         # 2022-out-7:
         # Parei aqui: fazer bd do Pandas
-        self.spec_pks_df = pd.DataFrame()
+        # self.spec_pks_df = pd.DataFrame()
 
         self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
 
