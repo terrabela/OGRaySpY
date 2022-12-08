@@ -23,7 +23,7 @@ from scipy.interpolate import splrep, splev
 class Spec:
     """ Spectrum class. """
 
-    def __init__(self, f_name=''):
+    def __init__(self, f_name='', reduced_f_name=''):
         """
         Initialize a minimal members set from a read spectrum file.
 
@@ -38,13 +38,14 @@ class Spec:
         self.net_spec_ser_an = None
         self.final_composed_baseline = None
         self.f_name = f_name
+        self.reduced_f_name = reduced_f_name
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
             self.spec_io = SpecChn(f_name)
         elif self.sufx == '.iec':
             self.spec_io = SpecIec(f_name)
         #
-        self.pkl_file = Path(self.f_name).with_suffix('.xz')
+        self.pkl_file = Path(self.f_name).with_suffix('.pkl')
 
         # 2022-out-7:
         # Parei aqui: fazer bd do Pandas
@@ -79,6 +80,7 @@ class Spec:
 #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
 
         self.spec_io = None
+        self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
 
@@ -134,7 +136,9 @@ class Spec:
             self.net_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
             self.net_spec_ser_an.pk_parms.prepare_to_sum ()
             self.net_spec_ser_an.perform_basic_net_area_calculation ()
-                      
+
+            print(vars(self))
+            print(dir(self))
             if gener_dataframe:
                 self.generate_pandas_dataframe()
 
@@ -181,7 +185,5 @@ class Spec:
                 'left_ips',
                 'right_ips',
                 'widths',
-                'variances']
-    )
-
-#####################################
+                'variances'])
+        self.spec_pks_df.to_pickle(self.pkl_file)
