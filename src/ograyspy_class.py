@@ -118,3 +118,5 @@ class Ograyspy:
                                   self.home_path, 'gross_counts_graph')
         pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
                                                self.home_path, 'gross_pks_reg_graph')
+        net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
+                                               self.home_path, 'net_pks_reg_graph')

@@ -134,7 +134,6 @@ class GenericSeriesAnalysis:
 
         print('define_multiplets_regions completado. Define: self.mix_regions.')
 
-
     def eval_smoo_counts(self):
         if self.n_ch > 0:
             smoo_cts = splrep(x=self.chans_nzero,
@@ -168,8 +167,8 @@ class GenericSeriesAnalysis:
             _ys = self.y_s[slice(*a_region)]
             assembled_to_step = np.zeros(a_region[1] - a_region[0])
             assembled_to_step[0] = self.eval_baseline[a_region[0]]
-            assembled_to_step[-1] = self.eval_baseline[a_region[1]-1]
-            assembled_to_step[1:-2] = self.y_smoothed[slice(a_region[0]+1, a_region[1]-2)]
+            assembled_to_step[-1] = self.eval_baseline[a_region[1] - 1]
+            assembled_to_step[1:-2] = self.y_smoothed[slice(a_region[0] + 1, a_region[1] - 2)]
             continuum = step_baseline(assembled_to_step)
             self.chans_in_multiplets_list.append(_xs)
             self.calculated_step_counts.append(continuum)
@@ -190,8 +189,8 @@ class GenericSeriesAnalysis:
     def counts_outof_regs(self):
         """  Counts out of regions. """
         return self.y_s[~self.is_reg]
-           
+
     def perform_basic_net_area_calculation(self):
         """Perform a very rough net area calculation"""
-        self.pk_parms.rough_sums =      [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
+        self.pk_parms.rough_sums = [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
         self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
