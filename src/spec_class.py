@@ -121,7 +121,7 @@ class Spec:
             net_spec_array = np.where (
                 self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
                 self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s,
-                1.0
+                0.0
             )
             given_variance = np.where (
                 self.gross_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,

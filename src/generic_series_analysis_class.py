@@ -2,6 +2,7 @@ import numpy as np
 from scipy.interpolate import splrep, splev
 from scipy.fft import fft, fftfreq, fftshift
 from scipy.signal import find_peaks
+from scipy.special import erf
 from peaksparms_class import PeaksParms
 
 
@@ -70,6 +71,8 @@ class GenericSeriesAnalysis:
             pass
         self.pk_parms = PeaksParms()
         self.fft_spec = np.array([])
+        # Maybe irrelevant: 4 FWHMs is almost the whole area:
+        self.k_erf = erf(4*np.sqrt(np.log(2)))
 
     def resolve_peaks_and_regions(self, k_sep_pk):
         self.peaks_search()
@@ -193,4 +196,6 @@ class GenericSeriesAnalysis:
     def perform_basic_net_area_calculation(self):
         """Perform a very rough net area calculation"""
         self.pk_parms.rough_sums = [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
+        # 2022-12-14 Parei aqui: calcular centroides
         self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
+        # self.pk_parms.net_areas = self.k_erf * self.pk_parms.rough_sums
