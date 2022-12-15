@@ -33,7 +33,7 @@ print(f'Reduced file name: {ogra.reduced_f_name}')
 
 # AQUI: ativar gener_dataframe qdo estiver pronto.
 ogra.perform_total_analysis(gener_dataframe=True)
-print(ogra.a_spec.spec_pks_df)
+# print(ogra.a_spec.spec_pks_df)
 
 ogra.call_graphics()
 
