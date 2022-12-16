@@ -35,11 +35,11 @@ class PeaksParms:
         ws_max = np.percentile(self.propts_gro['widths'], 75) * 2.0
         widths_pair = (ws_min, ws_max)
         
-    def prepare_to_sum(self):
+    def prepare_to_sum(self, n_fwhms=3.0):
         fwhm_centr_ini = self.propts['left_ips']
         fwhm_centr_fin = self.propts['right_ips']
-        fwhm_real = fwhm_centr_fin - fwhm_centr_ini
+        fwhm_prelim = fwhm_centr_fin - fwhm_centr_ini
         fwhm_centr = 0.5 * (fwhm_centr_ini + fwhm_centr_fin)
         self.fwhm_centr = fwhm_centr
-        self.wide_regions = np.array(([np.ceil(fwhm_centr  - 2 * fwhm_real).astype(int),
-                                       np.floor(fwhm_centr + 2 * fwhm_real).astype(int)])).T
+        self.wide_regions = np.array(([np.ceil(fwhm_centr  - 0.5 * n_fwhms * fwhm_prelim).astype(int),
+                                       np.floor(fwhm_centr + 0.5 * n_fwhms * fwhm_prelim).astype(int)])).T

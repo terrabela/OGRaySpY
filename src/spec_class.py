@@ -134,7 +134,7 @@ class Spec:
             )
 
             self.net_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
-            self.net_spec_ser_an.pk_parms.prepare_to_sum ()
+            self.net_spec_ser_an.pk_parms.prepare_to_sum (n_fwhms=3.0)
             self.net_spec_ser_an.perform_basic_net_area_calculation ()
 
             print(vars(self))
