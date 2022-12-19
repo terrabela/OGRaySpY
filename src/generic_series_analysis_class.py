@@ -197,5 +197,8 @@ class GenericSeriesAnalysis:
         """Perform a very rough net area calculation"""
         self.pk_parms.rough_sums = [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
         # 2022-12-14 Parei aqui: calcular centroides
+        self.pk_parms.centroids = [np.average(np.linspace( i[0], i[1], num=i[1]-i[0] + 1),
+                                              weights=self.y_s[i[0]:i[1]+1])
+                                   for i in self.pk_parms.wide_regions]
         self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
         # self.pk_parms.net_areas = self.k_erf * self.pk_parms.rough_sums
