@@ -94,7 +94,7 @@ class Spec:
         return h_win
 
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
-                       gener_dataframe=False):
+                       peak_sd_fact=3.0, gener_dataframe=False):
         """Analyze thoroughly a spectrum."""
         # Initialize a minimal members set from a read spectrum file.
 
@@ -114,7 +114,8 @@ class Spec:
             print('widths_range: ', widths_range)
             print('=================')
             print('Exec peaks_search(gross=True), espectro ORIGINAL')
-            self.gross_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
+            self.gross_spec_ser_an.resolve_peaks_and_regions (
+                k_sep_pk, peak_sd_fact=peak_sd_fact)
             self.gross_spec_ser_an.calculate_baseline (smoo=smoo)
             # 2022-nov-15: final composed baseline series
             self.final_composed_baseline = GenericSeriesAnalysis(self.gross_spec_ser_an.final_baseline)
@@ -133,7 +134,9 @@ class Spec:
                 given_variance = given_variance
             )
 
-            self.net_spec_ser_an.resolve_peaks_and_regions (k_sep_pk)
+            self.net_spec_ser_an.resolve_peaks_and_regions (
+                k_sep_pk, peak_sd_fact=peak_sd_fact
+            )
             self.net_spec_ser_an.pk_parms.prepare_to_sum (n_fwhms=3.0)
             self.net_spec_ser_an.perform_basic_net_area_calculation ()
 

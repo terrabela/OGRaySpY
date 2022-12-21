@@ -101,9 +101,11 @@ class Ograyspy:
         print(self.spectra_path)
         print(self.a_spec_name)
 
-    def perform_total_analysis(self, gener_dataframe=False):
+    def perform_total_analysis(self, peak_sd_fact=3.0,
+                               gener_dataframe=False):
         self.a_spec = Spec(self.a_spec_name, self.reduced_f_name)
-        self.a_spec.total_analysis(gener_dataframe=gener_dataframe)
+        self.a_spec.total_analysis(peak_sd_fact=peak_sd_fact,
+                                   gener_dataframe=gener_dataframe)
         print('Fez total analysis.')
 
     def perform_batch_analyses(self):

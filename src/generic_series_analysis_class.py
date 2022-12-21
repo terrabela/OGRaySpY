@@ -9,7 +9,7 @@ from peaksparms_class import PeaksParms
 def step_baseline(y_s):
     """Calculate step baseline inside a region. Called just by calculate_baseline."""
     cts_cumsum = np.cumsum(y_s[1:])
-    cts_cumsum.resize(y_s.size)
+    cts_cumsum.resize(y_s.size, refcheck=False)
     cts_cumsum = np.roll(cts_cumsum, 1)
     coeff = (y_s[-1] - y_s[0]) / cts_cumsum[-1]
     contin = cts_cumsum * coeff + y_s[0]
@@ -35,6 +35,7 @@ class GenericSeriesAnalysis:
         self.counts_nzero = self.y_s[self.nzero]
         if given_variance is None:
             self.unc_y = np.sqrt(self.counts_nzero)
+            self.given_variance = self.y_s
         else:
             self.given_variance = given_variance
             self.unc_y = np.sqrt(given_variance)
@@ -74,17 +75,18 @@ class GenericSeriesAnalysis:
         # Maybe irrelevant: 4 FWHMs is almost the whole area:
         self.k_erf = erf(4*np.sqrt(np.log(2)))
 
-    def resolve_peaks_and_regions(self, k_sep_pk):
-        self.peaks_search()
+    def resolve_peaks_and_regions(self, k_sep_pk, peak_sd_fact):
+        self.peaks_search(peak_sd_fact=peak_sd_fact)
         print('resolve_peaks_and_regions:')
         self.redefine_widths_range()
-        self.peaks_search(widths_range=self.widths_pair)
+        self.peaks_search(peak_sd_fact=peak_sd_fact,
+                          widths_range=self.widths_pair)
         self.define_multiplets_regions(k_sep_pk)
 
     def peaks_search(self, peak_sd_fact=3.0, widths_range=(None, None)):
         """Peaks search; use scipy.signal.find_peaks."""
-        height = peak_sd_fact * np.sqrt(self.y_s)
-        prominence = peak_sd_fact * np.sqrt(self.y_s)
+        height = peak_sd_fact * np.sqrt(self.given_variance)
+        prominence = peak_sd_fact * np.sqrt(self.given_variance)
         if widths_range == (None, None):
             widths_range = (self.n_ch * 0.0003, self.n_ch * 0.01)
         self.widths_range = widths_range
@@ -200,5 +202,6 @@ class GenericSeriesAnalysis:
         self.pk_parms.centroids = [np.average(np.linspace( i[0], i[1], num=i[1]-i[0] + 1),
                                               weights=self.y_s[i[0]:i[1]+1])
                                    for i in self.pk_parms.wide_regions]
-        self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
+        self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1])
+                                   for i in self.pk_parms.wide_regions]
         # self.pk_parms.net_areas = self.k_erf * self.pk_parms.rough_sums
