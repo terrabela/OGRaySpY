@@ -13,6 +13,7 @@ class PeaksParms:
     """Peaks set parameters (heights, widths etc)."""
 
     def __init__(self):
+        self.k_fwhm_to_sd = 1.0/(2*np.sqrt(2*np.log(2)))
         self.peaks = np.array([])
         self.pk_hei = np.array([])
         self.widths = (None, None)

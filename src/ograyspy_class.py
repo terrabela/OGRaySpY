@@ -22,6 +22,7 @@ class Ograyspy:
         self.n_files = 0
         self.a_spec_ind = 0
         self.a_spec_name = ''
+        self.reduced_f_name = ''
         self.gross_counts_graphics = None
         self.pks_regions_gros = None
 
@@ -78,17 +79,18 @@ class Ograyspy:
         else:
             print('Existing:')
             achou = False
-            indice = None
+            self.a_spec_ind = None
             nomearq = ''
             for i, j in enumerate(self.reduced_names_files_list):
                 if a_pattern in j:
                     achou = True
-                    indice = i
+                    self.a_spec_ind = i
                     nomearq = j
                     break
             if achou:
-                print(f'Achou! indice={indice}, nomearq = {nomearq}')
-                self.reduced_f_name = nomearq
+                print(f'Achou! indice={self.a_spec_ind}, nomearq = {nomearq}')
+                self.a_spec_name = self.files_list[self.a_spec_ind]
+                self.reduced_f_name = self.reduced_names_files_list[self.a_spec_ind]
 
             matching_spec_name = [i for i in self.spectra_path.glob(a_pattern)]
             if len(matching_spec_name) != 0:
@@ -98,13 +100,19 @@ class Ograyspy:
 
         print('==========================')
         print('Final choices:')
-        print(self.spectra_path)
-        print(self.a_spec_name)
+        print(f'spectra_path: {self.spectra_path}')
+        print(f'a_spec_name: {self.a_spec_name}')
+        print(f'reduced_f_name: {self.reduced_f_name}')
 
-    def perform_total_analysis(self, peak_sd_fact=3.0,
+    def perform_total_analysis(self, k_sep_pk=2.0, smoo=4096,
+                               widths_range=(4.0, 20.0),
+                               peak_sd_fact=3.0,
                                gener_dataframe=False):
         self.a_spec = Spec(self.a_spec_name, self.reduced_f_name)
-        self.a_spec.total_analysis(peak_sd_fact=peak_sd_fact,
+        self.a_spec.total_analysis(k_sep_pk=k_sep_pk,
+                                   smoo=smoo,
+                                   widths_range=widths_range,
+                                   peak_sd_fact=peak_sd_fact,
                                    gener_dataframe=gener_dataframe)
         print('Fez total analysis.')
 

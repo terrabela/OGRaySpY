@@ -51,7 +51,6 @@ class GenericSeriesAnalysis:
 
         self.is_reg = np.zeros(self.n_ch, dtype=bool)
 
-        self.net_spec = np.zeros(self.n_ch)
         self.xs_all_mplets = []
         self.ys_all_mplets = []
         self.ys_all_steps = []
