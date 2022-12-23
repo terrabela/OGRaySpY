@@ -1,3 +1,5 @@
+from PyQt5.QtWidgets import QTextEdit
+
 class MdiChild(QTextEdit):
     sequenceNumber = 1
 

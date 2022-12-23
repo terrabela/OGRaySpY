@@ -1,10 +1,11 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import *
 
 from ograyspy_class import Ograyspy
-
+# from html_window_class import SimpleHtmlViewer
 
 class MainWindow(QMainWindow):
     count = 0
@@ -27,6 +28,8 @@ class MainWindow(QMainWindow):
         file = bar.addMenu("File")
         file.addAction("New")
         file.addAction("Open")
+        file.addAction("Show spectrum graphic")
+        file.addAction("Show Pandas dataframe")
         file.addAction("cascade")
         file.addAction("Tiled")
         file.addAction("Exit")
@@ -66,19 +69,31 @@ class MainWindow(QMainWindow):
                     ogra.a_spec_name = fileName
                     # AQUI: ativar gener_dataframe qdo estiver pronto.
                     ogra.perform_total_analysis(peak_sd_fact=3.0, gener_dataframe=True)
+                    ogra.a_spec.spec_pks_df.to_html(buf='an_html_file.html')
                     # print(ogra.a_spec.spec_pks_df)
                     ogra.call_graphics()
 
-                    #
-                    # self.mdi.setActiveSubWindow(existing)
-                    # return
+        if q.text() == "Show spectrum graphic":
+            MainWindow.count = MainWindow.count + 1
+            sub = QMdiSubWindow()
+            web = QWebEngineView()
+            web.load(QUrl("file:///C:/Users/mmaduar/PycharmProjects/OGRaySpY/src/gross_counts_graph.html"))
+            sub.setWidget(web)
+            sub.setWindowTitle("subwindow" + str(MainWindow.count))
+            self.mdi.addSubWindow(sub)
+            sub.show()
 
-                # child = self.createMdiChild()
-                # if child.loadFile(fileName):
-                #     self.statusBar().showMessage("File loaded", 2000)
-                #     child.show()
-                # else:
-                #     child.close()
+        if q.text() == "Show Pandas dataframe":
+            MainWindow.count = MainWindow.count + 1
+            sub = QMdiSubWindow()
+            web = QWebEngineView()
+            web.load(QUrl("file:///C:/Users/mmaduar/PycharmProjects/OGRaySpY/src/my_file.html"))
+            # 2022-Dez-23 PAREI AQUI - passar a saída de to_html como string
+            # web.load(ogra.dataframe_html_string)
+            sub.setWidget(web)
+            sub.setWindowTitle("subwindow" + str(MainWindow.count))
+            self.mdi.addSubWindow(sub)
+            sub.show()
 
         if q.text() == "cascade":
             self.mdi.cascadeSubWindows()
