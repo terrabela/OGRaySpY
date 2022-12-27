@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import *
+from css_test import css_test, apply_css
 
 from ograyspy_class import Ograyspy
 # from html_window_class import SimpleHtmlViewer
@@ -28,6 +29,7 @@ class MainWindow(QMainWindow):
         file = bar.addMenu("File")
         file.addAction("New")
         file.addAction("Open")
+        file.addAction("Pandas-generate an_html_file.html")
         file.addAction("Show spectrum graphic")
         file.addAction("Show Pandas dataframe")
         file.addAction("cascade")
@@ -62,6 +64,13 @@ class MainWindow(QMainWindow):
                     self.mdi.addSubWindow(sub)
                     sub.show()
 
+        if q.text() == "Pandas-generate an_html_file.html":
+            fileName, _ = QFileDialog.getOpenFileName(self)
+            if fileName:
+                # This is a hack...
+                # existing = self.findMdiChild(fileName)
+                existing = True
+                if existing:
                     ogra = Ograyspy(batch_mode=False)
                     # to_be_found = 'Genie_Transfer'
                     # print('\nogra.define_files_folder(to_be_found)')
@@ -71,7 +80,24 @@ class MainWindow(QMainWindow):
                     ogra.perform_total_analysis(peak_sd_fact=3.0, gener_dataframe=True)
                     ogra.a_spec.spec_pks_df.to_html(buf='an_html_file.html')
                     # print(ogra.a_spec.spec_pks_df)
-                    ogra.call_graphics()
+
+                    MainWindow.count = MainWindow.count + 1
+                    sub = QMdiSubWindow()
+                    web = QWebEngineView()
+                    # web.load(QUrl("file:///C:/Users/mmaduar/PycharmProjects/OGRaySpY/src/my_file.html"))
+                    apply_css(ogra.a_spec.spec_pks_df)
+                    web.load(QUrl("file:///C:/Users/mmaduar/PycharmProjects/OGRaySpY/src/an_html_file.html"))
+                    # 2022-Dez-27 PAREI AQUI:
+                    # - passar a saída de to_html como string?
+                    # - O html pode ser renderizado com sucesso, inclusive com css
+                    # - porém, parece que o SEI não aceita css. Paciência.
+
+                    # web.load(ogra.dataframe_html_string)
+                    # css_test()
+                    sub.setWidget(web)
+                    sub.setWindowTitle("subwindow" + str(MainWindow.count))
+                    self.mdi.addSubWindow(sub)
+                    sub.show()
 
         if q.text() == "Show spectrum graphic":
             MainWindow.count = MainWindow.count + 1
@@ -90,6 +116,7 @@ class MainWindow(QMainWindow):
             web.load(QUrl("file:///C:/Users/mmaduar/PycharmProjects/OGRaySpY/src/my_file.html"))
             # 2022-Dez-23 PAREI AQUI - passar a saída de to_html como string
             # web.load(ogra.dataframe_html_string)
+            css_test()
             sub.setWidget(web)
             sub.setWindowTitle("subwindow" + str(MainWindow.count))
             self.mdi.addSubWindow(sub)
