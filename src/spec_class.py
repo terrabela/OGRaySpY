@@ -152,43 +152,28 @@ class Spec:
     
     def generate_pandas_dataframe(self):
         pks = self.net_spec_ser_an.pk_parms
-        self.spec_pks_df = pd.DataFrame(np.array([
-            np.full(pks.peaks.size, self.reduced_f_name),
-            pks.peaks,
-            pks.wide_regions[:,0],
-            pks.wide_regions[:,1],
-            pks.fwhm_centr,
-            pks.centroids,
-            pks.rough_sums,
-            pks.propts['peak_heights'],
-            pks.propts['left_thresholds'],
-            pks.propts['right_thresholds'],
-            pks.propts['prominences'],
-            pks.propts['left_bases'],
-            pks.propts['right_bases'],
-            pks.propts['width_heights'],
-            pks.propts['left_ips'],
-            pks.propts['right_ips'],
-            pks.propts['widths'],
-            np.array(pks.variances)
-        ]).T,                                        
-            columns=[
-                'reduced_f_name',
-                'peaks',
-                'ini_wide_regions',
-                'fin_wide_regions',
-                'fwhm_centr',
-                'centroids',
-                'rough_sums',
-                'peak_heights',
-                'left_thresholds',
-                'right_thresholds',
-                'prominences',
-                'left_bases',
-                'right_bases',
-                'width_heights',
-                'left_ips',
-                'right_ips',
-                'widths',
-                'variances'])
+        d = {
+            'reduced_f_name': pd.Series(
+                data=np.full(pks.peaks.size, self.reduced_f_name),
+                dtype=str
+            ),
+            'peaks': pks.peaks,
+            'ini_wide_regions': pks.wide_regions[:,0],
+            'fin_wide_regions': pks.wide_regions[:,1],
+            'fwhm_centr': pks.fwhm_centr,
+            'centroids': pks.centroids,
+            'rough_sums': pks.rough_sums,
+            'peak_heights': pks.propts['peak_heights'],
+            'left_thresholds': pks.propts['left_thresholds'],
+            'right_thresholds': pks.propts['right_thresholds'],
+            'prominences': pks.propts['prominences'],
+            'left_bases': pks.propts['left_bases'],
+            'right_bases': pks.propts['right_bases'],
+            'width_heights': pks.propts['width_heights'],
+            'left_ips': pks.propts['left_ips'],
+            'right_ips': pks.propts['right_ips'],
+            'widths': pks.propts['widths'],
+            'variances': np.array(pks.variances)
+        }
+        self.spec_pks_df = pd.DataFrame(data=d)
         self.spec_pks_df.to_pickle(self.pkl_file)
