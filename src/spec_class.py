@@ -59,10 +59,15 @@ class Spec:
         # 2022-out-6 Criando a espectro líquido:
         # self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
         #
-        #        self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.en_ch_calib,
-        #                                                       self.spec_io.chan_calib,
-        #                                                       self.spec_io.coeffs_ch_en)
-        # self.channel_energy_calib = ChannelEnergyCalib(self.spec_io.coeffs_ch_en)
+        # self.channel_energy_calib = ChannelEnergyCalib(
+        #     self.spec_io.en_ch_calib,
+        #     self.spec_io.chan_calib,
+        #     self.spec_io.coeffs_ch_en
+        # )
+        # 2023-jan-4 Lê calibração canal x energia implícita no espectro CHN
+        self.channel_energy_calib = ChannelEnergyCalib(
+            self.spec_io.coeffs_ch_en
+        )
         #       self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.en_fw_calib,
         #                                                self.spec_io.fwhm_calib,
         #                                                self.spec_io.coeffs_en_fw)
