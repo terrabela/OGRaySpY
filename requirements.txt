@@ -1,6 +1,10 @@
 numpy~=1.23.5
 scipy~=1.9.3
 pandas~=1.5.2
+plotly
+sphinx
+livereload
+myst-parser
 -e .
 
 setuptools~=60.2.0
