@@ -27,44 +27,19 @@ class MainWindow(QMainWindow):
         bar = self.menuBar()
 
         file = bar.addMenu("File")
-        file.addAction("New")
-        file.addAction("Open")
-        file.addAction("Pandas-generate an_html_file.html")
+        file.addAction("Open spectrum and generate report")
         file.addAction("Show spectrum graphic")
         file.addAction("Show Pandas dataframe")
         file.addAction("cascade")
         file.addAction("Tiled")
         file.addAction("Exit")
         file.triggered[QAction].connect(self.windowaction)
-        self.setWindowTitle("MDI demo")
+        self.setWindowTitle("OGRaySpY")
 
     def windowaction(self, q):
         print("triggered")
 
-        if q.text() == "New":
-            MainWindow.count = MainWindow.count + 1
-            sub = QMdiSubWindow()
-            sub.setWidget(QTextEdit())
-            sub.setWindowTitle("subwindow" + str(MainWindow.count))
-            self.mdi.addSubWindow(sub)
-            sub.show()
-
-        if q.text() == "Open":
-            fileName, _ = QFileDialog.getOpenFileName(self)
-            if fileName:
-                # This is a hack...
-                # existing = self.findMdiChild(fileName)
-                existing = True
-                if existing:
-                    MainWindow.count = MainWindow.count + 1
-                    sub = QMdiSubWindow()
-                    sub.setWidget(QTextEdit())
-                    # sub.setWindowTitle("subwindow" + str(MainWindow.count))
-                    sub.setWindowTitle(fileName)
-                    self.mdi.addSubWindow(sub)
-                    sub.show()
-
-        if q.text() == "Pandas-generate an_html_file.html":
+        if q.text() == "Open spectrum and generate report":
             fileName, _ = QFileDialog.getOpenFileName(self)
             if fileName:
                 # This is a hack...
