@@ -3,7 +3,7 @@ An Open app for Gamma-RAY SPectra Analysis and visualization.
 
 ## Setting Up
 
-This application requires Bokeh and [Pandas](http://pandas.pydata.org/) to be installed.
+This application requires: [Pandas](http://pandas.pydata.org/) for results reporting.
 
 ## Running
 
