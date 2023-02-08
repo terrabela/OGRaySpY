@@ -3,7 +3,11 @@ An Open app for Gamma-RAY SPectra Analysis and visualization.
 
 ## Setting Up
 
-This application requires: [Pandas](http://pandas.pydata.org/) for results reporting.
+This application requires:
+- [Pandas](http://pandas.pydata.org/) for results reporting.
+- [Plotly](https://plotly.com/python/) for spectra interactive graphing
+- PyQt5 for UI
+- numpy/scipy/lmfit to perform all the Math...
 
 ## Basic usage
 
@@ -18,6 +22,11 @@ This application requires: [Pandas](http://pandas.pydata.org/) for results repor
 
 (Real) spectra as .chn files are in folder data/some_spectra:
 <img src="file_open_spectrum_dialog.png" width="80%"></img>
+
+### Gross counts graph
+
+Zoomed window from a random spectrum:
+<img src="gross_counts_graph.png" width="80%"></img>
 
 ### Peak report
 
