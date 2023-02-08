@@ -14,8 +14,17 @@ This application requires: [Pandas](http://pandas.pydata.org/) for results repor
 
 ## Screenshots
 
-<img src="file_open_spectrum_dialog.png" width="80%"></img>
 ### Open spectrum dialog
 
+(Real) spectra as .chn files are in folder data/some_spectra:
+<img src="file_open_spectrum_dialog.png" width="80%"></img>
+
+### Peak report
+
+Report as an html table:
+
+<img src="html_peak_report.png" width="70%"></img>
+
+### Old screenshots
+#### Spectrum window with CWT ridges (will be ported soon):
 <img src="Captura_2020-05-24_18-57-26.png" width="80%"></img>
-### Spectrum window with CWT ridges
