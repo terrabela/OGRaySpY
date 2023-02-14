@@ -18,7 +18,7 @@ This application requires:
 
 ## Documentation
 
-- Under development at (https://ograyspy-docs.readthedocs.io)
+- Under development at [Read the Docs](https://ograyspy-docs.readthedocs.io)
 
 ## Screenshots
 
