@@ -16,6 +16,10 @@ This application requires:
 - Choose a .chn or .iec spectrum
 - Peak report will be shown and saved as an_html_file.html.
 
+## Documentation
+
+- Under development at (https://ograyspy-docs.readthedocs.io)
+
 ## Screenshots
 
 ### Open spectrum dialog
