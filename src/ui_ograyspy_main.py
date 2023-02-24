@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ograyspy_mainnwkYcI.ui'
+## Form generated from reading UI file 'ograyspy_mainPRAwiF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -28,6 +28,8 @@ class Ui_MainWindow(object):
         self.actionPandas_dataframe.setObjectName(u"actionPandas_dataframe")
         self.actionE_xit = QAction(MainWindow)
         self.actionE_xit.setObjectName(u"actionE_xit")
+        self.actionLanguages = QAction(MainWindow)
+        self.actionLanguages.setObjectName(u"actionLanguages")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -36,18 +38,22 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 800, 21))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
+        self.menu_Settings = QMenu(self.menubar)
+        self.menu_Settings.setObjectName(u"menu_Settings")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menu_Settings.menuAction())
         self.menuFile.addAction(self.action_Open_a_spectrum)
         self.menuFile.addAction(self.actionGenerate_report)
         self.menuFile.addAction(self.actionP_lots)
         self.menuFile.addAction(self.actionPandas_dataframe)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionE_xit)
+        self.menu_Settings.addAction(self.actionLanguages)
 
         self.retranslateUi(MainWindow)
 
@@ -61,6 +67,8 @@ class Ui_MainWindow(object):
         self.actionP_lots.setText(QCoreApplication.translate("MainWindow", u"P&lots", None))
         self.actionPandas_dataframe.setText(QCoreApplication.translate("MainWindow", u"Pandas &dataframe", None))
         self.actionE_xit.setText(QCoreApplication.translate("MainWindow", u"E&xit", None))
+        self.actionLanguages.setText(QCoreApplication.translate("MainWindow", u"Languages", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
+        self.menu_Settings.setTitle(QCoreApplication.translate("MainWindow", u"&Settings", None))
     # retranslateUi
 

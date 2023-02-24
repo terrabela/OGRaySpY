@@ -7,10 +7,13 @@ Created on Tue Nov 22 14:13:51 2022
 """
 
 from PySide2 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtCore import QPoint, QSettings, QSize
+from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
 
 from ograyspy_class import Ograyspy
 from ui_ograyspy_main import Ui_MainWindow
+from ui_spectrumform import Ui_Dialog
+from ui_languages import Ui_LanguageDlg
 
 
 def main():
@@ -24,9 +27,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.actionE_xit.triggered.connect(QApplication.instance().closeAllWindows)
+        self.actionE_xit.triggered.connect(self.close_app)
         self.action_Open_a_spectrum.triggered.connect(self.process_example_spec)
+        self.actionLanguages.triggered.connect(self.set_interface_language)
+        self.read_settings()
         self.set_local_environ()
+
+    def read_settings(self):
+
+        settings = QSettings('MFMaduar', 'OGRaySpY settings')
+        pos = settings.value('pos', QPoint(200, 200))
+        size = settings.value('size', QSize(400, 400))
+        lang = settings.value('language', 'en')
+        self.move(pos)
+        self.resize(size)
+        self.curr_lang = lang
+
+    def write_settings(self):
+        settings = QSettings('MFMaduar', 'OGRaySpY settings')
+        settings.setValue('pos', self.pos())
+        settings.setValue('size', self.size())
+        settings.setValue('language', self.curr_lang)
 
     def set_local_environ(self):
         self.ogra = Ograyspy(batch_mode=False)
@@ -63,6 +84,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ogra.call_graphics()
 
         print('Processed an example spectrum. Ok.')
+
+        # Open the form to be populated
+        spec_parms = SpectrumForm()
+        if spec_parms.exec_():
+            print('Viva!')
+        else:
+            print('Cancelou...')
+
+    def set_interface_language(self):
+        lang_dlg = LanguageDlg()
+        if lang_dlg.exec_():
+            print('Viva!')
+            if lang_dlg.pt_BR_rbt.isChecked():
+                self.curr_lang = 'pt_BR'
+            else:
+                self.curr_lang = 'en'
+            print(self.curr_lang)
+        else:
+            print('Cancelou...')
+
+    def close_app(self):
+        self.write_settings()
+        print('Gravou os settings e terminou. Tchau!')
+        QApplication.instance().closeAllWindows()
+
+
+class SpectrumForm(QDialog, Ui_Dialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+
+class LanguageDlg(QDialog, Ui_LanguageDlg):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
 
 
 if __name__ == '__main__':

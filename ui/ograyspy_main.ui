@@ -34,7 +34,14 @@
     <addaction name="separator"/>
     <addaction name="actionE_xit"/>
    </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="actionLanguages"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_Open_a_spectrum">
@@ -60,6 +67,11 @@
   <action name="actionE_xit">
    <property name="text">
     <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionLanguages">
+   <property name="text">
+    <string>Languages</string>
    </property>
   </action>
  </widget>
