@@ -86,8 +86,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('Processed an example spectrum. Ok.')
 
         # Open the form to be populated
-        spec_parms = SpectrumForm()
-        if spec_parms.exec_():
+        spectrum_form = SpectrumForm()
+        if spectrum_form.exec_():
             print('Viva!')
         else:
             print('Cancelou...')
