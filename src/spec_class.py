@@ -52,6 +52,12 @@ class Spec:
         # self.spec_pks_df = pd.DataFrame()
 
         self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
+        self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
+
+        self.start_datetime = self.spec_io.sp_start_datetime
+        self.det_descr = self.spec_io.det_descr # CHN
+        # self.spec_io.lvtime      # IEC
+        # self.spec_io.rltime      # IEC
 
         # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
         # self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
@@ -88,6 +94,7 @@ class Spec:
         self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
+        print(f'executou __init__spec {f_name}')
 
 
     @staticmethod

@@ -8,11 +8,11 @@ Created on Tue Nov 22 14:13:51 2022
 
 from PySide2 import sys
 from PySide2.QtCore import QPoint, QSettings, QSize
-from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
+from PySide2.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog
 
 from ograyspy_class import Ograyspy
+from spectrumform_class import SpectrumForm
 from ui_ograyspy_main import Ui_MainWindow
-from ui_spectrumform import Ui_Dialog
 from ui_languages import Ui_LanguageDlg
 
 
@@ -29,6 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.actionE_xit.triggered.connect(self.close_app)
         self.action_Open_a_spectrum.triggered.connect(self.process_example_spec)
+        self.actionChoose_a_spectrum.triggered.connect(self.load_a_spectrum)
         self.actionLanguages.triggered.connect(self.set_interface_language)
         self.read_settings()
         self.set_local_environ()
@@ -85,12 +86,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         print('Processed an example spectrum. Ok.')
 
-        # Open the form to be populated
-        spectrum_form = SpectrumForm()
-        if spectrum_form.exec_():
-            print('Viva!')
+
+    def load_a_spectrum(self):
+        print('Chamou Choose a spectrum')
+        path_to_file, _ = QFileDialog.getOpenFileName(self,
+                                                      self.tr("Load spectrum"),
+                                                      self.tr("~/Desktop/"),
+                                                      self.tr("Spectra (*.chn *.iec)"))
+        if path_to_file:
+            print(f'Escolhido: {path_to_file} ')
+            # Open the form to be populated
+            spectrum_form = SpectrumForm(path_to_file)
+            if spectrum_form.exec_():
+                print('Viva!')
+            else:
+                print('Cancelou...')
+
         else:
-            print('Cancelou...')
+            print(f'dialogo cancelado')
+        # self.image_viewer = ImageViewer(path_to_file)
+        # self.image_viewer.show()
+
 
     def set_interface_language(self):
         lang_dlg = LanguageDlg()
@@ -108,12 +124,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.write_settings()
         print('Gravou os settings e terminou. Tchau!')
         QApplication.instance().closeAllWindows()
-
-
-class SpectrumForm(QDialog, Ui_Dialog):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
 
 
 class LanguageDlg(QDialog, Ui_LanguageDlg):
