@@ -22,8 +22,6 @@ class SpecChn:
         self.source_datetime = datetime(1980, 1, 1)
         self.det_descr = ''
         self.sam_descr = ''
-        self.rltime = 0
-        self.lvtime = 0
         self.sp_type = 0
         self.sp_mca = 0
         self.sp_segm = 0
@@ -99,8 +97,8 @@ class SpecChn:
             len_sam_descr = int(ctn[i_by + 320])
             self.sam_descr_init = ctn[i_by + 321:i_by + 321 + len_sam_descr]
             self.sam_descr = self.sam_descr_init.decode('ascii', errors='ignore')
-            self.rltime = sp_rltime_20ms * 0.02
-            self.lvtime = sp_lvtime_20ms * 0.02
+            self.chn_rltime = sp_rltime_20ms * 0.02
+            self.chn_lvtime = sp_lvtime_20ms * 0.02
             # 2-digit year specifications will be interpreted as years between 1980 and 2079.
             i_yy = int(sp_yy)
             if i_yy < 80:

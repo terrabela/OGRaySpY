@@ -42,8 +42,15 @@ class Spec:
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
             self.spec_io = SpecChn(f_name)
+            self.lv_time = self.spec_io.chn_lvtime
+            self.rl_time = self.spec_io.chn_rltime
+            self.source_datetime = None
+
         elif self.sufx == '.iec':
             self.spec_io = SpecIec(f_name)
+            self.lv_time = self.spec_io.iec_lvtime
+            self.rl_time = self.spec_io.iec_rltime
+            self.source_datetime = self.spec_io.source_datetime
         #
         self.pkl_file = Path(self.f_name).with_suffix('.pkl')
 
@@ -55,9 +62,8 @@ class Spec:
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
 
         self.start_datetime = self.spec_io.sp_start_datetime
-        self.det_descr = self.spec_io.det_descr # CHN
-        # self.spec_io.lvtime      # IEC
-        # self.spec_io.rltime      # IEC
+        self.det_descr = self.spec_io.det_descr
+        self.sam_descr = self.spec_io.sam_descr
 
         # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
         # self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)

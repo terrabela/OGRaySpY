@@ -16,8 +16,7 @@ class SpecIec:
     def __init__(self, f_name):
         self.f_name = f_name
         self.n_ch = 0
-        self.lvtime = 0.0
-        self.rltime = 0.0
+        self.det_descr = ''
         self.sam_descr = ''
 
         self.read_iec_sp()
@@ -59,12 +58,14 @@ class SpecIec:
             elif lin.find(r'A004USERDEFINED') == 0:
                 inidat = ilin + 1
                 break
-        self.lvtime = float(lins[1][4:18])
-        self.rltime = float(lins[1][18:32])
+        self.det_descr = lins[0][4:37]
+        self.iec_lvtime = float(lins[1][4:18])
+        self.iec_rltime = float(lins[1][18:32])
         self.n_ch = int(lins[1][32:38])
         line2 = lins[2]
         self.sp_start_datetime = self.convert_slice_to_datetime(4, line2)
-        self.source_datetime = self.convert_slice_to_datetime(22, line2)
+        # AQUI: ONDE ESTÁ ISSO NO IEC ???
+        self.source_datetime = 0 # ??????
         for ilin in range(5, 8):
             self.sam_descr += lins[ilin][4:].strip() + '; '
         self.sam_descr += lins[8][4:].strip()
