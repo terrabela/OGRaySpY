@@ -100,7 +100,6 @@ class Spec:
         self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
-        print(f'executou __init__spec {f_name}')
 
 
     @staticmethod
@@ -127,11 +126,12 @@ class Spec:
         #    initial_peaks_search: acha picos candidatos, põe em peaks_parms.peaks
 
         if self.gross_spec_ser_an.n_ch > 0:
-            print('k_sep_pk: ', k_sep_pk)
-            print('smoo: ', smoo)
-            print('widths_range: ', widths_range)
-            print('=================')
-            print('Exec peaks_search(gross=True), espectro ORIGINAL')
+            # print('k_sep_pk: ', k_sep_pk)
+            # print('smoo: ', smoo)
+            # print('widths_range: ', widths_range)
+            # print('=================')
+            # print('Exec peaks_search(gross=True), espectro ORIGINAL')
+            print('Starting Spec.total_analysis...')
             self.gross_spec_ser_an.resolve_peaks_and_regions (
                 k_sep_pk, peak_sd_fact=peak_sd_fact)
             self.gross_spec_ser_an.calculate_baseline (smoo=smoo)
@@ -158,23 +158,31 @@ class Spec:
             self.net_spec_ser_an.pk_parms.prepare_to_sum (n_fwhms=3.0)
             self.net_spec_ser_an.perform_basic_net_area_calculation ()
 
-            print(vars(self))
-            print(dir(self))
             if gener_dataframe:
                 self.generate_pandas_dataframe()
 
-            print('=================')
+            print('Finish Spec.total_analysis!')
         else:
-            print('No analysis applicable as spectrum is empty.')
-        # print(vars(self.peaks_parms))
-    
+            print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
+
     def generate_pandas_dataframe(self):
+        a_spec_vars = vars(self)
+        campos = [a for a in a_spec_vars]
+        valores = [a_spec_vars[a] for a in a_spec_vars]
+        # spec_df_type1 = pd.DataFrame(data=valores, index=campos)
+        # spec_df_type1.to_pickle(self.pkl_file)
+        spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
+        spec_df_type2.to_pickle(self.pkl_file)
+
+    def generate_pandas_dataframe_EXCLUIR(self):
         pks = self.net_spec_ser_an.pk_parms
         d = {
-            'reduced_f_name': pd.Series(
-                data=np.full(pks.peaks.size, self.reduced_f_name),
-                dtype=str
-            ),
+            # 2023-Mar-15: AQUI:
+            # Deslocar isso para outro lugar:
+            # 'reduced_f_name': pd.Series(
+            #     data=np.full(pks.peaks.size, self.reduced_f_name),
+            #     dtype=str
+            # ),
             'peaks': pks.peaks,
             'ini_wide_regions': pks.wide_regions[:,0],
             'fin_wide_regions': pks.wide_regions[:,1],

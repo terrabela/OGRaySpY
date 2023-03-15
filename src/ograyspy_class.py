@@ -108,13 +108,14 @@ class Ograyspy:
                                widths_range=(4.0, 20.0),
                                peak_sd_fact=3.0,
                                gener_dataframe=False):
+        print('Starting Ograyspy.perform_total_analysis...')
         self.a_spec = Spec(self.a_spec_name, self.reduced_f_name)
         self.a_spec.total_analysis(k_sep_pk=k_sep_pk,
                                    smoo=smoo,
                                    widths_range=widths_range,
                                    peak_sd_fact=peak_sd_fact,
                                    gener_dataframe=gener_dataframe)
-        print('Fez total analysis.')
+        print('Finished Ograyspy.perform_total_analysis!')
 
     def perform_batch_analyses(self):
         self.define_files_batch()

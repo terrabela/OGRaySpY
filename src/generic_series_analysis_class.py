@@ -76,7 +76,6 @@ class GenericSeriesAnalysis:
 
     def resolve_peaks_and_regions(self, k_sep_pk, peak_sd_fact):
         self.peaks_search(peak_sd_fact=peak_sd_fact)
-        print('resolve_peaks_and_regions:')
         self.redefine_widths_range()
         self.peaks_search(peak_sd_fact=peak_sd_fact,
                           widths_range=self.widths_pair)
@@ -135,8 +134,6 @@ class GenericSeriesAnalysis:
         inis = inis[:min_size]
         fins = fins[:min_size]
         self.mix_regions = np.concatenate(np.array([[inis], [fins]])).T
-
-        print('define_multiplets_regions completado. Define: self.mix_regions.')
 
     def eval_smoo_counts(self):
         if self.n_ch > 0:
