@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="" description="">
+	<nodes>
+		<node id="0" name="File" qualified_name="Orange.widgets.data.owfile.OWFile" project_name="Orange3" version="" title="File" position="(642.0, 133.0)" />
+		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(897.0, 206.0)" />
+		<node id="2" name="Select Columns" qualified_name="Orange.widgets.data.owselectcolumns.OWSelectAttributes" project_name="Orange3" version="" title="Select Columns" position="(1036.0, 209.0)" />
+		<node id="3" name="Merge Data" qualified_name="Orange.widgets.data.owmergedata.OWMergeData" project_name="Orange3" version="" title="Merge Data" position="(1266.0, 178.0)" />
+		<node id="4" name="Concatenate" qualified_name="Orange.widgets.data.owconcatenate.OWConcatenate" project_name="Orange3" version="" title="Concatenate" position="(1227.0, 368.0)" />
+		<node id="5" name="Preprocess" qualified_name="Orange.widgets.data.owpreprocess.OWPreprocess" project_name="Orange3" version="" title="Preprocess" position="(913.0, 40.0)" />
+		<node id="6" name="Python Script" qualified_name="Orange.widgets.data.owpythonscript.OWPythonScript" project_name="Orange3" version="" title="Read a spectrum file" position="(1159.0, 467.0)" />
+		<node id="7" name="File" qualified_name="Orange.widgets.data.owfile.OWFile" project_name="Orange3" version="" title="ALM_17_3_#5-Preli-A" position="(375.0, 223.0)" />
+		<node id="8" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="Gamma-spectra files list " position="(369.0, 353.0)" />
+		<node id="9" name="Python Script" qualified_name="Orange.widgets.data.owpythonscript.OWPythonScript" project_name="Orange3" version="" title="Python Script" position="(708.0, 663.0)" />
+		<node id="10" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table (1)" position="(684.0, 461.0)" />
+		<node id="11" name="Select Rows" qualified_name="Orange.widgets.data.owselectrows.OWSelectRows" project_name="Orange3" version="" title="Select Rows (1)" position="(895.0, 362.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="1" source_node_id="1" sink_node_id="2" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="2" source_node_id="2" sink_node_id="3" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="2" sink_node_id="4" source_channel="Data" sink_channel="Additional Data" enabled="true" />
+		<link id="4" source_node_id="0" sink_node_id="5" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="5" source_node_id="10" sink_node_id="11" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="6" source_node_id="8" sink_node_id="10" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="7" source_node_id="11" sink_node_id="6" source_channel="Matching Data" sink_channel="Data" enabled="true" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="pickle">gASVBwkAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZQojB5v
+cmFuZ2V3aWRnZXQudXRpbHMuZmlsZWRpYWxvZ3OUjApSZWNlbnRQYXRolJOUKYGUfZQojAdhYnNw
+YXRolIw+QzovVXNlcnMvbW1hZHVhci9Pd25Ecml2ZS9SU3R1ZGlvLWNvZGUvQUxNLTE3LTMtIzVf
+UHJlbGlBLnhsc3iUjAZwcmVmaXiUTowHcmVscGF0aJROjAV0aXRsZZSMAJSMBXNoZWV0lGgOjAtm
+aWxlX2Zvcm1hdJROdWJoBimBlH2UKGgJjEVDOi9Vc2Vycy9tbWFkdWFyL0FuYWNvbmRhMy9MaWIv
+c2l0ZS1wYWNrYWdlcy9PcmFuZ2UvZGF0YXNldHMvaXJpcy50YWKUaAuMD3NhbXBsZS1kYXRhc2V0
+c5RoDIwIaXJpcy50YWKUaA1oDmgPaA5oEE51YmgGKYGUfZQoaAmMSEM6L1VzZXJzL21tYWR1YXIv
+QW5hY29uZGEzL0xpYi9zaXRlLXBhY2thZ2VzL09yYW5nZS9kYXRhc2V0cy90aXRhbmljLnRhYpRo
+C2gUaAyMC3RpdGFuaWMudGFilGgNaA5oD2gOaBBOdWJoBimBlH2UKGgJjEhDOi9Vc2Vycy9tbWFk
+dWFyL0FuYWNvbmRhMy9MaWIvc2l0ZS1wYWNrYWdlcy9PcmFuZ2UvZGF0YXNldHMvaG91c2luZy50
+YWKUaAtoFGgMjAtob3VzaW5nLnRhYpRoDWgOaA9oDmgQTnViaAYpgZR9lChoCYxOQzovVXNlcnMv
+bW1hZHVhci9BbmFjb25kYTMvTGliL3NpdGUtcGFja2FnZXMvT3JhbmdlL2RhdGFzZXRzL2hlYXJ0
+X2Rpc2Vhc2UudGFilGgLaBRoDIwRaGVhcnRfZGlzZWFzZS50YWKUaA1oDmgPaA5oEE51YmWMC3Jl
+Y2VudF91cmxzlF2UjBNzYXZlZFdpZGdldEdlb21ldHJ5lEMyAdnQywACAAAAAAKMAAAA2wAABPMA
+AAMnAAAClAAAAPoAAATrAAADHwAAAAAAAAAAB4CUjAtzaGVldF9uYW1lc5R9lIwGc291cmNllEsA
+jAN1cmyUaA6MDWRvbWFpbl9lZGl0b3KUfZSMC19fdmVyc2lvbl9flEsBjBBjb250ZXh0X3NldHRp
+bmdzlF2UKIwVb3Jhbmdld2lkZ2V0LnNldHRpbmdzlIwHQ29udGV4dJSTlCmBlH2UKIwGdmFsdWVz
+lH2UKIwJdmFyaWFibGVzlF2UaCp9lGg2XZQoXZQojARBMDA0lIwUT3JhbmdlLmRhdGEudmFyaWFi
+bGWUjBBEaXNjcmV0ZVZhcmlhYmxllJOUSwBoO4llXZQojAUwICgxKZRoPIwSQ29udGludW91c1Zh
+cmlhYmxllJOUSwBoDohlXZQojAUwICgyKZRoQksAaA6IZV2UKIwFMCAoMymUaEJLAGgOiGVdlCiM
+BTAgKDQplGhCSwBoDohlXZQojAUwICg1KZRoQksAaA6IZV2UKIwFMCAoNimUaEJLAGgOiGVlc2gs
+SwF1jAphdHRyaWJ1dGVzlCiMBEEwMDSUXZRoTmGGlIwFMCAoMSmUSwKGlIwFMCAoMimUSwKGlIwF
+MCAoMymUSwKGlIwFMCAoNCmUSwKGlIwFMCAoNSmUSwKGlIwFMCAoNimUSwKGlHSUjAVtZXRhc5Qp
+jApjbGFzc192YXJzlCmMEm1vZGlmaWVkX3ZhcmlhYmxlc5RdlHViaDEpgZR9lCiMBHRpbWWUR0HX
+XqRZqpLTaDR9lCiMCXZhcmlhYmxlc5RdlIwJeGxzX3NoZWV0lGgOSv////+GlIwNZG9tYWluX2Vk
+aXRvcpR9lGhmXZQoXZQojARBMDA0lGg+SwBobollXZQojAUwLjBfMZRoQksAaA6IZV2UKIwFMC4w
+XzKUaEJLAGgOiGVdlCiMBTAuMF8zlGhCSwBoDohlXZQojAUwLjBfNJRoQksAaA6IZV2UKIwFMC4w
+XzWUaEJLAGgOiGVdlCiMBTAuMF82lGhCSwBoDohlZXNoLEsBdWhNKGhuXZRobmGGlGhwSwKGlGhy
+SwKGlGh0SwKGlGh2SwKGlGh4SwKGlGh6SwKGlHSUaF4paF8paGBdlHViaDEpgZR9lChoZEdB1oF1
+KPkHz2g0fZQojAl2YXJpYWJsZXOUXZSMCXhsc19zaGVldJRoDkr/////hpSMDWRvbWFpbl9lZGl0
+b3KUfZRoiF2UKF2UKIwEQTAwNJRoPksAaJCJZV2UKIwFMC4wXzGUaEJLAGgOiGVdlCiMBTAuMF8y
+lGhCSwBoDohlXZQojAUwLjBfM5RoQksAaA6IZV2UKIwFMC4wXzSUaEJLAGgOiGVdlCiMBTAuMF81
+lGhCSwBoDohlXZQojAUwLjBfNpRoQksAaA6IZWVzaCxLAXVoTShokEsBhpRokksChpRolEsChpRo
+lksChpRomEsChpRomksChpRonEsChpR0lGheKYwOb3JkZXJlZF9kb21haW6UXZQoaJBLAYaUaJJL
+AoaUaJRLAoaUaJZLAoaUaJhLAoaUaJpLAoaUaJxLAoaUZWhfKWhgXZR1YmgxKYGUfZQoaGRHQdaB
+dKahabpoNH2UKIwJdmFyaWFibGVzlF2UjAl4bHNfc2hlZXSUaA5K/////4aUjA1kb21haW5fZWRp
+dG9ylH2UaLJdlChdlCiMDHNlcGFsIGxlbmd0aJRoQksAaA6IZV2UKIwLc2VwYWwgd2lkdGiUaEJL
+AGgOiGVdlCiMDHBldGFsIGxlbmd0aJRoQksAaA6IZV2UKIwLcGV0YWwgd2lkdGiUaEJLAGgOiGVd
+lCiMBGlyaXOUaD5LAYwsSXJpcy1zZXRvc2EsIElyaXMtdmVyc2ljb2xvciwgSXJpcy12aXJnaW5p
+Y2GUiWVlc2gsSwF1aE0oaLpLAoaUaLxLAoaUaL5LAoaUaMBLAoaUdJRoXilopV2UKGi6SwKGlGi8
+SwKGlGi+SwKGlGjASwKGlGjCSwGGlGVoX2jCSwGGlIWUaGBdlHViZXUu
+</properties>
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02(\x00\x00\x00\xf4\x00\x00\x05\xd3\x00\x00\x03\x0e\x00\x00\x020\x00\x00\x01\x13\x00\x00\x05\xcb\x00\x00\x03\x06\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="2" format="pickle">gASVagYAAAAAAAB9lCiMC2F1dG9fY29tbWl0lImMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
+ZFdpZGdldEdlb21ldHJ5lEMyAdnQywACAAAAAAK+AAAAwgAABMEAAANAAAACxgAAAOEAAAS5AAAD
+OAAAAAAAAAAAB4CUjBJ1c2VfaW5wdXRfZmVhdHVyZXOUiYwLX192ZXJzaW9uX1+USwGMEGNvbnRl
+eHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQo
+jAZ2YWx1ZXOUfZQojBFkb21haW5fcm9sZV9oaW50c5R9lCiMBEEwMDSUSwGGlIwJYXZhaWxhYmxl
+lEsAhpSMBTAgKDEplEsChpSMCWF0dHJpYnV0ZZRLAIaUjAUwICgyKZRLAoaUaBhLAYaUjAUwICgz
+KZRLAoaUaBhLAoaUjAUwICg0KZRLAoaUaBhLA4aUjAUwICg1KZRLAoaUaBhLBIaUjAUwICg2KZRL
+AoaUaBhLBYaUjAhTZWxlY3RlZJRLAYaUjARtZXRhlEsAhpR1Sv7///+GlGgGSwF1jAphdHRyaWJ1
+dGVzlH2UKGgSSwFoFksCaBpLAmgdSwJoIEsCaCNLAmgmSwJoKUsBdYwFbWV0YXOUfZR1YmgLKYGU
+fZQoaA59lCiMEWRvbWFpbl9yb2xlX2hpbnRzlH2UKIwEQTAwNJRLAYaUjAlhdmFpbGFibGWUSwCG
+lIwFMCAoMSmUSwKGlIwJYXR0cmlidXRllEsAhpSMBTAgKDIplEsChpRoPUsBhpSMBTAgKDMplEsC
+hpRoPUsChpSMBTAgKDQplEsChpRoPUsDhpSMBTAgKDUplEsChpRoPUsEhpSMBTAgKDYplEsChpRo
+PUsFhpSMCFNlbGVjdGVklEsBhpSMBG1ldGGUSwCGlHVK/v///4aUaAZLAXVoLn2UKGg3SwFoO0sC
+aD9LAmhCSwJoRUsCaEhLAmhLSwJoTksBdWgwfZR1YmgLKYGUfZQoaA59lCiMEWRvbWFpbl9yb2xl
+X2hpbnRzlH2UKIwEQTAwNJRLAYaUjAlhdmFpbGFibGWUSwCGlIwFMCAoMSmUSwKGlIwJYXR0cmli
+dXRllEsAhpSMBTAgKDIplEsChpRoYEsBhpSMBTAgKDMplEsChpRoYEsChpSMBTAgKDQplEsChpRo
+YEsDhpSMBTAgKDUplEsChpRoYEsEhpSMBTAgKDYplEsChpRoYEsFhpSMCFNlbGVjdGVklEsBhpSM
+BG1ldGGUSwCGlHVK/v///4aUaAZLAXVoLn2UKGhaSwFoXksCaGJLAmhlSwJoaEsCaGtLAmhuSwJo
+cUsBdWgwfZR1YmgLKYGUfZQojAR0aW1llEdB116kWhLo1GgOfZQojBFkb21haW5fcm9sZV9oaW50
+c5R9lCiMBEEwMDSUSwGGlIwJYXZhaWxhYmxllEsAhpSMBTAuMF8xlEsChpRogEsBhpSMBTAuMF8y
+lEsChpSMCWF0dHJpYnV0ZZRLAIaUjAUwLjBfM5RLAoaUaIdLAYaUjAUwLjBfNJRLAoaUaIdLAoaU
+jAUwLjBfNZRLAoaUaIdLA4aUjAUwLjBfNpRLAoaUaIdLBIaUjAhTZWxlY3RlZJRLAYaUjARtZXRh
+lEsAhpR1Sv7///+GlGgGSwF1aC59lChofksBaIJLAmiFSwJoiUsCaIxLAmiPSwJokksCaJVLAXVo
+MH2UdWJoCymBlH2UKGh6R0HWgXVXMdJGaA59lCiMEWRvbWFpbl9yb2xlX2hpbnRzlH2UKIwEQTAw
+NJRLAYaUjAlhdmFpbGFibGWUSwCGlIwFMC4wXzGUSwKGlGijSwGGlIwFMC4wXzKUSwKGlIwJYXR0
+cmlidXRllEsAhpSMBTAuMF8zlEsChpRoqksBhpSMBTAuMF80lEsChpRoqksChpSMBTAuMF81lEsC
+hpRoqksDhpSMBTAuMF82lEsChpRoqksEhpSMCFNlbGVjdGVklEsBhpSMBG1ldGGUSwCGlHVK/v//
+/4aUaAZLAXVoLn2UKGihSwFopUsCaKhLAmisSwJor0sCaLJLAmi1SwJ1aDB9lIwOb3JkZXJlZF9k
+b21haW6UXZQoaKFLAYaUaKVLAoaUaKhLAoaUaKxLAoaUaK9LAoaUaLJLAoaUaLVLAoaUZXViZXUu
+</properties>
+		<properties node_id="3" format="literal">{'auto_apply': True, 'controlAreaVisible': True, 'merging': 0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x03L\x00\x00\x01\x7f\x00\x00\x05\x10\x00\x00\x02\x84\x00\x00\x03T\x00\x00\x01\x9e\x00\x00\x05\x08\x00\x00\x02|\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', '__version__': 2, 'context_settings': []}</properties>
+		<properties node_id="4" format="literal">{'append_source_column': False, 'auto_commit': True, 'controlAreaVisible': True, 'ignore_compute_value': False, 'merge_type': 0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x03(\x00\x00\x01\\\x00\x00\x04X\x00\x00\x02\xa6\x00\x00\x030\x00\x00\x01{\x00\x00\x04P\x00\x00\x02\x9e\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'source_attr_name': 'Source ID', 'source_column_role': 0, '__version__': 1}</properties>
+		<properties node_id="5" format="literal">{'autocommit': False, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02r\x00\x00\x00\xf4\x00\x00\x05\r\x00\x00\x03\x0e\x00\x00\x02z\x00\x00\x01\x13\x00\x00\x05\x05\x00\x00\x03\x06\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'storedsettings': {'name': '', 'preprocessors': []}, '__version__': 2}</properties>
+		<properties node_id="6" format="literal">{'controlAreaVisible': True, 'currentScriptIndex': 0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01\xc2\x00\x00\x00\xa3\x00\x00\x06\xbe\x00\x00\x03!\x00\x00\x01\xca\x00\x00\x00\xc2\x00\x00\x06\xb6\x00\x00\x03\x19\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'scriptLibrary': [], 'scriptText': '# -*- coding: utf-8 -*-\n"""\nCreated on Tue Nov 23 16:13:36 2021\n\n@author: mmaduar\n"""\n\nimport struct as stru\nfrom datetime import datetime\nimport re\nimport numpy as np\n\nfrom Orange.data import Domain, Table\n\nclass SpecChn:\n    """ CHN Spectrum class. """\n    sufx = \'.chn\'\n\n    def __init__(self, f_name):\n        self.f_name = f_name\n        self.n_ch = 0\n        self.sp_counts = []\n        self.source_datetime = datetime(1980,1,1)\n        self.det_descr = \'\'\n        self.sam_descr = \'\'\n        self.rltime = 0\n        self.lvtime = 0\n        self.sp_type = 0\n        self.sp_mca = 0\n        self.sp_segm = 0\n        self.sp_start_datetime = datetime(1980,1,1)\n        self.coeffs_ch_en = []\n        self.coeffs_en_fw = []\n\n        self.read_chn_sp()\n\n    @staticmethod\n    def i_sign(a_byte):\n        """Convert from signed byte"""\n        return int.from_bytes(a_byte, byteorder=\'little\', signed=True)\n\n    @staticmethod\n    def i_unsg(a_byte):\n        """Convert from unsigned byte"""\n        return int.from_bytes(a_byte, byteorder=\'little\', signed=False)\n\n    @staticmethod\n    def month_conv(month):\n        """Convert from Mmm-month"""\n        months = [\'Jan\', \'Feb\', \'Mar\', \'Apr\', \'May\', \'Jun\',\n                  \'Jul\', \'Aug\', \'Sep\', \'Oct\', \'Nov\', \'Dec\']\n        try:\n            month = months.index(month) + 1\n        except ValueError:\n            month = 0\n        return month\n\n    def read_chn_sp(self):\n        """Read a CHN file"""\n        # print(\'arq \' + self.sufx)\n        with open(self.f_name, \'rb\') as f_file:\n            ctn = f_file.read()\n        self.sp_type = self.i_sign(ctn[0:2])\n        self.sp_mca  = self.i_sign(ctn[2:4])\n        self.sp_segm  = self.i_sign(ctn[4:6])\n        sp_startsec  = ctn[6:8].decode(\'ascii\')\n        sp_rltime_20ms = self.i_unsg(ctn[8:12])\n        sp_lvtime_20ms = self.i_unsg(ctn[12:16])\n        sp_dd   = ctn[16:18].decode(\'ascii\')\n        sp_mmm  = ctn[18:21].decode(\'ascii\')\n        sp_yy  = ctn[21:23].decode(\'ascii\')\n        sp_hh  = ctn[24:26].decode(\'ascii\')\n        sp_mm  = ctn[26:28].decode(\'ascii\')\n        sp_ch_offset  = self.i_unsg(ctn[28:30])\n        self.n_ch   = self.i_unsg(ctn[30:32])\n\n        ini_counts = sp_ch_offset + 32\n        self.sp_counts = [ self.i_unsg( ctn[ini_counts+i*4:ini_counts+(i+1)*4] )\n            for i in range(self.n_ch) ]\n        i_by = ini_counts + 4 * self.n_ch\n        vers_chn = int.from_bytes(ctn[i_by:i_by+4], byteorder=\'little\', signed=True)\n        coeffs_chen0 = stru.unpack(\'f\', ctn[i_by+4:i_by+8])[0]\n        coeffs_chen1 = stru.unpack(\'f\', ctn[i_by+8:i_by+12])[0]\n        if vers_chn == -102:\n            coeffs_chen2 = stru.unpack(\'f\', ctn[i_by+12:i_by+16])\n        else:\n            coeffs_chen2 = 0.0\n        self.coeffs_ch_en = [coeffs_chen2, coeffs_chen1, coeffs_chen0 ]\n        coeffs_en_fw_0 = stru.unpack(\'f\', ctn[i_by+16:i_by+20])[0]\n        coeffs_en_fw_1 = stru.unpack(\'f\', ctn[i_by+20:i_by+24])[0]\n        if vers_chn == -102:\n            coeffs_en_fw_2 = stru.unpack(\'f\', ctn[i_by+24:i_by+28])\n        else:\n            coeffs_en_fw_2 = 0.0\n        self.coeffs_en_fw = [coeffs_en_fw_2, coeffs_en_fw_1, coeffs_en_fw_0 ]\n        # self.effi_calib = np.array([])\n        len_det_descr = int(ctn[i_by+256])\n        self.det_descr  = ctn[i_by+257:i_by+257+len_det_descr].decode(\'ascii\')\n        len_sam_descr  = int(ctn[i_by+320])\n        self.sam_descr_init = ctn[i_by+321:i_by+321+len_sam_descr]\n        self.sam_descr = self.sam_descr_init.decode(\'ascii\',errors=\'ignore\')\n        self.rltime = sp_rltime_20ms * 0.02\n        self.lvtime = sp_lvtime_20ms * 0.02\n        # 2-digit year specifications will be interpreted as years between 1980 and 2079.\n        i_yy = int(sp_yy)\n        if i_yy &lt; 80:\n            i_yy += 2000\n        else:\n            i_yy += 1900\n        self.sp_start_datetime = datetime(i_yy, self.month_conv(str(sp_mmm)),\n                           int(str(sp_dd)),\n                           int(str(sp_hh)),\n                           int(str(sp_mm)),\n                           int(str(sp_startsec)) )\n\n# spec_chn = SpecChn(\'OwnDrive/Genie_Transfer/Si/2018/CTP/CTP0908-2.Chn\')\nprint (dir(spec_chn))\nprint (spec_chn.lvtime)\n\nout_data = in_data.copy()\nprint(\'out_data:\')\nprint(out_data)\n\nprint (vars(out_data))\n\n# domain = Domain([attr for attr in in_data.domain.attributes])\n# print(domain)', 'splitterState': b'\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00d\x00\x00\x00d\x01\xff\xff\xff\xff\x01\x00\x00\x00\x02\x00', '__version__': 2}</properties>
+		<properties node_id="7" format="pickle">gASV3gcAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjAxyZWNlbnRfcGF0aHOUXZQojB5v
+cmFuZ2V3aWRnZXQudXRpbHMuZmlsZWRpYWxvZ3OUjApSZWNlbnRQYXRolJOUKYGUfZQojAdhYnNw
+YXRolIw+QzovVXNlcnMvbW1hZHVhci9Pd25Ecml2ZS9SU3R1ZGlvLWNvZGUvQUxNLTE3LTMtIzVf
+UHJlbGlBLnhsc3iUjAZwcmVmaXiUTowHcmVscGF0aJROjAV0aXRsZZSMAJSMBXNoZWV0lGgOjAtm
+aWxlX2Zvcm1hdJROdWJoBimBlH2UKGgJjEVDOi9Vc2Vycy9tbWFkdWFyL0FuYWNvbmRhMy9MaWIv
+c2l0ZS1wYWNrYWdlcy9PcmFuZ2UvZGF0YXNldHMvaXJpcy50YWKUaAuMD3NhbXBsZS1kYXRhc2V0
+c5RoDIwIaXJpcy50YWKUaA1oDmgPaA5oEE51YmgGKYGUfZQoaAmMSEM6L1VzZXJzL21tYWR1YXIv
+QW5hY29uZGEzL0xpYi9zaXRlLXBhY2thZ2VzL09yYW5nZS9kYXRhc2V0cy90aXRhbmljLnRhYpRo
+C2gUaAyMC3RpdGFuaWMudGFilGgNaA5oD2gOaBBOdWJoBimBlH2UKGgJjEhDOi9Vc2Vycy9tbWFk
+dWFyL0FuYWNvbmRhMy9MaWIvc2l0ZS1wYWNrYWdlcy9PcmFuZ2UvZGF0YXNldHMvaG91c2luZy50
+YWKUaAtoFGgMjAtob3VzaW5nLnRhYpRoDWgOaA9oDmgQTnViaAYpgZR9lChoCYxOQzovVXNlcnMv
+bW1hZHVhci9BbmFjb25kYTMvTGliL3NpdGUtcGFja2FnZXMvT3JhbmdlL2RhdGFzZXRzL2hlYXJ0
+X2Rpc2Vhc2UudGFilGgLaBRoDIwRaGVhcnRfZGlzZWFzZS50YWKUaA1oDmgPaA5oEE51YmWMC3Jl
+Y2VudF91cmxzlF2UjBNzYXZlZFdpZGdldEdlb21ldHJ5lEMyAdnQywACAAAAAAKMAAAA2wAABPMA
+AAMnAAAClAAAAPoAAATrAAADHwAAAAAAAAAAB4CUjAtzaGVldF9uYW1lc5R9lIwGc291cmNllEsA
+jAN1cmyUaA6MDWRvbWFpbl9lZGl0b3KUfZSMC19fdmVyc2lvbl9flEsBjBBjb250ZXh0X3NldHRp
+bmdzlF2UKIwVb3Jhbmdld2lkZ2V0LnNldHRpbmdzlIwHQ29udGV4dJSTlCmBlH2UKIwGdmFsdWVz
+lH2UKIwJdmFyaWFibGVzlF2UaCp9lGg2XZQoXZQojARBMDA0lIwUT3JhbmdlLmRhdGEudmFyaWFi
+bGWUjBBEaXNjcmV0ZVZhcmlhYmxllJOUSwBoO4llXZQojAUwICgxKZRoPIwSQ29udGludW91c1Zh
+cmlhYmxllJOUSwBoDohlXZQojAUwICgyKZRoQksAaA6IZV2UKIwFMCAoMymUaEJLAGgOiGVdlCiM
+BTAgKDQplGhCSwBoDohlXZQojAUwICg1KZRoQksAaA6IZV2UKIwFMCAoNimUaEJLAGgOiGVlc2gs
+SwF1jAphdHRyaWJ1dGVzlCiMBEEwMDSUXZRoTmGGlIwFMCAoMSmUSwKGlIwFMCAoMimUSwKGlIwF
+MCAoMymUSwKGlIwFMCAoNCmUSwKGlIwFMCAoNSmUSwKGlIwFMCAoNimUSwKGlHSUjAVtZXRhc5Qp
+jApjbGFzc192YXJzlCmMEm1vZGlmaWVkX3ZhcmlhYmxlc5RdlHViaDEpgZR9lCiMBHRpbWWUR0HX
+XqRaArBCaDR9lCiMCXZhcmlhYmxlc5RdlIwJeGxzX3NoZWV0lGgOSv////+GlIwNZG9tYWluX2Vk
+aXRvcpR9lGhmXZQoXZQojARBMDA0lGg+SwBobollXZQojAUwLjBfMZRoQksAaA6IZV2UKIwFMC4w
+XzKUaEJLAGgOiGVdlCiMBTAuMF8zlGhCSwBoDohlXZQojAUwLjBfNJRoQksAaA6IZV2UKIwFMC4w
+XzWUaEJLAGgOiGVdlCiMBTAuMF82lGhCSwBoDohlZXNoLEsBdWhNKGhuXZRobmGGlGhwSwKGlGhy
+SwKGlGh0SwKGlGh2SwKGlGh4SwKGlGh6SwKGlHSUaF4paF8paGBdlHViaDEpgZR9lChoZEdB1oF3
+JU2192g0fZQojAl2YXJpYWJsZXOUXZSMCXhsc19zaGVldJRoDkr/////hpSMDWRvbWFpbl9lZGl0
+b3KUfZRoiF2UKF2UKIwEQTAwNJRoPksAaJCJZV2UKIwFMC4wXzGUaEJLAGgOiGVdlCiMBTAuMF8y
+lGhCSwBoDohlXZQojAUwLjBfM5RoQksAaA6IZV2UKIwFMC4wXzSUaEJLAGgOiGVdlCiMBTAuMF81
+lGhCSwBoDohlXZQojAUwLjBfNpRoQksAaA6IZWVzaCxLAXVoTSiMBEEwMDSUSwGGlIwFMC4wXzGU
+SwKGlIwFMC4wXzKUSwKGlIwFMC4wXzOUSwKGlIwFMC4wXzSUSwKGlIwFMC4wXzWUSwKGlIwFMC4w
+XzaUSwKGlHSUaF4pjA5vcmRlcmVkX2RvbWFpbpRdlChonUsBhpRon0sChpRooUsChpRoo0sChpRo
+pUsChpRop0sChpRoqUsChpRlaF8paGBdlHViZXUu
+</properties>
+		<properties node_id="8" format="literal">{'_session_items': [('C:/Users/mmaduar/OwnDrive/Python_Scripts/2022_gamma_spec_files_names.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 3, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ('C:/Users/mmaduar/2022_gamma_spec_files_names.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 1, 'value': 'Auto'}], 'rowspec': [], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': 'C:/Users/mmaduar/OwnDrive/Python_Scripts', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x03\x02\x00\x00\x022\x00\x00\x04-\x00\x00\x03\x93\x00\x00\x03\n\x00\x00\x02Q\x00\x00\x04%\x00\x00\x03\x8b\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', '__version__': 1}</properties>
+		<properties node_id="9" format="literal">{'controlAreaVisible': True, 'currentScriptIndex': 0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x027\x00\x00\x00\xc4\x00\x00\x06\x9a\x00\x00\x03B\x00\x00\x02?\x00\x00\x00\xe3\x00\x00\x06\x92\x00\x00\x03:\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'scriptLibrary': [{'name': 'Hello world', 'script': "print('Hello world')\n", 'filename': None}], 'scriptText': "import pathlib\n\nfrom Orange.data import Domain, Table\n\nwork_data = in_data.copy()\nprint('vars:')\nprint(vars(work_data))\nprint('metas:')\nmetas = work_data.metas\nteste = metas[1][0].lower()\nprint(teste)\n\n# out_data = Table([li[0] for li in metas])\n\n# out_data = [li \n# suff = pathlib.Path(teste).suffix\n# print(suff)", 'splitterState': b'\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00d\x00\x00\x00d\x01\xff\xff\xff\xff\x01\x00\x00\x00\x02\x00', '__version__': 2}</properties>
+		<properties node_id="10" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02(\x00\x00\x00\xf4\x00\x00\x05\xd3\x00\x00\x03\x0e\x00\x00\x020\x00\x00\x01\x13\x00\x00\x05\xcb\x00\x00\x03\x06\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="11" format="pickle">gASV0gEAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBBwdXJn
+ZV9hdHRyaWJ1dGVzlImMDXB1cmdlX2NsYXNzZXOUiYwTc2F2ZWRXaWRnZXRHZW9tZXRyeZRDMgHZ
+0MsAAgAAAAACaQAAAxYAAATQAAAEzAAAAnEAAAM1AAAEyAAABMQAAAAAAAAAAAeAlIwQdXBkYXRl
+X29uX2NoYW5nZZSIjAtfX3ZlcnNpb25fX5RLAowQY29udGV4dF9zZXR0aW5nc5RdlCiMFW9yYW5n
+ZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMCmNvbmRpdGlv
+bnOUXZQojAVmbmFtZZRLA0sIjANDVFCUhZR0lGFoCEsCdYwKYXR0cmlidXRlc5R9lCiMAmlklEsC
+jAVmdHlwZZRLAYwIU2VsZWN0ZWSUSwF1jAVtZXRhc5R9lIwFZm5hbWWUSwNzdWJoDSmBlH2UKGgQ
+fZQojApjb25kaXRpb25zlF2UKIwDWC4wlEsDSwiMBC5jaG6UhZR0lGFoCEsCdWgYfZSMCFNlbGVj
+dGVklEsBc2gdfZRoJUsDc3ViZXUu
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
