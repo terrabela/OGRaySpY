@@ -20,6 +20,10 @@ from scipy.interpolate import splrep, splev
 # , splder, sproot
 
 
+# from spec_class import Spec
+# from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
+
+
 class Spec:
     """ Spectrum class. """
 
@@ -97,7 +101,7 @@ class Spec:
 #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
 
         self.spec_io = None
-        self.spec_pks_df = pd.DataFrame()
+        # self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
 
@@ -173,33 +177,3 @@ class Spec:
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
         spec_df_type2.to_pickle(self.pkl_file)
-
-    def generate_pandas_dataframe_EXCLUIR(self):
-        pks = self.net_spec_ser_an.pk_parms
-        d = {
-            # 2023-Mar-15: AQUI:
-            # Deslocar isso para outro lugar:
-            # 'reduced_f_name': pd.Series(
-            #     data=np.full(pks.peaks.size, self.reduced_f_name),
-            #     dtype=str
-            # ),
-            'peaks': pks.peaks,
-            'ini_wide_regions': pks.wide_regions[:,0],
-            'fin_wide_regions': pks.wide_regions[:,1],
-            'fwhm_centr': pks.fwhm_centr,
-            'centroids': pks.centroids,
-            'rough_sums': pks.rough_sums,
-            'peak_heights': pks.propts['peak_heights'],
-            'left_thresholds': pks.propts['left_thresholds'],
-            'right_thresholds': pks.propts['right_thresholds'],
-            'prominences': pks.propts['prominences'],
-            'left_bases': pks.propts['left_bases'],
-            'right_bases': pks.propts['right_bases'],
-            'width_heights': pks.propts['width_heights'],
-            'left_ips': pks.propts['left_ips'],
-            'right_ips': pks.propts['right_ips'],
-            'widths': pks.propts['widths'],
-            'variances': np.array(pks.variances)
-        }
-        self.spec_pks_df = pd.DataFrame(data=d)
-        self.spec_pks_df.to_pickle(self.pkl_file)

@@ -3,10 +3,7 @@ from random import randrange
 from pathlib import Path
 import pickle
 import os
-
-from spec_class import Spec
-from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
-
+import pandas as pd
 
 class Ograyspy:
     files_list: list[str]
@@ -63,6 +60,16 @@ class Ograyspy:
         self.n_files = len(self.files_list)
         print('No. spec files: ', self.n_files)
 
+        self.pkl_folder_files = Path(self.info_syst + self.info_node).with_suffix('.pkl')
+        ogra_vars = vars(self)
+        campos = [a for a in ogra_vars]
+        valores = [ogra_vars[a] for a in ogra_vars]
+        # spec_df_type1 = pd.DataFrame(data=valores, index=campos)
+        # spec_df_type1.to_pickle(self.pkl_file)
+        spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
+        spec_df_type2.to_pickle(self.pkl_folder_files)
+
+
     def select_spectrum(self, a_pattern='', random_spectrum=False):
         # Select a random spectrum...
         if random_spectrum:
@@ -104,30 +111,19 @@ class Ograyspy:
         print(f'a_spec_name: {self.a_spec_name}')
         print(f'reduced_f_name: {self.reduced_f_name}')
 
-    def perform_total_analysis(self, k_sep_pk=2.0, smoo=4096,
-                               widths_range=(4.0, 20.0),
-                               peak_sd_fact=3.0,
-                               gener_dataframe=False):
-        print('Starting Ograyspy.perform_total_analysis...')
-        self.a_spec = Spec(self.a_spec_name, self.reduced_f_name)
-        self.a_spec.total_analysis(k_sep_pk=k_sep_pk,
-                                   smoo=smoo,
-                                   widths_range=widths_range,
-                                   peak_sd_fact=peak_sd_fact,
-                                   gener_dataframe=gener_dataframe)
-        print('Finished Ograyspy.perform_total_analysis!')
 
-    def perform_batch_analyses(self):
-        self.define_files_batch()
-        print(self.files_list)
-        for nam in self.files_list:
-            spec = Spec(nam)
-            spec.total_analysis(gener_dataframe=True)
+#   2023-Mar-22: AQUI: REFATORAR
+#    def perform_batch_analyses(self):
+#        self.define_files_batch()
+#        print(self.files_list)
+#        for nam in self.files_list:
+#            spec = Spec(nam)
+#            spec.total_analysis(gener_dataframe=True)
 
-    def call_graphics(self):
-        cts_graph = CountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
-                                  self.home_path, 'gross_counts_graph')
-        pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
-                                               self.home_path, 'gross_pks_reg_graph')
-        net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
-                                               self.home_path, 'net_pks_reg_graph')
+ #   def call_graphics(self):
+ #       cts_graph = CountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+ #                                 self.home_path, 'gross_counts_graph')
+ #       pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+ #                                              self.home_path, 'gross_pks_reg_graph')
+ #       net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
+ #                                              self.home_path, 'net_pks_reg_graph')
