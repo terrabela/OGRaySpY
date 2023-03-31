@@ -16,10 +16,6 @@ from specchn_class import SpecChn
 from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
 
-from scipy.interpolate import splrep, splev
-# , splder, sproot
-
-
 # from spec_class import Spec
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 

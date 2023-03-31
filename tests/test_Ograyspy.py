@@ -2,7 +2,8 @@ import sys
 import os
 
 from unittest import TestCase
-from ..src.ograyspy_class import Ograyspy
+# from ..src.ograyspy_class import Ograyspy
+from . import Ograyspy
 
 class TestOgrayspy(TestCase):
     def setUp(self):
