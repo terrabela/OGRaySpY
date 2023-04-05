@@ -23,7 +23,7 @@ from generic_series_analysis_class import GenericSeriesAnalysis
 class Spec:
     """ Spectrum class. """
 
-    def __init__(self, f_name='', reduced_f_name=''):
+    def __init__(self, f_name='', reduced_f_name='', s_cond=None):
         """
         Initialize a minimal members set from a read spectrum file.
 
@@ -58,7 +58,7 @@ class Spec:
         # Parei aqui: fazer bd do Pandas
         # self.spec_pks_df = pd.DataFrame()
 
-        self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True)
+        self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
 
         self.start_datetime = self.spec_io.sp_start_datetime

@@ -22,7 +22,7 @@ class GenericSeriesAnalysis:
     and possibly find baseline.
     """
 
-    def __init__(self, sp_counts, to_smooth=False, is_fft=False, given_variance=None):
+    def __init__(self, sp_counts, to_smooth=False, is_fft=False, given_variance=None, s_cond=None):
         self.mix_regions = None
         self.spl_baseline = None
         self.eval_baseline = None
@@ -41,7 +41,7 @@ class GenericSeriesAnalysis:
             self.unc_y = np.sqrt(given_variance)
         self.y_smoothed = None
         if to_smooth:
-            self.y_smoothed = self.eval_smoo_counts()
+            self.y_smoothed = self.eval_smoo_counts(s_cond)
         self.fft_s = None
         if is_fft:
             self.fft_s = fft(self.y_s)
@@ -135,11 +135,16 @@ class GenericSeriesAnalysis:
         fins = fins[:min_size]
         self.mix_regions = np.concatenate(np.array([[inis], [fins]])).T
 
-    def eval_smoo_counts(self):
-        if self.n_ch > 0:
+    def eval_smoo_counts(self, s_cond):
+        n_nzero = self.chans_nzero.size
+        if n_nzero > 0:
+            if s_cond is None:
+                s_cond = n_nzero - np.sqrt(2 * n_nzero)
             smoo_cts = splrep(x=self.chans_nzero,
                               y=self.counts_nzero,
-                              w=1.0 / self.unc_y, k=3)
+                              w=1.0 / self.unc_y,
+                              s=s_cond,
+                              k=3)
             evaluated = splev(self.x_s, smoo_cts)
             return evaluated
 
