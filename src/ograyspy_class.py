@@ -65,6 +65,7 @@ class Ograyspy:
         self.a_spec_ind = 0
         self.a_spec_name = ''
         self.reduced_f_name = ''
+        self.define_files_folder(folder_to_find)
         # self.gross_counts_graphics = None
         # self.pks_regions_gros = None
 
