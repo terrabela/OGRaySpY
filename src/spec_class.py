@@ -58,7 +58,7 @@ class Spec:
         # Parei aqui: fazer bd do Pandas
         # self.spec_pks_df = pd.DataFrame()
 
-        self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
+        # self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
 
         self.start_datetime = self.spec_io.sp_start_datetime
@@ -134,6 +134,7 @@ class Spec:
             print('Starting Spec.total_analysis...')
             self.gross_spec_ser_an.resolve_peaks_and_regions (
                 k_sep_pk, peak_sd_fact=peak_sd_fact)
+            # 2023-abr-29: MUDAR TUDO! excluí gross_spec_ser_an
             self.gross_spec_ser_an.calculate_baseline (smoo=smoo)
             # 2022-nov-15: final composed baseline series
             self.final_composed_baseline = GenericSeriesAnalysis(self.gross_spec_ser_an.final_baseline)
