@@ -125,27 +125,28 @@ class Spec:
         #    incia obj spec_parms
         #    initial_peaks_search: acha picos candidatos, põe em peaks_parms.peaks
 
-        if self.gross_spec_ser_an.n_ch > 0:
+        if self.origin_spec_ser_an.n_ch > 0:
             # print('k_sep_pk: ', k_sep_pk)
             # print('smoo: ', smoo)
             # print('widths_range: ', widths_range)
             # print('=================')
             # print('Exec peaks_search(gross=True), espectro ORIGINAL')
             print('Starting Spec.total_analysis...')
-            self.gross_spec_ser_an.resolve_peaks_and_regions (
+            self.origin_spec_ser_an.resolve_peaks_and_regions (
                 k_sep_pk, peak_sd_fact=peak_sd_fact)
             # 2023-abr-29: MUDAR TUDO! excluí gross_spec_ser_an
-            self.gross_spec_ser_an.calculate_baseline (smoo=smoo)
+            # 2023-mai-16: FEITO!
+            self.origin_spec_ser_an.calculate_baseline (smoo=smoo)
             # 2022-nov-15: final composed baseline series
-            self.final_composed_baseline = GenericSeriesAnalysis(self.gross_spec_ser_an.final_baseline)
+            self.final_composed_baseline = GenericSeriesAnalysis(self.origin_spec_ser_an.final_baseline)
             net_spec_array = np.where (
-                self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
-                self.gross_spec_ser_an.y_s - self.final_composed_baseline.y_s,
+                self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
+                self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s,
                 0.0
             )
             given_variance = np.where (
-                self.gross_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,
-                self.gross_spec_ser_an.y_s + self.final_composed_baseline.y_s,
+                self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,
+                self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s,
                 1.0
             )
             self.net_spec_ser_an = GenericSeriesAnalysis(
