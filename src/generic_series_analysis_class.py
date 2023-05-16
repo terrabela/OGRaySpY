@@ -42,6 +42,8 @@ class GenericSeriesAnalysis:
         self.y_smoothed = None
         if to_smooth:
             self.y_smoothed = self.eval_smoo_counts(s_cond)
+        else:
+            self.y_smoothed = self.y_s
         self.fft_s = None
         if is_fft:
             self.fft_s = fft(self.y_s)
