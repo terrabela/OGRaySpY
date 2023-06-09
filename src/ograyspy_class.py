@@ -50,6 +50,30 @@ def select_spectrum_from_folder_list(reduced_names_file_list, files_list,
     return a_spec_name, reduced_f_name
 
 
+def build_nucl_library(lib_name, nucl_list):
+    # build a custom nuclide library from IAEA's database
+    import urllib.request
+    livechart = "https://nds.iaea.org/relnsd/v0/data?"
+
+    def lc_read_csv(url):
+        req = urllib.request.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0')
+        return pd.read_csv(urllib.request.urlopen(req))
+
+    # 2023-May-26
+    # Load data into a dataframe, related to nuclides in a custom list
+    import pandas as pd
+    frames = []
+    for nucl in nucl_list:
+        df = lc_read_csv(livechart + "fields=decay_rads&nuclides=" + nucl + "&rad_types=g")
+        df = df[pd.to_numeric(df['intensity'],errors='coerce').notna()]
+        df.intensity = df['intensity'].astype(float)
+        df['nuclide_name'] = nucl
+        frames.append(df)
+    df_all = pd.concat(frames, keys=nucl_list)
+    df_all.to_pickle(lib_name + '.pkl')
+    return df_all
+
 class Ograyspy:
     files_list: list[str]
 
@@ -172,3 +196,4 @@ class Ograyspy:
  #                                              self.home_path, 'gross_pks_reg_graph')
  #       net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
  #                                              self.home_path, 'net_pks_reg_graph')
+
