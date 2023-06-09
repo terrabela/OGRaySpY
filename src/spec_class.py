@@ -16,7 +16,6 @@ from specchn_class import SpecChn
 from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
 
-# from spec_class import Spec
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 
 
@@ -29,10 +28,9 @@ class Spec:
 
         :param f_name: Spectrum's complete file name.
         :type f_name: str
-        # :raise lumache.InvalidKindError: If the kind is invalid.
         :return: 0 if spectrum was successfully opened; -1 otherwise.
         :rtype: int
-        and set spectrum parameters (count time, sample description etc)."
+        and set spectrum parameters (count time, sample description etc).
 
         """
         self.net_spec_ser_an = None
@@ -112,18 +110,22 @@ class Spec:
 
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
                        peak_sd_fact=3.0, gener_dataframe=False):
-        """Analyze thoroughly a spectrum."""
         # Initialize a minimal members set from a read spectrum file.
+        """Analyze thoroughly a spectrum.
 
-        # :param k_sep_pk: Spectrum's complete file name.
-        # :type f_name: str
-        # :raise lumache.InvalidKindError: If the kind is invalid.
-        # :return: 0 if spectrum was successfully opened; -1 otherwise.
-        # :rtype: int
-
-        # seqquência:
-        #    incia obj spec_parms
-        #    initial_peaks_search: acha picos candidatos, põe em peaks_parms.peaks
+        :param k_sep_pk: Spectrum's complete file name.
+        :type k_sep_pk: float
+        :param smoo: Smoothing factor
+        :type smoo: float
+        :param widths_range: WRITE
+        :type widths_range: tuple
+        :param peak_sd_fact: WRITE
+        :type peak_sd_fact: float
+        :param gener_dataframe: WRITE
+        :type gener_dataframe: bool
+        :returns: 0 if spectrum was successfully opened; -1 otherwise.
+        :rtype: int
+        """
 
         if self.origin_spec_ser_an.n_ch > 0:
             # print('k_sep_pk: ', k_sep_pk)
@@ -176,22 +178,24 @@ class Spec:
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
         spec_df_type2.to_pickle(self.pkl_file)
 
-
     def spec_engy_chan_recalib(self, nucl_lib_df, peaks_net_kev_df,
                                en_toler=2.5,
                                min_intensity = 1.0):
         # Library-based spectrum energy/channel recalibration
-        """Esta eh docstring de spec_engY etcccc."""
+        # TODO: implement option to update self.channel_energy_calib
 
         """Perform a library-based spectrum energy/channel recalibration
 
-        :param file_loc: The file location of the spreadsheet
-        :type file_loc: str
-        :param print_cols: A flag used to print the columns to the console
-            (default is False)
-        :type print_cols: bool
-        :returns: a list of strings representing the header columns
-        :rtype: list
+        :param nucl_lib_df: nuclide library based on IAEA format as a Pandas dataframe
+        :type nucl_lib_df: pd.Dataframe
+        :param en_toler: energy difference accetable to take a detected peak as possibly identified
+            (default is 2.5)
+        :type en_toler: float
+        :param min_intensity: minimum yield percentage to accept a peak
+            (default is 1.0)
+        :type min_intensity: float
+        :returns: a pd.Dataframe with each row as an identified peak with parameters
+        :rtype: pd.Dataframe
         """
 
         left = peaks_net_kev_df
