@@ -175,3 +175,30 @@ class Spec:
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
         spec_df_type2.to_pickle(self.pkl_file)
+
+
+    def spec_engy_chan_recalib(self, nucl_lib_df, peaks_net_kev_df,
+                               en_toler=2.5,
+                               min_intensity = 1.0):
+        # Library-based spectrum energy/channel recalibration
+        """Esta eh docstring de spec_engY etcccc."""
+
+        """Perform a library-based spectrum energy/channel recalibration
+
+        :param file_loc: The file location of the spreadsheet
+        :type file_loc: str
+        :param print_cols: A flag used to print the columns to the console
+            (default is False)
+        :type print_cols: bool
+        :returns: a list of strings representing the header columns
+        :rtype: list
+        """
+
+        left = peaks_net_kev_df
+        right = nucl_lib_df
+        result_df = pd.merge(left, right, how='cross')
+        result_df['delta_en'] = result_df.energy_detected - result_df.energy
+        identified_peaks_df = result_df.loc[result_df.intensity > min_intensity].loc[np.abs(result_df.delta_en) < en_toler][
+            ['p_symbol', 'p_n', 'p_z', 'energy', 'delta_en', 'intensity', 'half_life', 'decay', 'decay_%']
+        ]
+        return identified_peaks_df
