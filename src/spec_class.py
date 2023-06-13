@@ -203,6 +203,7 @@ class Spec:
         result_df = pd.merge(left, right, how='cross')
         result_df['delta_en'] = result_df.energy_detected - result_df.energy
         identified_peaks_df = result_df.loc[result_df.intensity > min_intensity].loc[np.abs(result_df.delta_en) < en_toler][
-            ['p_symbol', 'p_n', 'p_z', 'energy', 'delta_en', 'intensity', 'half_life', 'decay', 'decay_%']
+            ['nuclide_name', 'energy', 'energy_detected', 'delta_en',
+             'intensity', 'unc_i', 'half_life', 'decay', 'decay_%']
         ]
         return identified_peaks_df

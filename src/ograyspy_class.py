@@ -50,7 +50,7 @@ def select_spectrum_from_folder_list(reduced_names_file_list, files_list,
     return a_spec_name, reduced_f_name
 
 
-def build_nucl_library(lib_name, nucl_list):
+def build_nucl_library(lib_name, nucl_list, key_gamma_lines=[]):
     # build a custom nuclide library from IAEA's database
     import urllib.request
     livechart = "https://nds.iaea.org/relnsd/v0/data?"
@@ -71,8 +71,22 @@ def build_nucl_library(lib_name, nucl_list):
         df['nuclide_name'] = nucl
         frames.append(df)
     df_all = pd.concat(frames, keys=nucl_list)
-    df_all.to_pickle(lib_name + '.pkl')
-    return df_all
+    if key_gamma_lines != []:
+        key_gamma_lines_df = pd.DataFrame(
+            {"nucl_name": nucl_list, "key_gamma": key_gamma_lines}
+        )
+        df1 = pd.merge(df_all, key_gamma_lines_df, left_on='nuclide_name', right_on='nucl_name')[[
+            'nuclide_name', 'energy', 'unc_en', 'intensity', 'unc_i', 'half_life', 'decay',
+            'decay_%', 'key_gamma'
+        ]]
+        df2 = df1.loc[df1.energy > 30.0][df1.intensity > 0.3]
+        df2.loc[abs(df1.energy - df1.key_gamma) < 0.2, ["is_key_gamma"]] = True
+        df2.loc[abs(df1.energy - df1.key_gamma) >= 0.2, ["is_key_gamma"]] = False
+    else:
+        df2 = df_all
+    df2.to_pickle(lib_name + '.pkl')
+    return df2
+
 
 class Ograyspy:
     files_list: list[str]
