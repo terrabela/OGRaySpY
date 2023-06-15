@@ -19,6 +19,42 @@ from generic_series_analysis_class import GenericSeriesAnalysis
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 
 
+def spec_engy_identif(nucl_lib_df, peaks_net_kev_df, initial_energy, en_toler=2.5, min_intensity = 1.0):
+    # Library-based spectrum energy/channel recalibration
+    # TODO: implement option to update self.channel_energy_calib
+
+    """Perform a library-based spectrum energy/channel recalibration
+
+    :param initial_energy: column specifying the base energy values to consider
+    :type initial_energy: string
+    :param peaks_net_kev_df: single col 'energy_detected' w/ peaks' energies detected
+    :type peaks_net_kev_df: pd.Dataframe
+    :param nucl_lib_df: nuclide library based on IAEA format as a Pandas dataframe
+    :type nucl_lib_df: pd.Dataframe
+    :param en_toler: energy difference accetable to take a detected peak as possibly identified
+        (default is 2.5)
+    :type en_toler: float
+    :param min_intensity: minimum yield percentage to accept a peak
+        (default is 1.0)
+    :type min_intensity: float
+    :returns: a pd.Dataframe with each row as an identified peak with parameters
+    :rtype: pd.Dataframe
+    """
+
+    left = peaks_net_kev_df
+    right = nucl_lib_df
+    result_df = pd.merge(left, right, how='cross')
+    result_df['delta_en'] = result_df[initial_energy] - result_df['energy']
+    identified_peaks_df = result_df.loc[
+        (result_df.intensity > min_intensity) & (np.abs(result_df.delta_en) < en_toler) & result_df.is_to_consider
+        ]
+    # [
+    #     ['nuclide_name', 'energy', 'energy_detected', 'delta_en',
+    #      'intensity', 'unc_i', 'half_life', 'decay', 'decay_%']
+    # ]
+    return identified_peaks_df
+
+
 class Spec:
     """ Spectrum class. """
 
@@ -177,33 +213,3 @@ class Spec:
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
         spec_df_type2.to_pickle(self.pkl_file)
-
-    def spec_engy_chan_recalib(self, nucl_lib_df, peaks_net_kev_df,
-                               en_toler=2.5,
-                               min_intensity = 1.0):
-        # Library-based spectrum energy/channel recalibration
-        # TODO: implement option to update self.channel_energy_calib
-
-        """Perform a library-based spectrum energy/channel recalibration
-
-        :param nucl_lib_df: nuclide library based on IAEA format as a Pandas dataframe
-        :type nucl_lib_df: pd.Dataframe
-        :param en_toler: energy difference accetable to take a detected peak as possibly identified
-            (default is 2.5)
-        :type en_toler: float
-        :param min_intensity: minimum yield percentage to accept a peak
-            (default is 1.0)
-        :type min_intensity: float
-        :returns: a pd.Dataframe with each row as an identified peak with parameters
-        :rtype: pd.Dataframe
-        """
-
-        left = peaks_net_kev_df
-        right = nucl_lib_df
-        result_df = pd.merge(left, right, how='cross')
-        result_df['delta_en'] = result_df.energy_detected - result_df.energy
-        identified_peaks_df = result_df.loc[result_df.intensity > min_intensity].loc[np.abs(result_df.delta_en) < en_toler][
-            ['nuclide_name', 'energy', 'energy_detected', 'delta_en',
-             'intensity', 'unc_i', 'half_life', 'decay', 'decay_%']
-        ]
-        return identified_peaks_df
