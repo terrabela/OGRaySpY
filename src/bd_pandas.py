@@ -121,8 +121,8 @@ from machine_selection import set_screen_size_by_machine
 
 class BdPandas:
     def __init__(self):
-    k_ar = 0.5 * np.sqrt(np.pi / np.log(2))
-    k_fwhm = spsp.erf(np.sqrt(np.log(2)))
-    dir_A = set(dir())
-    dir_A
+        k_ar = 0.5 * np.sqrt(np.pi / np.log(2))
+        k_fwhm = spsp.erf(np.sqrt(np.log(2)))
+        dir_A = set(dir())
+        dir_A
 
