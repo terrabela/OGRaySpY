@@ -16,9 +16,7 @@ from specchn_class import SpecChn
 from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
 
-
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
-
 
 class Spec:
     """ Spectrum class. """
@@ -88,17 +86,18 @@ class Spec:
 
         #        self.channel_energy_calib = ChannelEnergyCalib()
         #        self.energy_fwhm_calib = EnergyFwhmCalib()
-        #         try:  # 2022-Jun-23
-        #             self.spec_io.en_ef_calib
-        #         except AttributeError:
-        #             pass
-        #         else:
-        #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
+#         try:  # 2022-Jun-23
+#             self.spec_io.en_ef_calib
+#         except AttributeError:
+#             pass
+#         else:
+#             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
 
         self.spec_io = None
         # self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
+
 
     @staticmethod
     def curr_h_win(n_ch, i_ch):
@@ -134,33 +133,33 @@ class Spec:
             # print('=================')
             # print('Exec peaks_search(gross=True), espectro ORIGINAL')
             print('Starting Spec.total_analysis...')
-            self.origin_spec_ser_an.resolve_peaks_and_regions(
+            self.origin_spec_ser_an.resolve_peaks_and_regions (
                 k_sep_pk, peak_sd_fact=peak_sd_fact)
             # 2023-abr-29: MUDAR TUDO! excluí gross_spec_ser_an
             # 2023-mai-16: FEITO!
-            self.origin_spec_ser_an.calculate_baseline(smoo=smoo)
+            self.origin_spec_ser_an.calculate_baseline (smoo=smoo)
             # 2022-nov-15: final composed baseline series
             self.final_composed_baseline = GenericSeriesAnalysis(self.origin_spec_ser_an.final_baseline)
-            net_spec_array = np.where(
+            net_spec_array = np.where (
                 self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
                 self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s,
                 0.0
             )
-            given_variance = np.where(
+            given_variance = np.where (
                 self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,
                 self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s,
                 1.0
             )
             self.net_spec_ser_an = GenericSeriesAnalysis(
                 net_spec_array,
-                given_variance=given_variance
+                given_variance = given_variance
             )
 
-            self.net_spec_ser_an.resolve_peaks_and_regions(
+            self.net_spec_ser_an.resolve_peaks_and_regions (
                 k_sep_pk, peak_sd_fact=peak_sd_fact
             )
-            self.net_spec_ser_an.pk_parms.prepare_to_sum(n_fwhms=3.0)
-            self.net_spec_ser_an.perform_basic_net_area_calculation()
+            self.net_spec_ser_an.pk_parms.prepare_to_sum (n_fwhms=3.0)
+            self.net_spec_ser_an.perform_basic_net_area_calculation ()
 
             if gener_dataframe:
                 self.generate_pandas_dataframe()
