@@ -169,6 +169,11 @@ class Spec:
             print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
 
     def generate_pandas_dataframe(self):
+        # for this spectrum, generate a pd.Dataframe and save it as a pkl-file.
+        """Generate a Dataframe and save it as pkl for this spectrum.
+
+        """
+
         a_spec_vars = vars(self)
         campos = [a for a in a_spec_vars]
         valores = [a_spec_vars[a] for a in a_spec_vars]
