@@ -6,4 +6,5 @@ sphinx
 livereload
 myst-parser
 setuptools
+sklearn
 PySide2
