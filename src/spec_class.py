@@ -17,6 +17,8 @@ from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
 from specchn_class import SpecChn
 from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
+from nuclide_analysis_class import NuclideAnalysis
+
 
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 
@@ -31,7 +33,7 @@ class Spec:
         :type f_name: str
         :return: 0 if spectrum was successfully opened; -1 otherwise.
         :rtype: int
-        and set spectrum parameters (count time, sample description etc).
+        and set spectrum parameters (count time, sample description etc.).
 
         """
         self.net_spec_ser_an = None
@@ -52,10 +54,6 @@ class Spec:
             self.source_datetime = self.spec_io.source_datetime
         #
         self.pkl_file = Path(self.f_name).with_suffix('.pkl')
-
-        # 2022-out-7:
-        # Parei aqui: fazer bd do Pandas
-        # self.spec_pks_df = pd.DataFrame()
 
         # self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
@@ -88,25 +86,26 @@ class Spec:
 
         #        self.channel_energy_calib = ChannelEnergyCalib()
         #        self.energy_fwhm_calib = EnergyFwhmCalib()
-#         try:  # 2022-Jun-23
-#             self.spec_io.en_ef_calib
-#         except AttributeError:
-#             pass
-#         else:
-#             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
+        #         try:  # 2022-Jun-23
+        #             self.spec_io.en_ef_calib
+        #         except AttributeError:
+        #             pass
+        #         else:
+        #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
 
         self.spec_io = None
         # self.spec_pks_df = pd.DataFrame()
         # print(vars(self))
         # print(vars(self.gross_spec_ser_an.cnt_arrs))
 
+        self.nucl_an = NuclideAnalysis()
 
     @staticmethod
     def curr_h_win(n_ch, i_ch):
         """ Find the current half windows. """
         _a = 0.00125
         _b = 0.00075 * n_ch
-        h_win = np.int(np.round(_a * i_ch + _b))
+        h_win = int(np.round(_a * i_ch + _b))
         return h_win
 
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
@@ -135,33 +134,33 @@ class Spec:
             # print('=================')
             # print('Exec peaks_search(gross=True), espectro ORIGINAL')
             print('Starting Spec.total_analysis...')
-            self.origin_spec_ser_an.resolve_peaks_and_regions (
+            self.origin_spec_ser_an.resolve_peaks_and_regions(
                 k_sep_pk, peak_sd_fact=peak_sd_fact)
             # 2023-abr-29: MUDAR TUDO! excluí gross_spec_ser_an
             # 2023-mai-16: FEITO!
-            self.origin_spec_ser_an.calculate_baseline (smoo=smoo)
+            self.origin_spec_ser_an.calculate_baseline(smoo=smoo)
             # 2022-nov-15: final composed baseline series
             self.final_composed_baseline = GenericSeriesAnalysis(self.origin_spec_ser_an.final_baseline)
-            net_spec_array = np.where (
+            net_spec_array = np.where(
                 self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s > 1,
                 self.origin_spec_ser_an.y_s - self.final_composed_baseline.y_s,
                 0.0
             )
-            given_variance = np.where (
+            given_variance = np.where(
                 self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s > 1,
                 self.origin_spec_ser_an.y_s + self.final_composed_baseline.y_s,
                 1.0
             )
             self.net_spec_ser_an = GenericSeriesAnalysis(
                 net_spec_array,
-                given_variance = given_variance
+                given_variance=given_variance
             )
 
-            self.net_spec_ser_an.resolve_peaks_and_regions (
+            self.net_spec_ser_an.resolve_peaks_and_regions(
                 k_sep_pk, peak_sd_fact=peak_sd_fact
             )
-            self.net_spec_ser_an.pk_parms.prepare_to_sum (n_fwhms=3.0)
-            self.net_spec_ser_an.perform_basic_net_area_calculation ()
+            self.net_spec_ser_an.pk_parms.prepare_to_sum(n_fwhms=3.0)
+            self.net_spec_ser_an.perform_basic_net_area_calculation()
 
             if gener_dataframe:
                 self.generate_pandas_dataframe()
@@ -204,62 +203,39 @@ class Spec:
         inis = orig_ser.pk_parms.propts['left_bases']
         fins = orig_ser.pk_parms.propts['right_bases']
         # 2023-Jun-15
-        # CRUCIAL step: take the dict net_ser.pk_parms' keys/values and organize them as a pd.Dataframe
+        # CRUCIAL step: take the dict net_ser.pk_parms
+        # keys/values and organize them as a pd.Dataframe
         vars_pkprms = vars(net_ser.pk_parms)
         keys_to_get = ['peaks', 'fwhm_centr', 'rough_sums', 'centroids', 'variances']
         prep_for_dict = [(key, vars_pkprms[key]) for key in keys_to_get]
         pks_dict = dict(prep_for_dict)
         peaks_df = pd.DataFrame.from_dict(pks_dict)
-        peaks_df
-        pr_pk = dict([('pk_hei',net_ser.pk_parms.propts['peak_heights']),
-              ('lf_thr',net_ser.pk_parms.propts['left_thresholds']),
-              ('rg_thr',net_ser.pk_parms.propts['right_thresholds']),
-              ('promns',net_ser.pk_parms.propts['prominences']),
-              ('lf_bas',net_ser.pk_parms.propts['left_bases']),
-              ('rg_bas',net_ser.pk_parms.propts['right_bases']),
-              ('widths',net_ser.pk_parms.propts['widths']),
-              ('wi_hei',net_ser.pk_parms.propts['width_heights']),
-              ('lf_ips',net_ser.pk_parms.propts['left_ips']),
-              ('rg_ips',net_ser.pk_parms.propts['right_ips'])])
+        pr_pk = dict([('pk_hei', net_ser.pk_parms.propts['peak_heights']),
+                      ('lf_thr', net_ser.pk_parms.propts['left_thresholds']),
+                      ('rg_thr', net_ser.pk_parms.propts['right_thresholds']),
+                      ('promns', net_ser.pk_parms.propts['prominences']),
+                      ('lf_bas', net_ser.pk_parms.propts['left_bases']),
+                      ('rg_bas', net_ser.pk_parms.propts['right_bases']),
+                      ('widths', net_ser.pk_parms.propts['widths']),
+                      ('wi_hei', net_ser.pk_parms.propts['width_heights']),
+                      ('lf_ips', net_ser.pk_parms.propts['left_ips']),
+                      ('rg_ips', net_ser.pk_parms.propts['right_ips'])])
         pks_properties_df = pd.DataFrame(pr_pk)
-        pks_comprehensive_df = pd.concat([peaks_df, pks_properties_df],axis=1)
+        pks_comprehensive_df = pd.concat([peaks_df, pks_properties_df], axis=1)
         print(pks_comprehensive_df)
+
         def add_engy_to_pks_df(peaks_net_kev_df, func_en):
             peaks_net_kev_df['engy_pk_det'] = func_en(peaks_net_kev_df.centroids)
+
         add_engy_to_pks_df(pks_comprehensive_df, self.channel_energy_calib.get_energy)
         print(pks_comprehensive_df)
-        nucl_iear1_selctd_gamms_df = nucl_iear1_df.loc [
-            (nucl_iear1_df.intensity > 1.0) & nucl_iear1_df.is_to_consider
-        ]
-        print(nucl_iear1_selctd_gamms_df)
-        cross_df = pd.merge(pks_comprehensive_df, nucl_iear1_selctd_gamms_df, how='cross')
-        cross_df["delta_en"] = cross_df.engy_pk_det - cross_df.energy
-        def create_matching_peaks_df(pks_df, en_toler, must_be_key_gamma=False):
-            if must_be_key_gamma:
-                aux_df = pd.DataFrame(pks_df.loc[pks_df.is_key_gamma])
-            else:
-                aux_df = pd.DataFrame(pks_df)
-            return aux_df.loc[np.abs(pks_df.delta_en) < en_toler]
-        en_toler_calib = 3.0
-        matching_peaks_df = create_matching_peaks_df(cross_df, en_toler_calib)
-        print(matching_peaks_df)
-        print("Now, proceed to the robust calibration.")
-        X_energy = np.array(matching_peaks_df.energy).reshape(-1,1)
-        y_delta_en = np.array(matching_peaks_df.delta_en)
-        # Robustly fit linear model with RANSAC algorithm
-        ransac = linear_model.RANSACRegressor()
-        ransac.fit(X_energy, y_delta_en)
-        inlier_mask = ransac.inlier_mask_
-        outlier_mask = np.logical_not(inlier_mask)
-        matching_peaks_df["final_delta_en"] = (
-                matching_peaks_df.engy_pk_det - ransac.predict(X_energy) - matching_peaks_df.energy
-        )
-        matching_peaks_df
-        en_toler_ident = 0.5
-        peaks_for_calib = matching_peaks_df.loc[
-            np.abs(matching_peaks_df.final_delta_en) < en_toler_ident
-        ]
-        en_recalib = P.fit(peaks_for_calib.centroids, peaks_for_calib.energy, deg=2)
+
+        # 2023-08-27 PAREI AQUI
+        self.nucl_an.nuclide_identif()
+
+
+
+
         pks_comprehensive_df['engy_pk_recalib'] = en_recalib(
             pks_comprehensive_df.centroids
         )
