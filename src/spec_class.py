@@ -10,6 +10,7 @@ Created on Wed Jun  2 16:06:14 2021
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from numpy.polynomial import Polynomial as P
 from sklearn import linear_model
 
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib

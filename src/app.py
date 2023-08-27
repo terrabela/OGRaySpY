@@ -1,27 +1,14 @@
-#-----------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See LICENSE in the project root for license information.
-#-----------------------------------------------------------------------------------------
 
-from flask import Flask
-app = Flask(__name__)
-
-import numpy as np
 import pandas as pd
-from numpy.polynomial import Polynomial as P
-from random import randrange
 
 from ograyspy_class import Ograyspy, select_spectrum_from_folder_list
 from spec_class import Spec
 
-@app.route("/")
-def hello():
-    return app.send_static_file("index.html")
 
-def app_runner():
-    print ("Running...")
+def app_runner(folder_to_find, nucl_lib):
+    print("Running...")
     some_spectrum_pattern = "SI06122"
-    ograyspy_app = Ograyspy(folder_to_find="static/spectra")
+    ograyspy_app = Ograyspy(folder_to_find=folder_to_find)
     spectra_list_df = pd.read_pickle(ograyspy_app.pkl_folder_files)
     print(spectra_list_df)
     reduc_nms = spectra_list_df.reduced_names_files_list[0]
@@ -30,13 +17,11 @@ def app_runner():
     spec_name, reduced_name = select_spectrum_from_folder_list(
         reduc_nms, fil_lst, spc_pth, some_spectrum_pattern
         )
-    print( spec_name, reduced_name )
+    print(spec_name, reduced_name)
     if spec_name:
         print("Now, go to analysis:")
         a_spec = Spec(spec_name, reduced_name)
-        nucl_iear1_df = pd.read_pickle(
-            "static/nuclide_libs/nucl_iear1_list.pkl"
-        )
+        nucl_iear1_df = pd.read_pickle(nucl_lib)
         # 2023-Jun-15: Setting gamma lines/ranges to dismiss in the analysis
         df1 = nucl_iear1_df
         df1["is_to_consider"] = True
@@ -49,4 +34,5 @@ def app_runner():
         print("Nothing to do.")
     print("Terminated ok!")
 
-app_runner()
+
+app_runner(folder_to_find='Genie_Transfer', nucl_lib='nucl_iear1_list.pkl')
