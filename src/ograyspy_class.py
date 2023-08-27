@@ -91,10 +91,10 @@ class Ograyspy:
             print('Found folder name: ', self.spectra_path)
         else:
             print('Folder name not found. Using default sample folder')
-            self.spectra_path = Path('data/some_spectra')
+            self.spectra_path = Path('static/spectra')
             print('Folder name explicitly named: ', self.spectra_path)
 
-        print('Partes: ', self.spectra_path.parts)
+        print('Parts: ', self.spectra_path.parts)
         n_parts_dropped = len(self.spectra_path.parts)
 
         self.files_list = []
@@ -142,7 +142,7 @@ class Ograyspy:
                     nomearq = j
                     break
             if achou:
-                print(f'Achou! indice={self.a_spec_ind}, nomearq = {nomearq}')
+                print(f'Spectrum found: indice={self.a_spec_ind}, nomearq = {nomearq}')
                 self.a_spec_name = self.files_list[self.a_spec_ind]
                 self.reduced_f_name = self.reduced_names_files_list[self.a_spec_ind]
 
@@ -157,6 +157,7 @@ class Ograyspy:
         print(f'spectra_path: {self.spectra_path}')
         print(f'a_spec_name: {self.a_spec_name}')
         print(f'reduced_f_name: {self.reduced_f_name}')
+        return self.a_spec_name, self.reduced_f_name
 
 #   2023-Mar-22: AQUI: REFATORAR
 #    def perform_batch_analyses(self):

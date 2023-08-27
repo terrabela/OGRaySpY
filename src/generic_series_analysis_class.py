@@ -22,7 +22,7 @@ class GenericSeriesAnalysis:
     and possibly find baseline.
     """
 
-    def __init__(self, sp_counts, to_smooth=False, is_fft=False, given_variance=None, s_cond=None):
+    def __init__(self, sp_counts, to_smooth=False, is_fft=False, given_variance=None):
         self.mix_regions = None
         self.spl_baseline = None
         self.eval_baseline = None
@@ -41,7 +41,7 @@ class GenericSeriesAnalysis:
             self.unc_y = np.sqrt(given_variance)
         self.y_smoothed = None
         if to_smooth:
-            self.y_smoothed = self.eval_smoo_counts(s_cond)
+            self.y_smoothed = self.eval_smoo_counts()
         else:
             self.y_smoothed = self.y_s
         self.fft_s = None
@@ -78,6 +78,7 @@ class GenericSeriesAnalysis:
 
     def resolve_peaks_and_regions(self, k_sep_pk, peak_sd_fact):
         self.peaks_search(peak_sd_fact=peak_sd_fact)
+        print('resolve_peaks_and_regions:')
         self.redefine_widths_range()
         self.peaks_search(peak_sd_fact=peak_sd_fact,
                           widths_range=self.widths_pair)
@@ -137,16 +138,13 @@ class GenericSeriesAnalysis:
         fins = fins[:min_size]
         self.mix_regions = np.concatenate(np.array([[inis], [fins]])).T
 
-    def eval_smoo_counts(self, s_cond):
-        n_nzero = self.chans_nzero.size
-        if n_nzero > 0:
-            if s_cond is None:
-                s_cond = n_nzero - np.sqrt(2 * n_nzero)
+        print('define_multiplets_regions completado. Define: self.mix_regions.')
+
+    def eval_smoo_counts(self):
+        if self.n_ch > 0:
             smoo_cts = splrep(x=self.chans_nzero,
                               y=self.counts_nzero,
-                              w=1.0 / self.unc_y,
-                              s=s_cond,
-                              k=3)
+                              w=1.0 / self.unc_y, k=3)
             evaluated = splev(self.x_s, smoo_cts)
             return evaluated
 

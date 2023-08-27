@@ -10,6 +10,7 @@ Created on Wed Jun  2 16:06:14 2021
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from sklearn import linear_model
 
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
 from specchn_class import SpecChn
@@ -39,8 +40,8 @@ class Spec:
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
             self.spec_io = SpecChn(f_name)
-            self.lv_time = self.spec_io.chn_lvtime
-            self.rl_time = self.spec_io.chn_rltime
+            self.lv_time = self.spec_io.lvtime
+            self.rl_time = self.spec_io.rltime
             self.source_datetime = None
 
         elif self.sufx == '.iec':
@@ -181,3 +182,87 @@ class Spec:
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
         spec_df_type2.to_pickle(self.pkl_file)
+
+    def identify_nuclides(self, nucl_iear1_df):
+        print("Lets identify nuclides.")
+        orig_ser = self.origin_spec_ser_an
+        net_ser = self.net_spec_ser_an
+        x_nz = orig_ser.chans_nzero
+        y_nz = orig_ser.counts_nzero
+        chans = net_ser.x_s
+        ys_net_counts = net_ser.y_s
+        peaks_net = net_ser.pk_parms.peaks
+        peaks_orig = orig_ser.pk_parms.peaks
+        counts = orig_ser.y_s
+        chans_nzero = orig_ser.chans_nzero
+        counts_nzero = orig_ser.counts_nzero
+        unc_y = orig_ser.unc_y
+        eval_y = orig_ser.y_smoothed
+        eval_bl = orig_ser.eval_baseline
+        fin_bl = orig_ser.final_baseline
+        inis = orig_ser.pk_parms.propts['left_bases']
+        fins = orig_ser.pk_parms.propts['right_bases']
+        # 2023-Jun-15
+        # CRUCIAL step: take the dict net_ser.pk_parms' keys/values and organize them as a pd.Dataframe
+        vars_pkprms = vars(net_ser.pk_parms)
+        keys_to_get = ['peaks', 'fwhm_centr', 'rough_sums', 'centroids', 'variances']
+        prep_for_dict = [(key, vars_pkprms[key]) for key in keys_to_get]
+        pks_dict = dict(prep_for_dict)
+        peaks_df = pd.DataFrame.from_dict(pks_dict)
+        peaks_df
+        pr_pk = dict([('pk_hei',net_ser.pk_parms.propts['peak_heights']),
+              ('lf_thr',net_ser.pk_parms.propts['left_thresholds']),
+              ('rg_thr',net_ser.pk_parms.propts['right_thresholds']),
+              ('promns',net_ser.pk_parms.propts['prominences']),
+              ('lf_bas',net_ser.pk_parms.propts['left_bases']),
+              ('rg_bas',net_ser.pk_parms.propts['right_bases']),
+              ('widths',net_ser.pk_parms.propts['widths']),
+              ('wi_hei',net_ser.pk_parms.propts['width_heights']),
+              ('lf_ips',net_ser.pk_parms.propts['left_ips']),
+              ('rg_ips',net_ser.pk_parms.propts['right_ips'])])
+        pks_properties_df = pd.DataFrame(pr_pk)
+        pks_comprehensive_df = pd.concat([peaks_df, pks_properties_df],axis=1)
+        print(pks_comprehensive_df)
+        def add_engy_to_pks_df(peaks_net_kev_df, func_en):
+            peaks_net_kev_df['engy_pk_det'] = func_en(peaks_net_kev_df.centroids)
+        add_engy_to_pks_df(pks_comprehensive_df, self.channel_energy_calib.get_energy)
+        print(pks_comprehensive_df)
+        nucl_iear1_selctd_gamms_df = nucl_iear1_df.loc [
+            (nucl_iear1_df.intensity > 1.0) & nucl_iear1_df.is_to_consider
+        ]
+        print(nucl_iear1_selctd_gamms_df)
+        cross_df = pd.merge(pks_comprehensive_df, nucl_iear1_selctd_gamms_df, how='cross')
+        cross_df["delta_en"] = cross_df.engy_pk_det - cross_df.energy
+        def create_matching_peaks_df(pks_df, en_toler, must_be_key_gamma=False):
+            if must_be_key_gamma:
+                aux_df = pd.DataFrame(pks_df.loc[pks_df.is_key_gamma])
+            else:
+                aux_df = pd.DataFrame(pks_df)
+            return aux_df.loc[np.abs(pks_df.delta_en) < en_toler]
+        en_toler_calib = 3.0
+        matching_peaks_df = create_matching_peaks_df(cross_df, en_toler_calib)
+        print(matching_peaks_df)
+        print("Now, proceed to the robust calibration.")
+        X_energy = np.array(matching_peaks_df.energy).reshape(-1,1)
+        y_delta_en = np.array(matching_peaks_df.delta_en)
+        # Robustly fit linear model with RANSAC algorithm
+        ransac = linear_model.RANSACRegressor()
+        ransac.fit(X_energy, y_delta_en)
+        inlier_mask = ransac.inlier_mask_
+        outlier_mask = np.logical_not(inlier_mask)
+        matching_peaks_df["final_delta_en"] = (
+                matching_peaks_df.engy_pk_det - ransac.predict(X_energy) - matching_peaks_df.energy
+        )
+        matching_peaks_df
+        en_toler_ident = 0.5
+        peaks_for_calib = matching_peaks_df.loc[
+            np.abs(matching_peaks_df.final_delta_en) < en_toler_ident
+        ]
+        en_recalib = P.fit(peaks_for_calib.centroids, peaks_for_calib.energy, deg=2)
+        pks_comprehensive_df['engy_pk_recalib'] = en_recalib(
+            pks_comprehensive_df.centroids
+        )
+        cross_df = pd.merge(pks_comprehensive_df, nucl_iear1_selctd_gamms_df, how='cross')
+        cross_df["delta_en"] = cross_df.engy_pk_recalib - cross_df.energy
+        matching_peaks_df = create_matching_peaks_df(cross_df, en_toler_ident)
+        print(matching_peaks_df)
