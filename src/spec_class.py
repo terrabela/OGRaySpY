@@ -10,8 +10,7 @@ Created on Wed Jun  2 16:06:14 2021
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from numpy.polynomial import Polynomial as P
-from sklearn import linear_model
+
 
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
 from specchn_class import SpecChn
@@ -49,8 +48,8 @@ class Spec:
 
         elif self.sufx == '.iec':
             self.spec_io = SpecIec(f_name)
-            self.lv_time = self.spec_io.iec_lvtime
-            self.rl_time = self.spec_io.iec_rltime
+            self.lv_time = self.spec_io.lvtime
+            self.rl_time = self.spec_io.rltime
             self.source_datetime = self.spec_io.source_datetime
         #
         self.pkl_file = Path(self.f_name).with_suffix('.pkl')
@@ -231,15 +230,5 @@ class Spec:
         print(pks_comprehensive_df)
 
         # 2023-08-27 PAREI AQUI
-        self.nucl_an.nuclide_identif()
+        self.nucl_an.nuclide_identif(nucl_iear1_df, pks_comprehensive_df)
 
-
-
-
-        pks_comprehensive_df['engy_pk_recalib'] = en_recalib(
-            pks_comprehensive_df.centroids
-        )
-        cross_df = pd.merge(pks_comprehensive_df, nucl_iear1_selctd_gamms_df, how='cross')
-        cross_df["delta_en"] = cross_df.engy_pk_recalib - cross_df.energy
-        matching_peaks_df = create_matching_peaks_df(cross_df, en_toler_ident)
-        print(matching_peaks_df)

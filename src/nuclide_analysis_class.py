@@ -1,10 +1,16 @@
+import numpy as np
+from numpy.polynomial import Polynomial as Poly
+import pandas as pd
+from sklearn import linear_model
+
+
 class NuclideAnalysis:
     """ Nuclide analysis class. """
 
     def __init__(self, f_name='', reduced_f_name='',):
         pass
 
-    def nuclide_identif(self):
+    def nuclide_identif(self, nucl_iear1_df, pks_comprehensive_df):
         nucl_iear1_selctd_gamms_df = nucl_iear1_df.loc[
             (nucl_iear1_df.intensity > 1.0) & nucl_iear1_df.is_to_consider
             ]
@@ -37,5 +43,13 @@ class NuclideAnalysis:
         peaks_for_calib = matching_peaks_df.loc[
             np.abs(matching_peaks_df.final_delta_en) < en_toler_ident
             ]
-        en_recalib = P.fit(peaks_for_calib.centroids, peaks_for_calib.energy, deg=2)
-
+        en_recalib = Poly.fit(peaks_for_calib.centroids, peaks_for_calib.energy, deg=2)
+        print('en_recalib:', en_recalib)
+        print('pks_comprehensive_df:', pks_comprehensive_df)
+        pks_comprehensive_df['engy_pk_recalib'] = en_recalib(
+            pks_comprehensive_df.centroids
+        ),
+        cross_df = pd.merge(pks_comprehensive_df, nucl_iear1_selctd_gamms_df, how='cross')
+        cross_df["delta_en"] = cross_df.engy_pk_recalib - cross_df.energy
+        matching_peaks_df = create_matching_peaks_df(cross_df, en_toler_ident)
+        print(matching_peaks_df)
