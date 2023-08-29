@@ -3,9 +3,52 @@ from random import randrange
 from pathlib import Path
 import pickle
 import os
+import pandas as pd
 
-from spec_class import Spec
-from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
+
+def select_spectrum_from_folder_list(reduced_names_file_list, files_list,
+                                     spectra_path, a_pattern='', random_spectrum=False):
+    # Select a random spectrum...
+    n_files = len(reduced_names_file_list)
+    if random_spectrum:
+        try:
+            a_spec_ind = randrange(n_files)
+            print('Random spec index: ', a_spec_ind)
+            a_spec_name = files_list[a_spec_ind]
+            reduced_f_name = reduced_names_file_list[a_spec_ind]
+            print('...and its name: ', a_spec_name)
+        except ValueError:
+            print('No random spectrum found...')
+        # ...or define it directly.
+    else:
+        print('Existing:')
+        achou = False
+        a_spec_ind = None
+        nomearq = ''
+        for i, j in enumerate(reduced_names_file_list):
+            if a_pattern in j:
+                achou = True
+                a_spec_ind = i
+                nomearq = j
+                break
+        if achou:
+            print(f'Achou! indice={a_spec_ind}, nomearq = {nomearq}')
+            a_spec_name = files_list[a_spec_ind]
+            reduced_f_name = reduced_names_file_list[a_spec_ind]
+
+        matching_spec_name = [i for i in spectra_path.glob(a_pattern)]
+        if len(matching_spec_name) != 0:
+            for i in matching_spec_name:
+                print('name: ', i)
+            a_spec_name = matching_spec_name[0]
+
+    print('==========================')
+    print('Final choices:')
+    print(f'spectra_path: {spectra_path}')
+    print(f'a_spec_name: {a_spec_name}')
+    print(f'reduced_f_name: {reduced_f_name}')
+    return a_spec_name, reduced_f_name
+
 
 
 class Ograyspy:
@@ -23,8 +66,9 @@ class Ograyspy:
         self.a_spec_ind = 0
         self.a_spec_name = ''
         self.reduced_f_name = ''
-        self.gross_counts_graphics = None
-        self.pks_regions_gros = None
+        self.define_files_folder(folder_to_find)
+        # self.gross_counts_graphics = None
+        # self.pks_regions_gros = None
 
     def process_pickled_list(self, my_file):
         if os.path.isfile(my_file):  # if file exists we have already pickled a list
@@ -47,10 +91,10 @@ class Ograyspy:
             print('Found folder name: ', self.spectra_path)
         else:
             print('Folder name not found. Using default sample folder')
-            self.spectra_path = Path('data/some_spectra')
+            self.spectra_path = Path('static/spectra')
             print('Folder name explicitly named: ', self.spectra_path)
 
-        print('Partes: ', self.spectra_path.parts)
+        print('Parts: ', self.spectra_path.parts)
         n_parts_dropped = len(self.spectra_path.parts)
 
         self.files_list = []
@@ -62,6 +106,16 @@ class Ograyspy:
                 self.reduced_names_files_list.append('/'.join(i.parts[n_parts_dropped:]))
         self.n_files = len(self.files_list)
         print('No. spec files: ', self.n_files)
+
+        self.pkl_folder_files = Path(self.info_syst + self.info_node).with_suffix('.pkl')
+        ogra_vars = vars(self)
+        campos = [a for a in ogra_vars]
+        valores = [ogra_vars[a] for a in ogra_vars]
+        # spec_df_type1 = pd.DataFrame(data=valores, index=campos)
+        # spec_df_type1.to_pickle(self.pkl_file)
+        spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
+        spec_df_type2.to_pickle(self.pkl_folder_files)
+
 
     def select_spectrum(self, a_pattern='', random_spectrum=False):
         # Select a random spectrum...
@@ -88,7 +142,7 @@ class Ograyspy:
                     nomearq = j
                     break
             if achou:
-                print(f'Achou! indice={self.a_spec_ind}, nomearq = {nomearq}')
+                print(f'Spectrum found: indice={self.a_spec_ind}, nomearq = {nomearq}')
                 self.a_spec_name = self.files_list[self.a_spec_ind]
                 self.reduced_f_name = self.reduced_names_files_list[self.a_spec_ind]
 
@@ -103,30 +157,21 @@ class Ograyspy:
         print(f'spectra_path: {self.spectra_path}')
         print(f'a_spec_name: {self.a_spec_name}')
         print(f'reduced_f_name: {self.reduced_f_name}')
+        return self.a_spec_name, self.reduced_f_name
 
-    def perform_total_analysis(self, k_sep_pk=2.0, smoo=4096,
-                               widths_range=(4.0, 20.0),
-                               peak_sd_fact=3.0,
-                               gener_dataframe=False):
-        self.a_spec = Spec(self.a_spec_name, self.reduced_f_name)
-        self.a_spec.total_analysis(k_sep_pk=k_sep_pk,
-                                   smoo=smoo,
-                                   widths_range=widths_range,
-                                   peak_sd_fact=peak_sd_fact,
-                                   gener_dataframe=gener_dataframe)
-        print('Fez total analysis.')
+#   2023-Mar-22: AQUI: REFATORAR
+#    def perform_batch_analyses(self):
+#        self.define_files_batch()
+#        print(self.files_list)
+#        for nam in self.files_list:
+#            spec = Spec(nam)
+#            spec.total_analysis(gener_dataframe=True)
 
-    def perform_batch_analyses(self):
-        self.define_files_batch()
-        print(self.files_list)
-        for nam in self.files_list:
-            spec = Spec(nam)
-            spec.total_analysis(gener_dataframe=True)
+ #   def call_graphics(self):
+ #       cts_graph = CountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+ #                                 self.home_path, 'gross_counts_graph')
+ #       pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
+ #                                              self.home_path, 'gross_pks_reg_graph')
+ #       net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
+ #                                              self.home_path, 'net_pks_reg_graph')
 
-    def call_graphics(self):
-        cts_graph = CountsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
-                                  self.home_path, 'gross_counts_graph')
-        pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.gross_spec_ser_an,
-                                               self.home_path, 'gross_pks_reg_graph')
-        net_pk_regs_graph = PeaksAndRegionsGraphic(self.a_spec_name, self.a_spec.net_spec_ser_an,
-                                               self.home_path, 'net_pks_reg_graph')
