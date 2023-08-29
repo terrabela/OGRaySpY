@@ -2,8 +2,3 @@ numpy
 scipy
 pandas
 plotly
-sphinx
-livereload
-myst-parser
-setuptools
-PySide2
