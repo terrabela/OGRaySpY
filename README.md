@@ -41,3 +41,5 @@ Report as an html table:
 ### Old screenshots
 #### Spectrum window with CWT ridges (will be ported soon):
 <img src="Captura_2020-05-24_18-57-26.png" width="80%"></img>
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/terrabela/OGRaySpY/upcoming)
