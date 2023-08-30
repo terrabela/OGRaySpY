@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.polynomial import Polynomial as Poly
 import pandas as pd
-from scikit-learn import linear_model
+from sklearn import linear_model
 
 
 class NuclideAnalysis:
