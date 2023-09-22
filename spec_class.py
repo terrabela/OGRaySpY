@@ -52,7 +52,7 @@ class Spec:
             self.rl_time = self.spec_io.rltime
             self.source_datetime = self.spec_io.source_datetime
         #
-        self.pkl_file = Path(self.f_name).with_suffix('.pkl')
+        self.pkl_file = Path('')
 
         # self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
@@ -108,7 +108,7 @@ class Spec:
         return h_win
 
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
-                       peak_sd_fact=3.0, gener_dataframe=False):
+                       peak_sd_fact=3.0, gener_dataframe=False, ):
         # Initialize a minimal members set from a read spectrum file.
         """Analyze thoroughly a spectrum.
 
@@ -162,13 +162,17 @@ class Spec:
             self.net_spec_ser_an.perform_basic_net_area_calculation()
 
             if gener_dataframe:
-                self.generate_pandas_dataframe()
+                # 2023-Set-22 PAREI AQUI: CORRIGIR AQUI E EM OGRAYSPY_CLASS
+                # DIRECIONAR RESULTADOS PARA CAMINHO LOCAL: 'data/results' +
+                # + CAMINHO DO ARQUIVO.
+                results_pkl_file = f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
+                self.generate_pandas_dataframe(results_pkl_file)
 
             print('Finish Spec.total_analysis!')
         else:
             print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
 
-    def generate_pandas_dataframe(self):
+    def generate_pandas_dataframe(self, pkl_results_path):
         # for this spectrum, generate a pd.Dataframe and save it as a pkl-file.
         """Generate a Dataframe and save it as pkl for this spectrum.
 
@@ -180,6 +184,7 @@ class Spec:
         # spec_df_type1 = pd.DataFrame(data=valores, index=campos)
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
+        self.pkl_file = Path(self.f_name).with_suffix('.pkl')
         spec_df_type2.to_pickle(self.pkl_file)
 
     def identify_nuclides(self, nucl_iear1_df):
