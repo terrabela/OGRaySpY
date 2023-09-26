@@ -108,7 +108,7 @@ class Spec:
         return h_win
 
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
-                       peak_sd_fact=3.0, gener_dataframe=False, ):
+                       peak_sd_fact=3.0, gener_dataframe=False, results_path='.' ):
         # Initialize a minimal members set from a read spectrum file.
         """Analyze thoroughly a spectrum.
 
@@ -165,7 +165,8 @@ class Spec:
                 # 2023-Set-22 PAREI AQUI: CORRIGIR AQUI E EM OGRAYSPY_CLASS
                 # DIRECIONAR RESULTADOS PARA CAMINHO LOCAL: 'data/results' +
                 # + CAMINHO DO ARQUIVO.
-                results_pkl_file = f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
+                # results_pkl_file = self.reduced_f_name.f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
+                results_pkl_file = results_path + '/results_pkl_file.pkl'
                 self.generate_pandas_dataframe(results_pkl_file)
 
             print('Finish Spec.total_analysis!')
