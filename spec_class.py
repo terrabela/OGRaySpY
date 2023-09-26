@@ -167,7 +167,8 @@ class Spec:
                 # + CAMINHO DO ARQUIVO.
                 # results_pkl_file = self.reduced_f_name.f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
                 results_pkl_file = results_path + '/results_pkl_file.pkl'
-                self.generate_pandas_dataframe(results_pkl_file)
+                print(results_pkl_file)
+                print(self.generate_pandas_dataframe(results_pkl_file))
 
             print('Finish Spec.total_analysis!')
         else:

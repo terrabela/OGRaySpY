@@ -69,6 +69,9 @@ class Ograyspy:
         self.define_files_folder(folder_to_find)
         # self.gross_counts_graphics = None
         # self.pks_regions_gros = None
+        self.results_path_name = "../ograyspy_results"
+        if not os.path.exists(self.results_path_name):
+            os.mkdir(self.results_path_name)
 
     def process_pickled_list(self, my_file):
         if os.path.isfile(my_file):  # if file exists we have already pickled a list
