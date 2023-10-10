@@ -166,13 +166,14 @@ class Spec:
                 # DIRECIONAR RESULTADOS PARA CAMINHO LOCAL: 'data/results' +
                 # + CAMINHO DO ARQUIVO.
                 # results_pkl_file = self.reduced_f_name.f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
-                results_pkl_file = results_path + '/results_pkl_file.pkl'
-                print(results_pkl_file)
+                # results_pkl_file = results_path + '/results_pkl_file.pkl'
+                # print(results_pkl_file)
                 print(self.generate_pandas_dataframe(results_pkl_file))
 
             print('Finish Spec.total_analysis!')
         else:
             print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
+        return
 
     def generate_pandas_dataframe(self, pkl_results_path):
         # for this spectrum, generate a pd.Dataframe and save it as a pkl-file.
