@@ -52,7 +52,8 @@ class Spec:
             self.rl_time = self.spec_io.rltime
             self.source_datetime = self.spec_io.source_datetime
         #
-        self.pkl_file = Path('')
+        # self.pkl_file = Path('')
+        self.results_pkl_file = Path('')
 
         # self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
         self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
@@ -162,20 +163,23 @@ class Spec:
             self.net_spec_ser_an.perform_basic_net_area_calculation()
 
             if gener_dataframe:
-                # 2023-Set-22 PAREI AQUI: CORRIGIR AQUI E EM OGRAYSPY_CLASS
-                # DIRECIONAR RESULTADOS PARA CAMINHO LOCAL: 'data/results' +
-                # + CAMINHO DO ARQUIVO.
-                # results_pkl_file = self.reduced_f_name.f_name.with_stem(f_name.stem + '_result').with_suffix('.pkl')
-                # results_pkl_file = results_path + '/results_pkl_file.pkl'
-                # print(results_pkl_file)
-                print(self.generate_pandas_dataframe(results_pkl_file))
+                # 2023-Oct-17 PAREI AQUI: Create folders of pkls as needed.
+                red_fn = Path(self.reduced_f_name)
+                reduced_pkl_file = red_fn.with_stem(red_fn.stem + '_result').with_suffix('.pkl')
+                print(red_fn)
+                print(reduced_pkl_file)
+                self.results_pkl_file = Path.joinpath(Path(results_path), reduced_pkl_file)
+                print('results_pkl_file')
+                print(self.results_pkl_file)
+                Path.mkdir(self.results_pkl_file.parent, parents=True, exist_ok=True)
+                self.generate_pandas_dataframe()
 
             print('Finish Spec.total_analysis!')
         else:
             print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
         return
 
-    def generate_pandas_dataframe(self, pkl_results_path):
+    def generate_pandas_dataframe(self):
         # for this spectrum, generate a pd.Dataframe and save it as a pkl-file.
         """Generate a Dataframe and save it as pkl for this spectrum.
 
@@ -187,8 +191,8 @@ class Spec:
         # spec_df_type1 = pd.DataFrame(data=valores, index=campos)
         # spec_df_type1.to_pickle(self.pkl_file)
         spec_df_type2 = pd.DataFrame(data=[valores], columns=campos)
-        self.pkl_file = Path(self.f_name).with_suffix('.pkl')
-        spec_df_type2.to_pickle(self.pkl_file)
+        # self.pkl_file = Path(self.f_name).with_suffix('.pkl')
+        spec_df_type2.to_pickle(self.results_pkl_file)
 
     def identify_nuclides(self, nucl_iear1_df):
         print("Lets identify nuclides.")
