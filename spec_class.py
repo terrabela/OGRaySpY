@@ -10,7 +10,7 @@ Created on Wed Jun  2 16:06:14 2021
 from pathlib import Path
 import numpy as np
 import pandas as pd
-
+from numpy.polynomial import Polynomial as P  # 2020-09-06 Esta é a nova classe recomendada
 
 from genericcalib_class import ChannelEnergyCalib, EnergyFwhmCalib
 from specchn_class import SpecChn
@@ -18,6 +18,7 @@ from speciec_class import SpecIec
 from generic_series_analysis_class import GenericSeriesAnalysis
 from nuclide_analysis_class import NuclideAnalysis
 
+from sklearn import linear_model
 
 # from spec_graphics_class import CountsGraphic, PeaksAndRegionsGraphic, BaselineGraphic
 
@@ -108,6 +109,9 @@ class Spec:
         h_win = int(np.round(_a * i_ch + _b))
         return h_win
 
+    def en_eff(self, engy):
+        return np.exp(self.p_eff(np.log(engy)))
+
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
                        peak_sd_fact=3.0, gener_dataframe=False, results_path='.' ):
         # Initialize a minimal members set from a read spectrum file.
@@ -194,6 +198,35 @@ class Spec:
         # self.pkl_file = Path(self.f_name).with_suffix('.pkl')
         spec_df_type2.to_pickle(self.results_pkl_file)
 
+    def read_pkl_file(self):
+        # Náo usar ainda, só para verificar se o pkl_file pode ser recuperado:
+        results_df = pd.read_pickle(self.results_pkl_file)
+        read_orig = results_df['origin_spec_ser_an'][0]
+        orig_ser = read_orig
+        read_net = results_df['net_spec_ser_an'][0]
+        net_ser = read_net
+        vars(net_ser)
+        # 2023 - May - 26
+        # Ok! Espectro gravado, depois lido, então vamos prosseguir
+        # com a identificação dos nuclídeos.
+        # Agora, posso ler e analisar um espectro, gravá-lo e depois, em outro momento,
+        # ler o pkl com a análise.
+        x_nz = orig_ser.chans_nzero
+        y_nz = orig_ser.counts_nzero
+        chans = net_ser.x_s
+        ys_net_counts = net_ser.y_s
+        peaks_net = net_ser.pk_parms.peaks
+        peaks_orig = orig_ser.pk_parms.peaks
+        counts = orig_ser.y_s
+        chans_nzero = orig_ser.chans_nzero
+        counts_nzero = orig_ser.counts_nzero
+        unc_y = orig_ser.unc_y
+        eval_y = orig_ser.y_smoothed
+        eval_bl = orig_ser.eval_baseline
+        fin_bl = orig_ser.final_baseline
+        inis = orig_ser.pk_parms.propts['left_bases']
+        fins = orig_ser.pk_parms.propts['right_bases']
+
     def identify_nuclides(self, nucl_iear1_df):
         print("Lets identify nuclides.")
         orig_ser = self.origin_spec_ser_an
@@ -232,15 +265,140 @@ class Spec:
                       ('lf_ips', net_ser.pk_parms.propts['left_ips']),
                       ('rg_ips', net_ser.pk_parms.propts['right_ips'])])
         pks_properties_df = pd.DataFrame(pr_pk)
-        pks_comprehensive_df = pd.concat([peaks_df, pks_properties_df], axis=1)
-        print(pks_comprehensive_df)
 
-        def add_engy_to_pks_df(peaks_net_kev_df, func_en):
-            peaks_net_kev_df['engy_pk_det'] = func_en(peaks_net_kev_df.centroids)
+        self.pks_comprehensive_df = pd.concat([peaks_df, pks_properties_df], axis=1)
+        print(self.pks_comprehensive_df)
 
-        add_engy_to_pks_df(pks_comprehensive_df, self.channel_energy_calib.get_energy)
-        print(pks_comprehensive_df)
+        self.add_engy_to_pks_df(self.pks_comprehensive_df, self.channel_energy_calib.get_energy)
+        print(self.pks_comprehensive_df)
 
         # 2023-08-27 PAREI AQUI
-        self.nucl_an.nuclide_identif(nucl_iear1_df, pks_comprehensive_df)
+        # self.nucl_an.nuclide_identif(nucl_iear1_df, pks_comprehensive_df)
 
+    # 2023-Oct-23 FIX
+    def add_engy_to_pks_df(self, pks_kev_df, func_en):
+        pks_kev_df['engy_pk_det'] = func_en(pks_kev_df.centroids)
+
+    def create_matching_peaks_df(self, nucl_df, must_be_key_gamma=False):
+
+        self.en_toler_calib = 3.0
+        self.en_toler_ident = 0.4
+
+        if must_be_key_gamma:
+            nucl_aux_df = pd.DataFrame(nucl_df.loc[nucl_df.is_key_gamma])
+        else:
+            nucl_aux_df = pd.DataFrame(nucl_df)
+        self.cross_df = pd.merge(self.pks_comprehensive_df, nucl_aux_df, how='cross')
+        self.cross_df["delta_en"] = self.cross_df.engy_pk_det - self.cross_df.energy
+        aux_2 = pd.DataFrame(self.cross_df.loc[np.abs(self.cross_df.delta_en) < self.en_toler_calib])
+        X_energy = np.array(aux_2.energy).reshape(-1, 1)
+        y_delta_en = np.array(aux_2.delta_en)
+        # Robustly fit linear model with RANSAC algorithm
+        ransac = linear_model.RANSACRegressor()
+        ransac.fit(X_energy, y_delta_en)
+        inlier_mask = ransac.inlier_mask_
+        outlier_mask = np.logical_not(inlier_mask)
+        aux_2["recalib_engy_ransac"] = aux_2.engy_pk_det - ransac.predict(X_energy)
+        aux_2["new_delta_en"] = aux_2.recalib_engy_ransac - aux_2.energy
+        aux_3 = aux_2.loc[abs(aux_2.new_delta_en) < 0.4]
+        new_ch_en_calib = P.fit(aux_3.centroids, aux_3.energy, deg=2)
+        return aux_3, new_ch_en_calib
+
+    def create_activities_df(self, nucl_iear1_df, results_path='.'):
+
+        aux_3, new_ch_en_calib = self.create_matching_peaks_df(
+            nucl_iear1_df, must_be_key_gamma=False)
+        aux_3
+
+        aux_3.columns
+
+        self.pks_comprehensive_df.columns
+
+        self.pks_comprehensive_df['recalib_energy'] = new_ch_en_calib(self.pks_comprehensive_df.centroids)
+
+        # 2023-Jun-14
+        # Loading calibration pkl file:
+        calib_pkl_name = 'data/f100_gmx_2021.pkl'
+        calib_df = pd.read_pickle(calib_pkl_name)
+        calib_df
+
+        self.p_eff, _ = calib_df.effic_func[3]
+
+        # 2023-Aug-18
+        # AQUI escolher nucludeo que tiver mais picos identificados (Ag-110m tem mais que Cs-137)
+        # Por enquanto, usar a calibracao robusta, que deve bastar.
+
+        self.cross_df = pd.merge(self.pks_comprehensive_df, nucl_iear1_df, how='cross')
+        self.cross_df["delta_en"] = self.cross_df.recalib_energy - self.cross_df.energy
+        df_result = pd.DataFrame(self.cross_df.loc[np.abs(self.cross_df.delta_en) < self.en_toler_ident])
+        df_result
+
+        lv_time = self.lv_time
+        # Sample size (L, kg, g etc.)
+        samp_size = 0.1
+        sam_descr = self.sam_descr
+        source_datetime = self.source_datetime
+        start_datetime = self.start_datetime
+
+        df_result["disintegr"] = df_result.rough_sums / (self.en_eff(df_result.energy) * 1e-4 * df_result.intensity)
+        df_result['activity_conc'] = df_result.disintegr / (self.lv_time * samp_size)
+        # 2023-Sep-21:
+        # AQUI: fazer a propagação de incerteza de activity_conc
+
+        # df_result.dtypes
+        df_result['acti_conc_unc'] = (
+                df_result.activity_conc * (
+                np.sqrt(df_result.variances) / df_result.rough_sums
+        ) * (
+                        df_result.unc_i / df_result.intensity
+                )
+        )
+        df_result
+
+        # 2023-Ago-4 PAREI AQUI. Fazer a indexação para o cálculo da atividade considerando a média das linhas de cada nuclídeo
+        # https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html
+        # https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#dataframe-column-selection-in-groupby
+        d5_grouped = df_result.groupby("nuclide_name")[
+            ['energy', 'intensity', 'centroids', 'rough_sums', 'variances', 'disintegr']]
+        # d5_grouped = d5.groupby("nuclide_name")[['disintegr']]
+        # sdfsdf = pd.DataFrame([[d5_grouped.mean(), d5_grouped.median()]])
+        # sdfsdf
+
+        df_result.groupby("nuclide_name")[['activity_conc']].describe()
+
+        self.results_pkl_file
+        second_result = self.results_pkl_file.with_stem('second_result')
+        second_result
+
+        df_result.to_pickle(second_result)
+
+        read_result_df = pd.read_pickle(second_result)
+        read_result_df
+
+        read_result_df.groupby("nuclide_name")[['activity_conc']].describe()
+
+        read_result_df.loc[df_result.nuclide_name == "110ag"]
+
+        read_result_df['one_s2'] = 1.0 / read_result_df.acti_conc_unc ** 2.0
+        read_result_df['x_s2'] = read_result_df.activity_conc * read_result_df.one_s2
+        read_result_df
+
+        # retomando
+        grpd = read_result_df.groupby("nuclide_name")
+
+        res_1 = pd.DataFrame(grpd[["one_s2", "x_s2"]].agg("sum"))
+        res_1["avrg_xm"] = res_1.x_s2 / res_1.one_s2
+        res_1["avrg_sd"] = 1.0 / np.sqrt(res_1.one_s2)
+        res_1
+
+        # 2023-10-22 AQUI: MUDAR!!!!
+        # final_activity_list_pkl_file = f_name.with_stem(f_name.stem + '_activ_list').with_suffix('.pkl')
+        # final_activity_list_pkl_file
+        red_fn = Path(self.reduced_f_name)
+        final_pkl_file = red_fn.with_stem(red_fn.stem + '_final').with_suffix('.pkl')
+        final_pkl_file = Path.joinpath(Path(results_path), final_pkl_file)
+        # Path.mkdir(self.results_pkl_file.parent, parents=True, exist_ok=True)
+
+        print('final_pkl_file:')
+        print(final_pkl_file)
+        res_1.to_pickle(final_pkl_file)
