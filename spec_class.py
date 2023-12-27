@@ -114,6 +114,16 @@ class Spec:
     def en_eff(self, engy):
         return np.exp(self.p_eff(np.log(engy)))
 
+    def define_result_pkl_name(self, results_path):
+        red_fn = Path(self.reduced_f_name)
+        reduced_pkl_file = red_fn.with_stem(red_fn.stem + '_result').with_suffix('.pkl')
+        print(red_fn)
+        print(reduced_pkl_file)
+        self.results_pkl_file = Path.joinpath(Path(results_path), reduced_pkl_file)
+        print('results_pkl_file')
+        print(self.results_pkl_file)
+        Path.mkdir(self.results_pkl_file.parent, parents=True, exist_ok=True)
+
     # 2023-Oct-26: verify: widths_range is not used:
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
                        peak_sd_fact=3.0, gener_dataframe=False, results_path='.'):
@@ -171,14 +181,7 @@ class Spec:
 
             if gener_dataframe:
                 # 2023-Oct-17 PAREI AQUI: Create folders of pkls as needed.
-                red_fn = Path(self.reduced_f_name)
-                reduced_pkl_file = red_fn.with_stem(red_fn.stem + '_result').with_suffix('.pkl')
-                print(red_fn)
-                print(reduced_pkl_file)
-                self.results_pkl_file = Path.joinpath(Path(results_path), reduced_pkl_file)
-                print('results_pkl_file')
-                print(self.results_pkl_file)
-                Path.mkdir(self.results_pkl_file.parent, parents=True, exist_ok=True)
+                self.define_result_pkl_name(results_path)
                 self.generate_pandas_dataframe()
 
             print('Finish Spec.total_analysis!')
