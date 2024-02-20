@@ -206,3 +206,12 @@ class GenericSeriesAnalysis:
         self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1])
                                    for i in self.pk_parms.wide_regions]
         # self.pk_parms.net_areas = self.k_erf * self.pk_parms.rough_sums
+
+    def perform_gauss_with_tail_net_area_calculation(self):
+        """Perform net area calculation by fitting a Gaussian with exponential left tail."""
+        # 2024-Feb-15: use lmfit
+        for i in self.pk_parms.wide_regions:
+            x_pk = np.linspace(i[0], i[1], num=i[1]-i[0]+1)
+            y_pk = self.y_s[i[0]:i[1] + 1]
+            print(x_pk)
+            print(y_pk)

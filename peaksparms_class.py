@@ -37,6 +37,7 @@ class PeaksParms:
         widths_pair = (ws_min, ws_max)
         
     def prepare_to_sum(self, n_fwhms=3.0):
+        """Prepare to integrate by defining fwhm_centr and wide_regions members."""
         self.fwhm_centr_ini = self.propts['left_ips']
         self.fwhm_centr_fin = self.propts['right_ips']
         fwhm_prelim = self.fwhm_centr_fin - self.fwhm_centr_ini

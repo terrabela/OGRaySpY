@@ -126,7 +126,8 @@ class Spec:
 
     # 2023-Oct-26: verify: widths_range is not used:
     def total_analysis(self, k_sep_pk=2.0, smoo=3000.0, widths_range=(4.0, 20.0),
-                       peak_sd_fact=3.0, gener_dataframe=False, results_path='.'):
+                       peak_sd_fact=3.0, gener_dataframe=False, results_path='.',
+                       peak_area_calc_method='basic'):
         # Initialize a minimal members set from a read spectrum file.
         """Analyze thoroughly a spectrum.
 
@@ -140,6 +141,10 @@ class Spec:
         :type peak_sd_fact: float
         :param gener_dataframe: WRITE
         :type gener_dataframe: bool
+        :param results_path: WRITE
+        :type results_path: string
+        :param peak_area_calc_method: WRITE
+        :type peak_area_calc_method: string
         :returns: 0 if spectrum was successfully opened; -1 otherwise.
         :rtype: int
         """
@@ -177,13 +182,15 @@ class Spec:
                 k_sep_pk, peak_sd_fact=peak_sd_fact
             )
             self.net_spec_ser_an.pk_parms.prepare_to_sum(n_fwhms=3.0)
-            self.net_spec_ser_an.perform_basic_net_area_calculation()
-
+            if peak_area_calc_method=='basic':
+                self.net_spec_ser_an.perform_basic_net_area_calculation()
+            elif peak_area_calc_method=='gaussian_with_tail':
+                gener_dataframe = False
+                self.net_spec_ser_an.perform_gauss_with_tail_net_area_calculation()
             if gener_dataframe:
                 # 2023-Oct-17 PAREI AQUI: Create folders of pkls as needed.
                 self.define_result_pkl_name(results_path)
                 self.generate_pandas_dataframe()
-
             print('Finish Spec.total_analysis!')
         else:
             print('Spec.total_analysis: No analysis applicable as spectrum is empty.')
