@@ -1,0 +1,22 @@
+
+As of Feb 23, 2024:
+
+correlating_channel_drift.ipynb
+generate_html_activity_report.ipynb
+graphics_test.ipynb
+html_report_generation.ipynb
+incremental_pca.ipynb
+livechart_api.ipynb
+lmfit_graphics.ipynb
+lmfit_package.ipynb
+lmfit_package_decayingwave.ipynb
+lmfit_package_doubleexp.ipynb
+lmfit_package_gaussianmulti.ipynb
+lmfit_package_polylog.ipynb
+nuclide_identification_step-1.ipynb
+nuclide_identification_step-2.ipynb
+Piscina_2022_2023.ipynb
+plotly_in_jupyterlab.ipynb
+radionuc_analysis_testes_lmfit.ipynb
+spectra_graphics.ipynb
+====================================
