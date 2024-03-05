@@ -107,11 +107,15 @@ class SpecChn:
                 i_yy += 2000
             else:
                 i_yy += 1900
-            self.sp_start_datetime = datetime(i_yy, self.month_conv(str(sp_mmm)),
-                                              int(str(sp_dd)),
-                                              int(str(sp_hh)),
-                                              int(str(sp_mm)),
-                                              int(str(sp_startsec)))
+            try:
+                self.sp_start_datetime = datetime(i_yy, self.month_conv(str(sp_mmm)),
+                                                  int(str(sp_dd)),
+                                                  int(str(sp_hh)),
+                                                  int(str(sp_mm)),
+                                                  int(str(sp_startsec)))
+                ret_code = 0
+            except ValueError:
+                ret_code = -2
             ret_code = 0
         except FileNotFoundError:
             ret_code = -1

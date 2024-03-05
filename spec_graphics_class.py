@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 
 
 class SpecGraphics:
-    def __init__(self, f_name):
+    def __init__(self, spec, f_name=''):
         pass
 
 
@@ -44,7 +44,7 @@ class GenericGraphics(SpecGraphics):
 
 
 class CountsGraphic(SpecGraphics):
-    def __init__(self, f_name, ser_an, home_path, graph_name):
+    def __init__(self, ser_an, home_path='', graph_name='', f_name='', gen_html=False):
         super().__init__(f_name)
         self.f_name = str(f_name)
         self.chans_nzero = ser_an.chans_nzero
@@ -52,9 +52,9 @@ class CountsGraphic(SpecGraphics):
         self.unc_y_4plot = np.where(ser_an.unc_y < 1.4, 0.0, ser_an.unc_y)
         # Initialize figure
         self.figw1 = go.FigureWidget()
-        self.plot_figw1(ser_an, home_path, graph_name=graph_name)
+        self.plot_figw1(ser_an, home_path, graph_name, gen_html)
 
-    def plot_figw1(self, spec_an, home_path, graph_name):
+    def plot_figw1(self, ser_an, home_path, graph_name, gen_html):
         self.figw1.add_trace(
             go.Scattergl(x=self.chans_nzero,
                          y=self.counts_nzero,
@@ -66,20 +66,24 @@ class CountsGraphic(SpecGraphics):
                              array=self.unc_y_4plot),
                          name='Counts & uncertainties'))
         self.figw1.add_trace(
-            go.Scattergl(x=spec_an.x_s,
-                         y=spec_an.y_s,
+            go.Scattergl(x=ser_an.x_s,
+                         y=ser_an.y_s,
                          name='y_s',
                          line=dict(color='magenta', width=0.4)))
         self.figw1.add_trace(
-            go.Scattergl(x=spec_an.x_s,
-                         y=spec_an.y_smoothed,
+            go.Scattergl(x=ser_an.x_s,
+                         y=ser_an.y_smoothed,
                          name='y_smoothed',
                          line=dict(color='navy', width=0.5)))
 
         # Set title and scale type
-        self.figw1.update_layout(title_text='Fig 1: ' + self.f_name)
+        self.figw1.update_layout(title_text='Spectrum: ' + graph_name)
         self.figw1.update_yaxes(type="log")
-        self.figw1.write_html(str(home_path) + '/' + graph_name + '.html')
+        if gen_html:
+            self.figw1.write_html('figw1.html', auto_open=True)
+        else:
+            self.figw1.show()
+
 
 
 class PeaksAndRegionsGraphic(SpecGraphics):

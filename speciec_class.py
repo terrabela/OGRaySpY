@@ -19,6 +19,7 @@ class SpecIec:
         self.lvtime = 0.0
         self.rltime = 0.0
         self.sam_descr = ''
+        self.det_descr = ''
 
         self.read_iec_sp()
 
@@ -50,7 +51,6 @@ class SpecIec:
 
     def read_iec_sp(self):
         """Read an IEC file"""
-        print('arq ' + self.sufx)
         with open(self.f_name, 'r') as f_file:
             lins = f_file.readlines()
         for ilin, lin in enumerate(lins):

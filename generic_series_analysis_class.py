@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.interpolate import splrep, splev
 from scipy.fft import fft, fftfreq, fftshift
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks, savgol_filter
 from scipy.special import erf
 from peaksparms_class import PeaksParms
 
@@ -22,7 +22,8 @@ class GenericSeriesAnalysis:
     and possibly find baseline.
     """
 
-    def __init__(self, sp_counts, to_smooth=False, is_fft=False, given_variance=None):
+    def __init__(self, sp_counts, to_smooth=False, smooth_method='spline',
+                 is_fft=False, given_variance=None):
         self.mix_regions = None
         self.spl_baseline = None
         self.eval_baseline = None
@@ -41,7 +42,7 @@ class GenericSeriesAnalysis:
             self.unc_y = np.sqrt(given_variance)
         self.y_smoothed = None
         if to_smooth:
-            self.y_smoothed = self.eval_smoo_counts()
+            self.y_smoothed = self.eval_smoo_counts(smooth_method)
         else:
             self.y_smoothed = self.y_s
         self.fft_s = None
@@ -140,12 +141,17 @@ class GenericSeriesAnalysis:
 
         print('define_multiplets_regions completado. Define: self.mix_regions.')
 
-    def eval_smoo_counts(self):
+    def eval_smoo_counts(self, smooth_method):
         if self.n_ch > 0:
-            smoo_cts = splrep(x=self.chans_nzero,
-                              y=self.counts_nzero,
-                              w=1.0 / self.unc_y, k=3)
-            evaluated = splev(self.x_s, smoo_cts)
+            if smooth_method == 'spline':
+                smoo_cts = splrep(x=self.chans_nzero,
+                                  y=self.counts_nzero,
+                                  w=1.0 / self.unc_y, k=3)
+                evaluated = splev(self.x_s, smoo_cts)
+            elif smooth_method == 'sav_gol':
+                evaluated = savgol_filter(self.y_s, window_length=13, polyorder=3)
+            else:
+                evaluated = None
             return evaluated
 
     def calculate_baseline(self, smoo):
