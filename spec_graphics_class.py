@@ -9,10 +9,22 @@ Created on Tue Nov 30 12:54:36 2021
 import numpy as np
 import plotly.graph_objects as go
 
+from spec_class import Spec
 
 class SpecGraphics:
     def __init__(self, spec, f_name=''):
         pass
+
+
+def assemble_graph(value, spectra_path, to_smooth=False, smooth_method='spline'):
+    a_spec = None
+    counts_graphic = None
+    if value:
+        a_spec = Spec(value, spectra_path, to_smooth=to_smooth, smooth_method=smooth_method)
+        counts_graphic = CountsGraphic(ser_an=a_spec.origin_spec_ser_an,
+                                       graph_name=a_spec.reduced_f_name,
+                                       gen_html=True)
+    return a_spec, counts_graphic
 
 
 class GenericGraphics(SpecGraphics):
@@ -83,7 +95,7 @@ class CountsGraphic(SpecGraphics):
             self.figw1.write_html('figw1.html', auto_open=True)
         else:
             self.figw1.show()
-
+        return self.figw1
 
 
 class PeaksAndRegionsGraphic(SpecGraphics):
@@ -305,6 +317,44 @@ class NetSpecGraphic(SpecGraphics):
         self.fig_is_reg.update_layout(title_text="Fig 3: Definition of regions")
         self.fig_is_reg.update_yaxes(type='log');
         self.fig_is_reg.write_html('fig_is_reg.html')
+
+
+    def novo_figw3_em_construcao(self):
+        # Figure 3: Espectro líquido
+        figw3 = go.FigureWidget();
+        figw3.add_trace(
+            go.Scatter(x=chans,
+                       y=ys_net_counts,
+                       name="Net counts",
+                       line=dict(color='green', width=0.5)));
+        figw3.add_trace(
+            go.Scatter(x=peaks_net,
+                       y=ys_net_counts[peaks_net],
+                       mode="markers",
+                       name="net peaks",
+                       marker=dict(color='cyan',
+                                   symbol='cross',
+                                   size=15,
+                                   opacity=0.7,
+                                   line=dict(color='magenta', width=2.0)
+                                   )
+                       ));
+        figw3.add_trace(
+            go.Scatter(x=peaks_1,
+                       y=counts[peaks_1],
+                       mode="markers",
+                       name="gross peaks",
+                       marker=dict(color='lightblue',
+                                   symbol='cross',
+                                   size=15,
+                                   opacity=0.7,
+                                   line=dict(color='green', width=2.0)
+                                   )
+                       ));
+        # Set title and scale type
+        figw3.update_layout(title_text="Gamma-ray net spectrum")
+        figw3.update_yaxes(type="log");
+        figw3.write_html('figw3.html', auto_open=True)
 
 
 class FftGraphic(SpecGraphics):

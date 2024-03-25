@@ -7,7 +7,7 @@ Created on Wed Jun  2 16:06:14 2021
 
 # https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#compile
 
-from pathlib import Path
+from pathlib import Path, PurePath
 import numpy as np
 import pandas as pd
 from numpy.polynomial import Polynomial as Pol  # 2020-09-06 Esta é a nova classe recomendada
@@ -27,7 +27,7 @@ class Spec:
     """ Spectrum class. """
 
     # 2023-Oct-26: verify: s_cond is not used:
-    def __init__(self, f_name='', reduced_f_name='', s_cond=None, to_smooth=False, smooth_method='spline'):
+    def __init__(self, reduced_f_name='', spectra_path='', to_smooth=False, smooth_method='spline'):
         """
         Initialize a minimal members set from a read spectrum file.
 
@@ -40,7 +40,7 @@ class Spec:
         """
         self.net_spec_ser_an = None
         self.final_composed_baseline = None
-        self.f_name = f_name
+        f_name = PurePath(spectra_path, reduced_f_name)
         self.reduced_f_name = reduced_f_name
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
