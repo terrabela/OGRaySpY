@@ -16,14 +16,14 @@ class SpecGraphics:
         pass
 
 
-def assemble_graph(value, spectra_path, to_smooth=False, smooth_method='spline'):
+def assemble_graph(value, spectra_path, gen_html, to_smooth=False, smooth_method='spline'):
     a_spec = None
     counts_graphic = None
     if value:
         a_spec = Spec(value, spectra_path, to_smooth=to_smooth, smooth_method=smooth_method)
         counts_graphic = CountsGraphic(ser_an=a_spec.origin_spec_ser_an,
                                        graph_name=a_spec.reduced_f_name,
-                                       gen_html=True)
+                                       gen_html=gen_html)
     return a_spec, counts_graphic
 
 
@@ -93,8 +93,6 @@ class CountsGraphic(SpecGraphics):
         self.figw1.update_yaxes(type="log")
         if gen_html:
             self.figw1.write_html('figw1.html', auto_open=True)
-        else:
-            self.figw1.show()
         return self.figw1
 
 
