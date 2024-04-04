@@ -2,28 +2,12 @@ import dash
 from dash.dependencies import Input, Output
 from dash import html, dcc
 import pandas as pd
-from pathlib import PurePath
 
-from ograyspy_class import Ograyspy
-from spec_graphics_class import assemble_graph
-
-# TRABALHAR NESTE: INSERIR OS CONTROLES DMC de CONTROL_PANEL_WITH_GO
+# 2024-Mar-31: USAR COMO BASE PARA MONTAR A LOGICA
 
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/stockdata.csv')
 
 df['reference'] = df[df.columns[0]]
-
-rep_parts_list = ['short report', 'long report', 'spectrum graph']
-
-to_be_found = 'Genie_Transfer'
-ogra = Ograyspy(to_be_found)
-print(ogra.info_node)
-print(ogra.pkl_folder_files)
-test1 = ogra.spectra_path
-test2 = ogra.spectra_names_df.reduced_names_files_list[0]
-test3 = PurePath(test1, test2)
-spec_names_df =  ogra.spectra_names_df
-spec_list = spec_names_df.reduced_names_files_list.unique()
 
 app = dash.Dash(__name__)
 app.scripts.config.serve_locally = True
@@ -65,13 +49,6 @@ app.layout = html.Div([
         value=df.columns[0]
     ),
 
-    html.Label('Spectrum file name rel. to working folder:'),
-    dcc.Dropdown(
-        id='spec_fnwf',
-        options=spec_list,
-        value=spec_list[0]
-    ),
-
     dcc.Graph(id='graph')
 ])
 
@@ -80,15 +57,11 @@ app.layout = html.Div([
     Output('graph', 'figure'),
     [Input('color', 'value'),
      Input('reference', 'value'),
-     Input('dataset', 'value'),
-     Input('spec_fnwf', 'value')])
-def display_graph(color, reference, dataset, spec_fnwf):
-    a_spec, counts_graphic = assemble_graph(spec_fnwf, ogra.spectra_path, gen_html=False)
-    new_x = a_spec.origin_spec_ser_an.x_s
-    new_y = a_spec.origin_spec_ser_an.y_s
+     Input('dataset', 'value')])
+def display_graph(color, reference, dataset):
     data = [{
-        'x': new_x,
-        'y': new_y,
+        'x': df.index,
+        'y': df[dataset],
         'mode': 'lines',
         'marker': {'color': color},
         'name': dataset

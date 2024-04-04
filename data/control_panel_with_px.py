@@ -21,8 +21,6 @@ to_be_found = 'Genie_Transfer'
 ogra = Ograyspy(to_be_found)
 print(ogra.info_node)
 print(ogra.pkl_folder_files)
-ogra.environment_df
-ogra.spectra_names_df
 test1 = ogra.spectra_path
 test2 = ogra.spectra_names_df.reduced_names_files_list[0]
 test3 = PurePath(test1, test2)
@@ -103,17 +101,17 @@ app.layout = dmc.Container([
 
 @app.callback(
     Output("gr-placeholder", "figure"),
-    Input("spec_fnwf", "value"),
-    Input("bar-polar-app-x-radio-items", "value"),
-    Input("k_smoo", "value"),
-    Input("n_fwhm_gro", "value"),
-    Input("b_line", "value"),
-    Input("n_fwhm_net", "value"),
-    Input('meth_fwhm_fit', 'value'),
-    Input("nucl_bibl", "value"),
-    Input('report_parts', 'value')
+    [Input("spec_fnwf", "value"),
+     Input("bar-polar-app-x-radio-items", "value"),
+     Input("k_smoo", "value"),
+     Input("n_fwhm_gro", "value"),
+     Input("b_line", "value"),
+     Input("n_fwhm_net", "value"),
+     Input('meth_fwhm_fit', 'value'),
+     Input("nucl_bibl", "value"),
+     Input('report_parts', 'value')]
 )
-def update_graph(p1, p2, p3, p4, p5, p6, p7, p8, p9):
+def update_graph(color, reference, dataset):
     ctx_clicked = ctx.triggered_id
     fig = go.Figure()
     if ctx_clicked == 'spec_fnwf':
