@@ -1,7 +1,8 @@
 
-As of Feb 23, 2024:
+As of Junb 6, 2024:
 
 correlating_channel_drift.ipynb
+dash_several_dropdowns.ipynb
 generate_html_activity_report.ipynb
 graphics_test.ipynb
 html_report_generation.ipynb
@@ -19,4 +20,5 @@ Piscina_2022_2023.ipynb
 plotly_in_jupyterlab.ipynb
 radionuc_analysis_testes_lmfit.ipynb
 spectra_graphics.ipynb
+step_by_step_analysis.ipynb
 ====================================
