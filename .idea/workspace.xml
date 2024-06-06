@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Assembling step_by_step_analysis.ipynb">
-      <change afterPath="$PROJECT_DIR$/dash_bootstr_comps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dash_core_comps_dcc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dash_plotly_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/clinical_analytics.csv.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rascunho_dash_mainapp.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reduced_names_df.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_09_2023_19_25_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20_09_2023_19_25__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="- Updating: Configuration files">
+      <change beforePath="$PROJECT_DIR$/ipynb_files_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ipynb_files_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/step_by_step_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/step_by_step_analysis.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,32 +75,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.dash_bootstr_comps.executor": "Run",
-    "Python.dash_core_comps_dcc.executor": "Run",
-    "Python.dash_plotly.executor": "Run",
-    "Python.dash_plotly_1.executor": "Run",
-    "Python.dash_plotly_1b.executor": "Run",
-    "Python.dash_plotly_2.executor": "Run",
-    "Python.dash_plotly_3.executor": "Run",
-    "Python.rascunho_dash_mainapp.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/marce/PycharmProjects/OGRaySpY",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.dash_bootstr_comps.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_core_comps_dcc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_1b.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rascunho_dash_mainapp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marce/PycharmProjects/OGRaySpY&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\marce\PycharmProjects\OGRaySpY" />
@@ -119,7 +109,7 @@
       <recent name="C:\Users\marce\PycharmProjects\OGRaySpY\data" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.dash_plotly_1">
     <configuration name="dash_plotly_1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OGRaySpY" />
       <option name="ENV_FILES" value="" />
@@ -306,7 +296,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709674909262</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- Updating: ipynb_files_list.txt">
+      <option name="closed" value="true" />
+      <created>1717709017319</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717709017319</updated>
+    </task>
+    <task id="LOCAL-00005" summary="- Updating: Configuration files">
+      <option name="closed" value="true" />
+      <created>1717709072565</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717709072565</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,7 +334,9 @@
     <MESSAGE value="Restore W-machine from remote" />
     <MESSAGE value="Updating import from ograyspy_class" />
     <MESSAGE value="Assembling step_by_step_analysis.ipynb" />
-    <option name="LAST_COMMIT_MESSAGE" value="Assembling step_by_step_analysis.ipynb" />
+    <MESSAGE value="- Updating: ipynb_files_list.txt" />
+    <MESSAGE value="- Updating: Configuration files" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updating: Configuration files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OGRaySpY$dash_plotly_3.coverage" NAME="dash_plotly_3 Coverage Results" MODIFIED="1709755219157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
