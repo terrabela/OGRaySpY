@@ -27,7 +27,8 @@ class Spec:
     """ Spectrum class. """
 
     # 2023-Oct-26: verify: s_cond is not used:
-    def __init__(self, reduced_f_name='', spectra_path='', to_smooth=False, smooth_method='spline'):
+    def __init__(self, reduced_f_name='', spectra_path='', to_smooth=False,
+                 smooth_method='spline', smooth_on='log', smooth_cond=None):
         """
         Initialize a minimal members set from a read spectrum file.
 
@@ -58,8 +59,8 @@ class Spec:
         # self.pkl_file = Path('')
         self.results_pkl_file = Path('')
 
-        # self.gross_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=True, s_cond=s_cond)
-        self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth, smooth_method)
+        self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth, smooth_method,
+                                                       smooth_on, smooth_cond)
 
         self.start_datetime = self.spec_io.sp_start_datetime
         self.det_descr = self.spec_io.det_descr
