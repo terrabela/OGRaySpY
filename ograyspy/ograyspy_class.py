@@ -30,14 +30,14 @@ class Ograyspy:
         self.info_syst = platform.system()
         self.info_node = platform.node()
         self.home_path = Path.home()
-        self.spectra_path = Path('.')
+        self.spectra_path = Path('..')
         self.n_files = 0
         self.a_spec_ind = 0
         self.a_spec_name = ''
         self.reduced_f_name = ''
         self.spectra_pattern_names = ["**/*.[Cc][Hh][Nn]", "**/*.[Ii][Ee][Cc]"]
-        self.pkl_folder_files = Path('.')
-        self.results_path_name = '../ograyspy_results'
+        self.pkl_folder_files = Path('..')
+        self.results_path_name = '../../ograyspy_results'
         if not os.path.exists(self.results_path_name):
             os.mkdir(self.results_path_name)
         self.define_files_folder(folder_to_find)
@@ -48,7 +48,7 @@ class Ograyspy:
         if len(matching_folders) != 0:
             self.spectra_path = matching_folders[0]
         else:
-            self.spectra_path = Path('data/some_spectra')
+            self.spectra_path = Path('../data/some_spectra')
 
         n_parts_dropped = len(self.spectra_path.parts)
 

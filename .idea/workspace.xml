@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="- Updating: Configuration files">
-      <change beforePath="$PROJECT_DIR$/ipynb_files_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ipynb_files_list.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/step_by_step_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/step_by_step_analysis.ipynb" afterDir="false" />
+    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Documenting: step_by_step_analysis.ipynb">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ograyspy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ograyspy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,14 +54,12 @@
       </list>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="ffbc74f5-905d-4fa5-8e41-c72ca0fc9dd8" />
-        <option name="url" value="https://github.com/terrabela/OGRaySpY.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/terrabela/OGRaySpY&quot;,
+    &quot;accountId&quot;: &quot;7bb70ffb-176c-46d4-b570-1b6fad857964&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -238,7 +237,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -271,6 +271,14 @@
       <workItem from="1709998966612" duration="1806000" />
       <workItem from="1710183683809" duration="2676000" />
       <workItem from="1710201240617" duration="1323000" />
+      <workItem from="1719667750302" duration="373000" />
+      <workItem from="1719669724499" duration="125000" />
+      <workItem from="1719872011902" duration="1364000" />
+      <workItem from="1719873449198" duration="978000" />
+      <workItem from="1719874918337" duration="467000" />
+      <workItem from="1719952501761" duration="430000" />
+      <workItem from="1721258980859" duration="1051000" />
+      <workItem from="1721271657385" duration="380000" />
     </task>
     <task id="LOCAL-00001" summary="Restore W-machine from remote">
       <option name="closed" value="true" />
@@ -312,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717709072565</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Documenting: step_by_step_analysis.ipynb">
+      <option name="closed" value="true" />
+      <created>1719952741143</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719952741143</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +352,8 @@
     <MESSAGE value="Assembling step_by_step_analysis.ipynb" />
     <MESSAGE value="- Updating: ipynb_files_list.txt" />
     <MESSAGE value="- Updating: Configuration files" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Updating: Configuration files" />
+    <MESSAGE value="Documenting: step_by_step_analysis.ipynb" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documenting: step_by_step_analysis.ipynb" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OGRaySpY$dash_plotly_3.coverage" NAME="dash_plotly_3 Coverage Results" MODIFIED="1709755219157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

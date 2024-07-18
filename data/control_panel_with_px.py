@@ -5,15 +5,13 @@
 # Dash in 20 minutes
 # https://dash.plotly.com/tutorial
 
-from pathlib import Path, PurePath
-import pandas as pd
-from dash import Dash, dcc, html, Input, Output, ctx, callback
+from pathlib import PurePath
+from dash import Dash, dcc, html, Input, Output, ctx
 import dash_mantine_components as dmc
 import plotly.graph_objects as go
 
-from ograyspy_class import Ograyspy
-from spec_class import Spec
-from spec_graphics_class import assemble_graph
+from ograyspy.ograyspy_class import Ograyspy
+from ograyspy.spec_graphics_class import assemble_graph
 
 rep_parts_list = ['short report', 'long report', 'spectrum graph']
 
