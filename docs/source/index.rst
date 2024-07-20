@@ -15,5 +15,8 @@ Contents
 
 .. toctree::
 
-   usage
+   usage/installation
+   usage/quickstart
+   usage/analysissteps
    api
+   ...

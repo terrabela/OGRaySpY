@@ -10,8 +10,8 @@ OGRaySpY, the Open app for Gamma-RAY SPectra Analysis and visualization, require
 
 - [Pandas](http://pandas.pydata.org/) for results reporting.
 - [Plotly](https://plotly.com/python/) for spectra interactive graphing
-- PyQt5 for UI
-- numpy / scipy / lmfit to perform all the Math...
+- [PySide2](https://pypi.org/project/PySide2/) for the UI
+- numpy / scipy / lmfit to perform all the Math.
 
 Basic usage
 -----------
