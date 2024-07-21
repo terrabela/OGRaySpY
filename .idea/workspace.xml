@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Restructuring whole OGRaySpY project">
-      <change afterPath="$PROJECT_DIR$/docs/source/analisyssteps.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/source/smoothing.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/source/spectrumload.rst" afterDir="false" />
+    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Writing documentation in rst files">
+      <change afterPath="$PROJECT_DIR$/docs/source/fwhmvschannel.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/netspectrum.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/roisdefineinnet.rst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/source/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/source/usage.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/usage.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/roisdefine.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/roisdefine.rst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,32 +76,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.dash_bootstr_comps.executor": "Run",
-    "Python.dash_core_comps_dcc.executor": "Run",
-    "Python.dash_plotly.executor": "Run",
-    "Python.dash_plotly_1.executor": "Run",
-    "Python.dash_plotly_1b.executor": "Run",
-    "Python.dash_plotly_2.executor": "Run",
-    "Python.dash_plotly_3.executor": "Run",
-    "Python.rascunho_dash_mainapp.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/marcelo/PycharmProjects/OGRaySpY/docs/source",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.dash_bootstr_comps.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_core_comps_dcc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_1b.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dash_plotly_3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rascunho_dash_mainapp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/marcelo/PycharmProjects/OGRaySpY/docs/source&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs/source" />
@@ -290,7 +289,8 @@
       <workItem from="1721271657385" duration="380000" />
       <workItem from="1721272344783" duration="2253000" />
       <workItem from="1721422868988" duration="285000" />
-      <workItem from="1721423194330" duration="6617000" />
+      <workItem from="1721423194330" duration="7398000" />
+      <workItem from="1721479193347" duration="8186000" />
     </task>
     <task id="LOCAL-00001" summary="Restore W-machine from remote">
       <option name="closed" value="true" />
@@ -364,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721274137619</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Writing documentation in rst files">
+      <option name="closed" value="true" />
+      <created>1721443050988</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1721443050988</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,7 +399,8 @@
     <MESSAGE value="Documenting: step_by_step_analysis.ipynb" />
     <MESSAGE value="Documenting via ReadTheDocs / Sphinx" />
     <MESSAGE value="Restructuring whole OGRaySpY project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructuring whole OGRaySpY project" />
+    <MESSAGE value="Writing documentation in rst files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Writing documentation in rst files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OGRaySpY$dash_plotly_3.coverage" NAME="dash_plotly_3 Coverage Results" MODIFIED="1709755219157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

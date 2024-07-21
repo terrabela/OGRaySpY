@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>FWHMs and tail parameters vs channel &#8212; OGRaySpY 2024 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="ROIs in the net spectrum" href="roisdefineinnet.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="fwhms-and-tail-parameters-vs-channel">
+<h1>FWHMs and tail parameters vs channel<a class="headerlink" href="#fwhms-and-tail-parameters-vs-channel" title="Permalink to this heading">¶</a></h1>
+<p>Normally, each peak in a gamma spectrum can be fitted by a Gaussian
+function, to which an exponential tail is eventually added.</p>
+<p>Gaussian functions are defined by 3 parameters: the centroid, the
+height and the width. If an exponential tail is used, there is an
+additional parameter. The fit can be made for each peak and the
+resulting values used directly to obtain the net area, which is the
+ultimate goal.</p>
+<p>For various reasons, however, a better practice is to use the width
+and tail parameters obtained for selected “good” peaks in the
+spectrum and then obtain fit functions of these parameters versus
+channel. We then fit each peak again, now setting the width and
+tail parameters for each one. The free parameters to be obtained
+in the fit will be now only the height and centroid.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">OGRaySpY</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysissteps.html">Analysis steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectrumload.html">Loading a spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing.html">Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roisdefine.html">Delimiting regions of interest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netspectrum.html">Assembling the net spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roisdefineinnet.html">ROIs in the net spectrum</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FWHMs and tail parameters vs channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="roisdefineinnet.html" title="previous chapter">ROIs in the net spectrum</a></li>
+      <li>Next: <a href="api.html" title="next chapter">API</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Marcelo Francis Máduar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/fwhmvschannel.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jun  2 16:06:14 2021
-
-@author: mmaduar
 """
 
 # https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#compile
@@ -12,10 +10,10 @@ import numpy as np
 import pandas as pd
 from numpy.polynomial import Polynomial as Pol  # 2020-09-06 Esta é a nova classe recomendada
 
-from ograyspy.genericcalib_class import ChannelEnergyCalib  # 2023-Oct-26: Not yet in use: , EnergyFwhmCalib
+from genericcalib_class import ChannelEnergyCalib  # 2023-Oct-26: Not yet in use: , EnergyFwhmCalib
 from specchn_class import SpecChn
 from speciec_class import SpecIec
-from ograyspy.generic_series_analysis_class import GenericSeriesAnalysis
+from generic_series_analysis_class import GenericSeriesAnalysis
 from nuclide_analysis_class import NuclideAnalysis
 
 from sklearn import linear_model

@@ -1,5 +1,5 @@
 .. OGRaySpY documentation master file, created by
-   sphinx-quickstart on Sat Jul 20 16:46:58 2024.
+   sphinx-quickstart on Sat Jul 20 16:42:17 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -10,15 +10,6 @@ Welcome to OGRaySpY's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   usage
-   analysissteps
-   spectrumload
-   smoothing
-   roisdefine
-   netspectrum
-   roisdefineinnet
-   fwhmvschannel
-   api
 
 
 Indices and tables
