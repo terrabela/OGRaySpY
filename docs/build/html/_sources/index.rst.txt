@@ -6,6 +6,32 @@
 Welcome to OGRaySpY's documentation!
 ====================================
 
+**OGRaySpY** is an Open app for Gamma-RAY SPectra
+analYsis and visualization.
+
+This application requires:
+
+- Pandas (http://pandas.pydata.org/) for results reporting.
+- Plotly (https://plotly.com/python/) for spectra interactive graphing
+- PySide2 for UI
+- numpy/scipy/lmfit to perform all the Math.
+
+Basic usage
+===========
+
+- Run ograyspy_main_ui.py in a Python console to start main program's interface
+- Invoke menu File --> Open spectrum and generate report
+- Choose a .chn or .iec spectrum
+- Peak report will be shown and saved as an_html_file.html.
+
+Documentation
+=============
+
+.. note::
+
+   Under development at Read the Docs (https://ograyspy-docs.readthedocs.io)
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -19,6 +45,7 @@ Welcome to OGRaySpY's documentation!
    roisdefineinnet
    fwhmvschannel
    api
+   example/loadanddisplay
 
 
 Indices and tables

@@ -12,6 +12,7 @@ import plotly.graph_objects as go
 from spec_class import Spec
 
 class SpecGraphics:
+    """ Abstract class from which to subclass several plot classes. """
     def __init__(self, spec, f_name=''):
         pass
 

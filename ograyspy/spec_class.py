@@ -25,22 +25,33 @@ class Spec:
     """ Spectrum class. """
 
     # 2023-Oct-26: verify: s_cond is not used:
-    def __init__(self, reduced_f_name='', spectra_path='', to_smooth=False,
-                 smooth_method='spline', smooth_on='log', smooth_cond=None):
+    def __init__(
+            self, fpc_fname='', spectra_path='', to_smooth=False, smooth_method='spline',
+            smooth_on='log', smooth_cond=0.0
+    ):
         """
         Initialize a minimal members set from a read spectrum file.
 
-        :param f_name: Spectrum's complete file name.
-        :type f_name: str
+        :param fpc_fname: final path component of the file name.
+        :type fpc_fname: str
+        :param spectra_path: path excluding file name.
+        :type spectra_path: str
+        :param to_smooth: whether to smooth the spectrum.
+        :type to_smooth: bool
+        :param smooth_method: method to smooth the spectrum.
+        :type smooth_method: str
+        :param smooth_on: whether to smooth on original counts or on their logarithms
+        :type smooth_on: str
         :return: 0 if spectrum was successfully opened; -1 otherwise.
         :rtype: int
         and set spectrum parameters (count time, sample description etc.).
 
         """
+        self.spec_io = None
         self.net_spec_ser_an = None
         self.final_composed_baseline = None
-        f_name = PurePath(spectra_path, reduced_f_name)
-        self.reduced_f_name = reduced_f_name
+        f_name = PurePath(spectra_path, fpc_fname)
+        self.reduced_f_name = fpc_fname
         self.sufx = Path(f_name).suffix.casefold()
         if self.sufx == '.chn':
             self.spec_io = SpecChn(f_name)
@@ -57,50 +68,48 @@ class Spec:
         # self.pkl_file = Path('')
         self.results_pkl_file = Path('')
 
-        self.origin_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth, smooth_method,
-                                                       smooth_on, smooth_cond)
+        if self.spec_io:
+            self.origin_spec_ser_an = GenericSeriesAnalysis(
+                self.spec_io.sp_counts, to_smooth, smooth_method,
+                smooth_on, smooth_cond
+            )
 
-        self.start_datetime = self.spec_io.sp_start_datetime
-        self.det_descr = self.spec_io.det_descr
-        self.sam_descr = self.spec_io.sam_descr
+            self.start_datetime = self.spec_io.sp_start_datetime
+            self.det_descr = self.spec_io.det_descr
+            self.sam_descr = self.spec_io.sam_descr
 
-        # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
-        # self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
+            # 2022-nov-3: pausa para recreio: ver como fica espectro fft:
+            # self.fft_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False, is_fft=True)
 
-        # 2022-out-6 Criando a espectro líquido:
-        # self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
-        #
-        # self.channel_energy_calib = ChannelEnergyCalib(
-        #     self.spec_io.en_ch_calib,
-        #     self.spec_io.chan_calib,
-        #     self.spec_io.coeffs_ch_en
-        # )
-        # 2023-jan-4 Lê calibração canal x energia implícita no espectro CHN
-        self.channel_energy_calib = ChannelEnergyCalib(
-            self.spec_io.coeffs_ch_en
-        )
-        #       self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.en_fw_calib,
-        #                                                self.spec_io.fwhm_calib,
-        #                                                self.spec_io.coeffs_en_fw)
-        # self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.coeffs_en_fw)
-        #        self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib,
-        #                                                            self.spec_io.effi_calib)
+            # 2022-out-6 Criando a espectro líquido:
+            # self.net_spec_ser_an = GenericSeriesAnalysis(self.spec_io.sp_counts, to_smooth=False)
+            #
+            # self.channel_energy_calib = ChannelEnergyCalib(
+            #     self.spec_io.en_ch_calib,
+            #     self.spec_io.chan_calib,
+            #     self.spec_io.coeffs_ch_en
+            # )
+            # 2023-jan-4 Lê calibração canal x energia implícita no espectro CHN
+            self.channel_energy_calib = ChannelEnergyCalib(
+                self.spec_io.coeffs_ch_en
+            )
+            #       self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.en_fw_calib,
+            #                                                self.spec_io.fwhm_calib,
+            #                                                self.spec_io.coeffs_en_fw)
+            # self.energy_fwhm_calib = EnergyFwhmCalib(self.spec_io.coeffs_en_fw)
+            #        self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib,
+            #                                                            self.spec_io.effi_calib)
 
-        #        self.channel_energy_calib = ChannelEnergyCalib()
-        #        self.energy_fwhm_calib = EnergyFwhmCalib()
-        #         try:  # 2022-Jun-23
-        #             self.spec_io.en_ef_calib
-        #         except AttributeError:
-        #             pass
-        #         else:
-        #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
+            #        self.channel_energy_calib = ChannelEnergyCalib()
+            #        self.energy_fwhm_calib = EnergyFwhmCalib()
+            #         try:  # 2022-Jun-23
+            #             self.spec_io.en_ef_calib
+            #         except AttributeError:
+            #             pass
+            #         else:
+            #             self.energy_efficiency_calib = EnergyEfficiencyCalib(self.spec_io.en_ef_calib)
 
-        self.spec_io = None
-        # self.spec_pks_df = pd.DataFrame()
-        # print(vars(self))
-        # print(vars(self.gross_spec_ser_an.cnt_arrs))
-
-        self.nucl_an = NuclideAnalysis()
+            self.nucl_an = NuclideAnalysis()
 
     @staticmethod
     def curr_h_win(n_ch, i_ch):
@@ -181,9 +190,9 @@ class Spec:
                 k_sep_pk, peak_sd_fact=peak_sd_fact
             )
             self.net_spec_ser_an.pk_parms.prepare_to_sum(n_fwhms=3.0)
-            if peak_area_calc_method=='basic':
+            if peak_area_calc_method == 'basic':
                 self.net_spec_ser_an.perform_basic_net_area_calculation()
-            elif peak_area_calc_method=='gaussian_with_tail':
+            elif peak_area_calc_method == 'gaussian_with_tail':
                 gener_dataframe = False
                 self.net_spec_ser_an.perform_gauss_with_tail_net_area_calculation()
             if gener_dataframe:

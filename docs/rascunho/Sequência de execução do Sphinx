@@ -1,6 +1,6 @@
 ========================
-- sphinx-quickstart
+- sphinx-quickstart (Só qdo inicializar o projeto)
 - preencher os rst
-- sphinx-build
-- make html
+- sphinx-build -M html [source] [build]
+- make html (quando for atualizar)
 ========================

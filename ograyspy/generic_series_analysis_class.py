@@ -24,6 +24,20 @@ class GenericSeriesAnalysis:
 
     def __init__(self, sp_counts, to_smooth, smooth_method, smooth_on, smooth_cond,
                  is_fft=False, given_variance=None):
+        """
+        Initialize a generic series analysis object.
+        :param sp_counts: data series counts
+        :type sp_counts: np.array
+        :param to_smooth: whether to smooth sp_counts
+        :type to_smooth: bool
+        :param smooth_method: method to smooth sp_counts ('spline' or 'sav_gol')
+        :type smooth_method: str
+        :param smooth_on: smooth on counts ('lin') or on their logs ('log')
+        :type smooth_on: string
+        :param smooth_cond: smoothing condition as defined in scipy.interpolate.splrep
+        :type smooth_cond: float
+        """
+
         self.mix_regions = None
         self.spl_baseline = None
         self.eval_baseline = None
@@ -145,10 +159,10 @@ class GenericSeriesAnalysis:
         if self.n_ch > 0:
             if smooth_method == 'spline':
                 if smooth_cond:
-                    s=smooth_cond
+                    s = smooth_cond
                 else:
                     n_datapts = self.chans_nzero.size
-                    s=n_datapts-np.sqrt(2*n_datapts)
+                    s = n_datapts-np.sqrt(2*n_datapts)
                 smoo_cts = splrep(x=self.chans_nzero, y=self.counts_nzero,
                                   w=1.0/self.unc_y, k=3, s=s)
                 evaluated = splev(self.x_s, smoo_cts)
@@ -210,7 +224,7 @@ class GenericSeriesAnalysis:
         """Perform a very rough net area calculation"""
         self.pk_parms.rough_sums = [np.sum(self.y_s[i[0]:i[1] + 1]) for i in self.pk_parms.wide_regions]
         # 2022-12-14 Parei aqui: calcular centroides
-        self.pk_parms.centroids = [np.average(np.linspace( i[0], i[1], num=i[1]-i[0] + 1),
+        self.pk_parms.centroids = [np.average(np.linspace(i[0], i[1], num=i[1]-i[0] + 1),
                                               weights=self.y_s[i[0]:i[1]+1])
                                    for i in self.pk_parms.wide_regions]
         self.pk_parms.variances = [np.sum(self.given_variance[i[0]:i[1] + 1])

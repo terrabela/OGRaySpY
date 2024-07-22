@@ -35,6 +35,31 @@
             
   <section id="welcome-to-ograyspy-s-documentation">
 <h1>Welcome to OGRaySpY’s documentation!<a class="headerlink" href="#welcome-to-ograyspy-s-documentation" title="Permalink to this heading">¶</a></h1>
+<p><strong>OGRaySpY</strong> is an Open app for Gamma-RAY SPectra
+analYsis and visualization.</p>
+<p>This application requires:</p>
+<ul class="simple">
+<li><p>Pandas (<a class="reference external" href="http://pandas.pydata.org/">http://pandas.pydata.org/</a>) for results reporting.</p></li>
+<li><p>Plotly (<a class="reference external" href="https://plotly.com/python/">https://plotly.com/python/</a>) for spectra interactive graphing</p></li>
+<li><p>PySide2 for UI</p></li>
+<li><p>numpy/scipy/lmfit to perform all the Math.</p></li>
+</ul>
+</section>
+<section id="basic-usage">
+<h1>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>Run ograyspy_main_ui.py in a Python console to start main program’s interface</p></li>
+<li><p>Invoke menu File –&gt; Open spectrum and generate report</p></li>
+<li><p>Choose a .chn or .iec spectrum</p></li>
+<li><p>Peak report will be shown and saved as an_html_file.html.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under development at Read the Docs (<a class="reference external" href="https://ograyspy-docs.readthedocs.io">https://ograyspy-docs.readthedocs.io</a>)</p>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -50,7 +75,11 @@
 <li class="toctree-l1"><a class="reference internal" href="netspectrum.html">Assembling the net spectrum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roisdefineinnet.html">ROIs in the net spectrum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fwhmvschannel.html">FWHMs and tail parameters vs channel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/spec_class.html">spec_class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example/loadanddisplay.html">Load and display a spectrum</a></li>
 </ul>
 </div>
 </section>
@@ -91,6 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="roisdefineinnet.html">ROIs in the net spectrum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fwhmvschannel.html">FWHMs and tail parameters vs channel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example/loadanddisplay.html">Load and display a spectrum</a></li>
 </ul>
 
 <div class="relations">

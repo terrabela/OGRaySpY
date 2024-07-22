@@ -1,5 +1,7 @@
 API
 ===
 
+.. autosummary::
+   :toctree: generated
 
-.. autofunction:: io.open
+   spec_class

@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Load and display a spectrum &#8212; OGRaySpY 2024 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="API" href="../api.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="load-and-display-a-spectrum">
+<h1>Load and display a spectrum<a class="headerlink" href="#load-and-display-a-spectrum" title="Permalink to this heading">¶</a></h1>
+<p>Firstly we set the folders to search as needed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">import sys</span>
+<span class="go">sys.path.insert(1, &#39;../ograyspy&#39;)</span>
+<span class="go">from ograyspy.spec_class import Spec</span>
+</pre></div>
+</div>
+<p>Now we load an example spectrum and set it as a Spec object.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">a_spectr = Spec(</span>
+<span class="go">    fpc_fname=&#39;SI06122.Chn&#39;,</span>
+<span class="go">    spectra_path=&#39;../data/some_spectra&#39;,</span>
+<span class="go">    to_smooth=True</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+<p>To display the preliminar spectrum plot, we do</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">from ograyspy.spec_graphics_class import CountsGraphic</span>
+<span class="go">plot1 = CountsGraphic(</span>
+<span class="go">    ser_an=a_spectr.origin_spec_ser_an,</span>
+<span class="go">    gen_html=True</span>
+<span class="go">)</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">OGRaySpY</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysissteps.html">Analysis steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spectrumload.html">Loading a spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../smoothing.html">Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roisdefine.html">Delimiting regions of interest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netspectrum.html">Assembling the net spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roisdefineinnet.html">ROIs in the net spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fwhmvschannel.html">FWHMs and tail parameters vs channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Load and display a spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../api.html" title="previous chapter">API</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Marcelo Francis Máduar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/example/loadanddisplay.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

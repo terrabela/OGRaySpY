@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Compiling rsts with Sphinx" />
+    <list default="true" id="194326e2-07fa-4d60-b034-1c7d73d38b46" name="Changes" comment="Configuring gitignore">
+      <change afterPath="$PROJECT_DIR$/docs/build/doctrees/example/loadanddisplay.doctree" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/doctrees/generated/spec_class.doctree" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_sources/example/loadanddisplay.rst.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_sources/generated/spec_class.rst.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/example/loadanddisplay.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/generated/spec_class.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/example/loadanddisplay.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/generated/spec_class.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/api.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/api.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/environment.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/environment.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/doctrees/spectrumload.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/doctrees/spectrumload.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/.buildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/.buildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/_sources/api.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/_sources/api.rst.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/analysissteps.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/analysissteps.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/api.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/api.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/fwhmvschannel.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/fwhmvschannel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/genindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/netspectrum.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/netspectrum.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/objects.inv" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/objects.inv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/py-modindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/py-modindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/roisdefine.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/roisdefine.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/roisdefineinnet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/roisdefineinnet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/searchindex.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/searchindex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/smoothing.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/smoothing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/spectrumload.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/spectrumload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/build/html/usage.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/build/html/usage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/rascunho/Sequência de execução do Sphinx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/rascunho/Sequência de execução do Sphinx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/api.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/api.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/source/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/step_by_step_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/step_by_step_analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ograyspy/generic_series_analysis_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/ograyspy/generic_series_analysis_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ograyspy/spec_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/ograyspy/spec_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ograyspy/spec_graphics_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/ograyspy/spec_graphics_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ograyspy/spectrumform_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/ograyspy/spectrumform_class.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,6 +99,9 @@
 }</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -285,7 +329,9 @@
       <workItem from="1721422868988" duration="285000" />
       <workItem from="1721423194330" duration="7398000" />
       <workItem from="1721479193347" duration="8186000" />
-      <workItem from="1721533925092" duration="304000" />
+      <workItem from="1721533925092" duration="532000" />
+      <workItem from="1721567728340" duration="11036000" />
+      <workItem from="1721652032375" duration="6096000" />
     </task>
     <task id="LOCAL-00001" summary="Restore W-machine from remote">
       <option name="closed" value="true" />
@@ -375,7 +421,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721534157836</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Compiling rsts with Sphinx">
+      <option name="closed" value="true" />
+      <created>1721534411632</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1721534411632</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Configuring gitignore">
+      <option name="closed" value="true" />
+      <created>1721662608626</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1721662608626</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -404,7 +466,8 @@
     <MESSAGE value="Restructuring whole OGRaySpY project" />
     <MESSAGE value="Writing documentation in rst files" />
     <MESSAGE value="Compiling rsts with Sphinx" />
-    <option name="LAST_COMMIT_MESSAGE" value="Compiling rsts with Sphinx" />
+    <MESSAGE value="Configuring gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configuring gitignore" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OGRaySpY$dash_plotly_3.coverage" NAME="dash_plotly_3 Coverage Results" MODIFIED="1709755219157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

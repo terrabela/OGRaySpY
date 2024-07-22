@@ -7,7 +7,7 @@ class SpectrumForm(QDialog, Ui_Dialog):
     def __init__(self, spectrum_path):
         super().__init__()
         self.setupUi(self)
-        self.a_spec = Spec(f_name=spectrum_path)
+        self.a_spec = Spec()
         self.populate_form()
 
     def populate_form(self):
