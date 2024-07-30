@@ -20,8 +20,7 @@ Basic usage
 ===========
 
 - Open the Jupyter Notebook notebooks/step_by_step_analysis.ipynb
-- As its name implies, you will have a minimal python commands
-in sequence to perform a basic analysis on a gamma=ray spectrum.
+- As its name implies, you will have a minimal python commands in sequence to perform a basic analysis on a gamma=ray spectrum.
 
 Documentation
 =============
