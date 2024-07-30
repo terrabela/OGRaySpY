@@ -5,7 +5,7 @@ This is a Python docstring, we can use reStructuredText syntax here!
 
 .. code-block:: python
 
-    import ograyspy
+    import source
 
     # Call its only function
     get_random_ingredients(kind=["cheeses"])

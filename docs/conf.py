@@ -14,7 +14,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 # MEUS:
-# sys.path.insert(0, os.path.abspath('../ograyspy'))
+# sys.path.insert(0, os.path.abspath('../source'))
 # import basic_net_areas
 
 
