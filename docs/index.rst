@@ -19,10 +19,9 @@ This application requires:
 Basic usage
 ===========
 
-- Run ograyspy_main_ui.py in a Python console to start main program's interface
-- Invoke menu File --> Open spectrum and generate report
-- Choose a .chn or .iec spectrum
-- Peak report will be shown and saved as an_html_file.html.
+- Open the Jupyter Notebook notebooks/step_by_step_analysis.ipynb
+- As its name implies, you will have a minimal python commands
+in sequence to perform a basic analysis on a gamma=ray spectrum.
 
 Documentation
 =============
