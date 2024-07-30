@@ -29,7 +29,7 @@ Documentation
 
 .. note::
 
-   Under development at Read the Docs (https://ograyspy-docs.readthedocs.io)
+   Under development at Read the Docs (https://ograyspy.readthedocs.io)
 
 
 .. toctree::
