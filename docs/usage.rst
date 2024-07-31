@@ -5,6 +5,11 @@ The module with the base class holding all data related to a single spectrum is:
 
 .. automodule:: spec_class
    :members:
+   
+The ograyspy class is:
+
+-- autoclass:: Spec
+   :members:
 
 .. _installation:
 
