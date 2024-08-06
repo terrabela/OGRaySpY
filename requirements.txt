@@ -5,5 +5,4 @@ lmfit
 scikit-learn
 matplotlib
 plotly
-sphinx
 dash
