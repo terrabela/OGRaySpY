@@ -93,7 +93,7 @@ class CountsGraphic(SpecGraphics):
         self.figw1.update_layout(title_text='Spectrum: ' + graph_name)
         self.figw1.update_yaxes(type="log")
         if gen_html:
-            self.figw1.write_html('figw1.html', auto_open=True)
+            self.figw1.write_html('../outputs/figw1.html', auto_open=True)
         return self.figw1
 
 
