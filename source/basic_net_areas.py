@@ -1,3 +1,5 @@
+import numpy as np
+
 class BasicNetAreas:
     """ Class for very crude net area calculations. """
 
@@ -35,3 +37,5 @@ class BasicNetAreas:
         # Uncertainties in areas
         #           self.s_sum_net = np.sqrt(self.sum_gross + self.n_ch_fwhm**2 * self.plateaux)
         pass
+
+basic_area = BasicNetAreas()
