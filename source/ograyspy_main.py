@@ -6,9 +6,9 @@ Created on Tue Nov 22 14:13:51 2022
 @author: marcelofm
 """
 
-from PySide2 import sys
-from PySide2.QtCore import QPoint, QSettings, QSize
-from PySide2.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog
+from PySide6 import sys
+from PySide6.QtCore import QPoint, QSettings, QSize
+from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog
 
 from ograyspy_class import Ograyspy
 from spectrumform_class import SpectrumForm

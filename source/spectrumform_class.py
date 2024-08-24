@@ -1,5 +1,5 @@
 
-from PySide2.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog
 from ui_spectrumform import Ui_Dialog
 from spec_class import Spec
 
@@ -16,7 +16,7 @@ class SpectrumForm(QDialog, Ui_Dialog):
         self.startDte.setDate(self.a_spec.start_datetime)
         self.leLT_2.setText()
         self.leRT_2.setText()
-        self. (self.a_spec.det_descr) # PAREI AQUI
+        # self. (self.a_spec.det_descr) # PAREI AQUI
 
     def perform_total_analysis(self, k_sep_pk=2.0, smoo=4096,
                                widths_range=(4.0, 20.0),

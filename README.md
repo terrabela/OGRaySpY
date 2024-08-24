@@ -1,5 +1,5 @@
 # OGRaySpY
-An Open app for Gamma-RAY SPectra Analysis and visualization.
+An Open app for Gamma-RAY SPectra AnalYsis and visualization.
 
 ## Setting Up
 
