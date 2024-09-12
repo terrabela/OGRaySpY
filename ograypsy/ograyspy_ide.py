@@ -10,8 +10,8 @@ from PySide6 import sys
 from PySide6.QtCore import QPoint, QSettings, QSize
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog
 
-from ograyspy_class import Ograyspy
-from spectrumform_class import SpectrumForm
+from source.classes.ograyspy_class import Ograyspy
+from source.classes.spectrumform_class import SpectrumForm
 from ui_ograyspy_main import Ui_MainWindow
 from ui_languages import Ui_LanguageDlg
 

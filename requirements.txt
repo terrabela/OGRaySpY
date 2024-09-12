@@ -1,8 +1,6 @@
 numpy
 scipy
 pandas
-lmfit
 scikit-learn
 matplotlib
 plotly
-dash

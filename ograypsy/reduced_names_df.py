@@ -1,5 +1,5 @@
 import pandas as pd
-from ograyspy_class import Ograyspy
+from source.classes.ograyspy_class import Ograyspy
 
 
 def reduced_names_df(folder_to_find):

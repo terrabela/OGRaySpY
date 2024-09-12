@@ -4,8 +4,8 @@ from dash import html, dcc
 import pandas as pd
 from pathlib import PurePath
 
-from ograyspy_class import Ograyspy
-from spec_graphics_class import assemble_graph
+from source.classes.ograyspy_class import Ograyspy
+from source.classes.spec_graphics_class import assemble_graph
 
 # TRABALHAR NESTE: INSERIR OS CONTROLES DMC de CONTROL_PANEL_WITH_GO
 
