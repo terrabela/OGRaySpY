@@ -3,7 +3,6 @@ from scipy.interpolate import splrep, splev
 from scipy.fft import fft, fftfreq, fftshift
 from scipy.signal import find_peaks, savgol_filter
 from scipy.special import erf
-from peaksparms_class import PeaksParms
 
 
 def step_baseline(y_s):
@@ -86,7 +85,7 @@ class GenericSeriesAnalysis:
             self.n_ch = self.ys.size
         except AttributeError:
             pass
-        self.pk_parms = PeaksParms()
+        # self.pk_parms = PeaksParms()
         self.fft_spec = np.array([])
         # Maybe irrelevant: 4 FWHMs is almost the whole area:
         self.k_erf = erf(4*np.sqrt(np.log(2)))

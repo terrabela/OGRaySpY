@@ -8,6 +8,9 @@
 
 """
 
-from ograypsy.classes import spec_class
+from ograypsy.classes.spec_class import Spec
 
-spectrum = Spec()
+spectrum = Spec(fpc_fname='CCI0202-I.Chn',
+                spectra_path='../data/some_spectra')
+
+print(vars(spectrum))
